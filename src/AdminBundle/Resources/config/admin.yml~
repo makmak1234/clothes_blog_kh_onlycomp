@@ -1,0 +1,21 @@
+services:
+
+  admin.admin.childrenGoodsCategory:
+          class: AdminBundle\Admin\childrenGoodsCategoryAdmin
+          tags:
+              - { name: sonata.admin, manager_type: orm, label: "childrenGoodsCategory" }
+          arguments:
+              - ~
+              - AdminBundle\Entity\childrenGoodsCategory
+              - 'SonataAdminBundle:CRUD'
+          calls:
+              - [ setTranslationDomain, [AdminBundle]]
+
+  #admin.contr.childrenGoods:
+  #        class: AdminBundle\Controller\childrenGoodsController
+  #        tags:
+  #            - { name: sonata.admin, manager_type: orm, group: Demo, label: childrenGoodsController }
+  #        arguments:
+  #            - null
+  #            - AdminBundle\Entity\childrenGoods
+  #            - AdminBundle:CRUD

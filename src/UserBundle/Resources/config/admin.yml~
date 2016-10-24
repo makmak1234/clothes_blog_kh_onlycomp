@@ -1,0 +1,9 @@
+services:
+    app.user.calculate:
+        class: UserBundle\Controller\calculateCatSubcat
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Demo, label: calculate }
+        arguments:
+            - null
+           # - UserBundle\Entity\Car
+            - UserBundle:CRUD

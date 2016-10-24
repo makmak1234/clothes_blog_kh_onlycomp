@@ -1,0 +1,70 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    admin.childrenGoods:
+        class: AdminBundle\Admin\childrenGoodsAdmin
+        arguments: [~, AdminBundle\Entity\childrenGoods, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: childrenGoods }
+
+    admin.childrenGoodsCategory:
+        class: AdminBundle\Admin\childrenGoodsCategoryAdmin
+        arguments: [~, AdminBundle\Entity\childrenGoodsCategory, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: childrenGoodsCategory }
+
+    admin.childrenGoodsSubcategory:
+        class: AdminBundle\Admin\childrenGoodsSubcategoryAdmin
+        arguments: [~, AdminBundle\Entity\childrenGoodsSubcategory, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: childrenGoodsSubcategory }
+
+    admin.childrenGoodsSizeNumber:
+        class: AdminBundle\Admin\childrenGoodsSizeNumberAdmin
+        arguments: [~, AdminBundle\Entity\childrenGoodsSizeNumber, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: childrenGoodsSizeNumber }
+
+    admin.childrenGoodsColorNumber:
+        class: AdminBundle\Admin\childrenGoodsColorNumberAdmin
+        arguments: [~, AdminBundle\Entity\childrenGoodsColorNumber, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: childrenGoodsColorNumber }
+
+    admin.color:
+        class: AdminBundle\Admin\colorAdmin
+        arguments: [~, AdminBundle\Entity\color, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: color }
+
+    admin.descriptionGoods:
+        class: AdminBundle\Admin\descriptionGoodsAdmin
+        arguments: [~, AdminBundle\Entity\descriptionGoods, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: descriptionGoods }
+
+    admin.priceGoods:
+        class: AdminBundle\Admin\priceGoodsAdmin
+        arguments: [~, AdminBundle\Entity\priceGoods, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: priceGoods }
+
+    admin.size:
+        class: AdminBundle\Admin\sizeAdmin
+        arguments: [~, AdminBundle\Entity\size, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: size }
+
+    admin.image:
+        class: AdminBundle\Admin\imageAdmin
+        arguments: [~, AdminBundle\Entity\image, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: image }
+

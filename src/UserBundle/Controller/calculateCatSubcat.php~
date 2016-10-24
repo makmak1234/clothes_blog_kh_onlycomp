@@ -1,0 +1,163 @@
+<?php
+// src/AppBundle/Controller/CRUDController.php
+
+namespace UserBundle\Controller;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+class calculateCatSubcat extends Controller
+{
+    public function calculateAction()
+    {
+        $subCatAllId = array();
+
+        $em = $this->getDoctrine()->getManager();
+
+        //$subCat = $em->getRepository('AdminBundle:childrenGoodsSubcategory');
+
+        $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
+                    ->findAll();
+
+        foreach ($category as $key => $categoryOne) {
+            $subCatOfCatAll = $categoryOne->getChildrenGoodsSubcategory();//->get(0)->getId();
+
+            foreach ($subCatOfCatAll as $key => $subCatOfCatOne) {
+                $subCatOfCatId = $subCatOfCatOne->getId();
+                $subCatSub = $em->getRepository('AdminBundle:childrenGoodsSubcategory')
+                    ->find($subCatOfCatId);
+                $categoryOne->removeChildrenGoodsSubcategory($subCatSub);
+            }
+            
+        }
+
+        $em->flush();
+
+        /*foreach ($subCatAllId as $key => $valueId) {  
+            $category->addChildrenGoodsSubcategory($subCat);
+        }*/
+
+        $repository = $em//$this->getDoctrine()
+            ->getRepository('AdminBundle:childrenGoods');
+
+        $query = $repository->createQueryBuilder('p')
+            //->where('p.price > :price')
+            //->setParameter('price', '19.99')
+            ->orderBy('p.childrenGoodsCategory', 'ASC')
+            ->getQuery();
+
+        $childrenGoods = $query->getResult();
+
+        $beforeId = $childrenGoods[0]->getChildrenGoodsCategory()->getId();
+        $i = 0;
+        $childrenGoodsCount = count($childrenGoods);
+
+        for($j=0; $j<$childrenGoodsCount; $j++){
+        //foreach ($childrenGoods as $key => $value) {
+
+            var_dump($j);
+            print "j, ";
+
+                $idCat = $childrenGoods[$j]->getChildrenGoodsCategory()->getId();
+
+            var_dump($idCat);
+            print "idCat, ";
+            var_dump($beforeId);
+            print "beforeId, ";
+
+            if ($idCat > $beforeId){
+                //break;
+                //$category = new childrenGoodsCategory();
+
+                $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
+                    ->find($beforeId);
+
+                foreach ($subCatAllId as $key => $valueId) {  
+                    $subCat = $em->getRepository('AdminBundle:childrenGoodsSubcategory')
+                        ->find($valueId);
+                    $category->addChildrenGoodsSubcategory($subCat);
+                }
+
+                //$category->setChildrenGoodsSubcategory($subCatAllId); 
+
+                //$em->persist($category);
+                $em->flush();
+
+                $beforeId = $idCat;
+                $i = 0;
+                
+                $subCatAllId = array();
+            }
+
+            $idSubcat = $childrenGoods[$j]->getChildrenGoodsSubcategory()->getId();
+            if(array_search($idSubcat, $subCatAllId) === false){
+                $subCatAllId[$i] = $idSubcat;
+                $i++;
+            }
+
+            //var_dump($beforeId);
+            //print "beforeId, ";
+            if($j == ($childrenGoodsCount-1) && count($subCatAllId)>0){
+                var_dump($idCat);
+                print "idCat, ";
+                var_dump($beforeId);
+                print "beforeId, ";
+                $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
+                    ->find($beforeId);
+
+                foreach ($subCatAllId as $key => $valueId) {  
+                    $subCat = $em->getRepository('AdminBundle:childrenGoodsSubcategory')
+                        ->find($valueId);
+                    $category->addChildrenGoodsSubcategory($subCat);
+                }
+
+                //$category->setChildrenGoodsSubcategory($subCatAllId); 
+
+                //$em->persist($category);
+                $em->flush();
+
+                    break;
+            }
+        }
+        $childrenGoodsCategory = $childrenGoods[0]->getChildrenGoodsCategory();
+
+        //$childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findByChildrenGoodsCategory(1);
+        $childrenGoodsAllCategory = $em->getRepository('AdminBundle:childrenGoodsCategory')->findAll();
+
+        return $this->render('UserBundle::calculateCatSubcat.html.twig', array(
+            'childrenGoods' => $childrenGoods,
+            'childrenGoodsCategory' => $childrenGoodsCategory,
+            'subCatAllId' => $subCatAllId,
+            'childrenGoodsAllCategory' => $childrenGoodsAllCategory,
+        ));
+
+        //return $this;
+    }
+
+    public function cloneAction()
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        // Be careful, you may need to overload the __clone method of your object
+        // to set its id to null !
+        $clonedObject = clone $object;
+
+        $clonedObject->setName($object->getName().' (Clone)');
+
+        $this->admin->create($clonedObject);
+
+        $this->addFlash('sonata_flash_success', 'Cloned successfully');
+
+        return new RedirectResponse($this->admin->generateUrl('list'));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
+    }
+}
+
+

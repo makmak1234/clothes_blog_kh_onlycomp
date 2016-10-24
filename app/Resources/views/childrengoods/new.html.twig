@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>childrenGoods creation</h1>
+    {{ dump(childrenGood) }}
+    {{ dump(childrenGoodSession) }}
+    childrenGood
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="hidden" name="add_new_cat" value="id" />
+        <input type="submit"  value="Create" onclick="document.children_goods.add_new_cat.value=false;"/>
+        <input type="submit" value="add new category" formnovalidate onclick="document.children_goods.add_new_cat.value=true;"/> <!-- document.children_goods.submit(); -->
+    {{ form_end(form) }}
+
+    {{ form_start(formSizeNumber) }}
+        {{ form_widget(formSizeNumber) }}
+        <input type="hidden" name="add_new_size" value="id" />
+        <input type="submit"  value="Create" onclick="document.children_goods.add_new_size.value=false;"/>
+        <input type="submit" value="add new category" formnovalidate onclick="document.children_goods.add_new_size.value=true;"/> <!-- document.children_goods.submit(); -->
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('childrengoods_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
+

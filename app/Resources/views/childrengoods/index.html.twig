@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>childrenGoods list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Position</th>
+                <th>Proddatetime</th>
+                <th>Proddatetimeupdate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for childrenGood in childrenGoods %}
+            <tr>
+                <td><a href="{{ path('childrengoods_show', { 'id': childrenGood.id }) }}">{{ childrenGood.id }}</a></td>
+                <td>{{ childrenGood.title }}</td>
+                <td>{{ childrenGood.position }}</td>
+                <td>{% if childrenGood.prodDatetime %}{{ childrenGood.prodDatetime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if childrenGood.prodDatetimeUpdate %}{{ childrenGood.prodDatetimeUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('childrengoods_show', { 'id': childrenGood.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('childrengoods_edit', { 'id': childrenGood.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('childrengoods_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
