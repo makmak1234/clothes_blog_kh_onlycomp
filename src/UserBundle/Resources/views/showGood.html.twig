@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>childrenGoods</h1>
+    <h1>childrenGood</h1>
 
     {{ dump(childrenGood) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
-    {#{{ dump(add_new_cat) }}#}
+    {#{{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
+    {{ dump(add_new_cat) }}#}
     {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0]) }}

@@ -296,9 +296,53 @@ class indexUserController extends Controller
 
         $deleteForm = $this->createDeleteForm($childrenGood);
 
-        return $this->render('childrengoods/show.html.twig', array(
+        return $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
             'delete_form' => $deleteForm->createView(),
+            //s'add_new_cat' => $add_new_cat,
+        ));
+    }
+
+    /**
+     * Finds and displays a childrenGoods entity.
+     *
+     * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}", name="cat_sub_show")
+     * @Method("GET")
+     */
+    public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id )// ,$children_goods_category_id, $children_goods_subcategory_id  {children_goods_category_id}/{children_goods_subcategory_id}
+    {
+        /*$add_new_cat = 'nety';
+        if(isset($_GET["add_new_cat"])){
+                //$add_new_cat = $_GET["add_new_cat"];
+                $add_new_cat = $request->query->get('add_new_cat');
+            }*/
+        
+
+        //$deleteForm = $this->createDeleteForm($childrenGood);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $em->getRepository('AdminBundle:childrenGoods');
+
+        $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
+                    ->findOneById($children_goods_category_id);
+
+        $subcategory = $em->getRepository('AdminBundle:childrenGoodsSubcategory')
+                    ->findOneById($children_goods_subcategory_id);
+
+        $query = $repository->createQueryBuilder('p')
+            ->where('p.childrenGoodsCategory = :children_goods_category_id AND p.childrenGoodsSubcategory = :children_goods_subcategory_id')
+            ->setParameter('children_goods_category_id', $category)
+            ->setParameter('children_goods_subcategory_id', $subcategory)
+            //->setParameter(array(1 => $category, 2 => $subcategory))
+            ->orderBy('p.title', 'ASC')
+            ->getQuery();
+
+        $childrenGoods = $query->getResult();
+
+        return $this->render('UserBundle::showSubcat.html.twig', array(
+            'childrenGoods' => $childrenGoods//$childrenGood,
+            //'delete_form' => $deleteForm->createView(),
             //s'add_new_cat' => $add_new_cat,
         ));
     }

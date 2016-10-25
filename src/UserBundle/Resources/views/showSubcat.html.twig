@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>childrenGoods</h1>
+    <h1>chowSubcat</h1>
 
-    {{ dump(childrenGood) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
-    {#{{ dump(add_new_cat) }}#}
+    {{ dump(childrenGoods) }}
+    {#{{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
+    {{ dump(add_new_cat) }}#}
     {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0]) }}
@@ -21,7 +21,18 @@
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].number) }}#}
 
-    <table>
+    <h2>Category:</h2> {{ childrenGoods[0].childrenGoodsCategory.title }} 
+    <h2>Subcategory:</h2> {{ childrenGoods[0].childrenGoodsSubcategory.title }}
+    <br><br><br>
+
+    {% for childrenGood in childrenGoods %}
+        <b>Название:</b> <a href="{{ path('user_show', { 'id': childrenGood.id }) }}">{{ childrenGood.title }}</a>
+        <br>
+        <b>Описание:</b> {{ childrenGood.descriptionGoods.description }}
+        <br><br>
+    {% endfor %}
+
+    {#<table>
         <tbody>
             <tr>
                 <th>Id</th>
@@ -91,5 +102,5 @@
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
-    </ul>
+    </ul>#}
 {% endblock %}
