@@ -8,8 +8,8 @@
 {% block body %}
     <h1>childrenGood</h1>
 
-    {{ dump(childrenGood) }}
-    {#{{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
+    {#{{ dump(childrenGood) }}
+    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
     {{ dump(add_new_cat) }}#}
     {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot) }}
@@ -20,6 +20,11 @@
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[1]) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].number) }}#}
+
+    <b><a href="{{ path('index_user') }}">Все категории</a>-> 
+    <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}</a>->
+    {{ childrenGood.childrenGoodsSubcategory.title }}</b>
+    <br><br>
 
     <table>
         <tbody>
@@ -79,17 +84,4 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('childrengoods_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('childrengoods_edit', { 'id': childrenGood.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}
