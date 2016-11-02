@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+        <script src="{{ asset('bundles/app/user/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/app/user/goodsbasketcheck.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/app/user/hinclude.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script> 
+{% endblock %}
+
 {% block stylesheets %}
      <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />
      {#' childrengoods/show.css'#}
@@ -79,11 +87,28 @@
                 <th>Proddatetimeupdate</th>
                 <td>{% if childrenGood.prodDatetimeUpdate %}{{ childrenGood.prodDatetimeUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th></th>
+                <td>
+                    {#{{ render_hinclude(url('ajax_bag_user')) }} render_hinclude <br>#}
+                    <b><a href="#" id="good_click_id" class="good_click" good-id="{{ childrenGood.id }}" >В корзину</a></b>
+                    {#onclick="uploadtxt({{ childrenGood.id }})" clearone="{{ clearone }}" plus="{{ plus }}"#}
+                    
+                </td>
+            </tr>
+            <tr>
                 <th></th>
                 <td>
                     <b><a href="{{ path('bag_register') }}">Купить</a></b>
+                    {#{{ global_var }} {{ myvar }}#}
                 </td>
-           
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    {{ include('UserBundle::bigBag.html.twig') }}
+                </td>
+            </tr>
         </tbody>
     </table>
 

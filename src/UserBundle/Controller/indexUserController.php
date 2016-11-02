@@ -21,6 +21,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class indexUserController extends Controller
 {
 
+    protected $myvar;
+
     //private $session = new Session();
 
     /**
@@ -99,12 +101,13 @@ class indexUserController extends Controller
                     //'add_new_cat' => $add_new_cat,
                 );
             }
-        } 
-
+        }
+        
         return $this->render('UserBundle::bagRegister.html.twig', array(
             'token' => $token,
             'form' => $form->createView(),
             'mytest' => "mycity",
+
             //'formSizeNumber' => $formSizeNumber->createView(),
             //'childrenGoodSession' => $childrenGoodSession,
         ));
@@ -113,7 +116,7 @@ class indexUserController extends Controller
     /**
      * Finds and displays a childrenGoods entity.
      *
-     * @Route("/{id}", name="user_show")
+     * @Route("/{id}", name="user_show", requirements={"id": "\d+"})
      * @Method("GET")
      */
     public function showAction(childrenGoods $childrenGood, Request $request)
@@ -125,11 +128,41 @@ class indexUserController extends Controller
             }*/
         
 
-        $deleteForm = $this->createDeleteForm($childrenGood);
+        //$deleteForm = $this->createDeleteForm($childrenGood);
+
+        //$this->container->parameter('UserBundle.global_var') = 'set';
+        //$global_var = $this->container->getParameter('UserBundle.global_var'); 
+        //$this->myvar = 'myvar';
+
+        //row, clearone, plus
+
+        //$row = $childrenGood->getId();
+       /* $clearone = false;
+        $plus = '';
+
+        $bigBagDisp = 'none';
+        if(isset($_SESSION["idbasketsmall"]))
+        {
+            
+            $idarr = $session->get('idbasketsmall');
+            $nid = $session->get('nid');
+            if($idarr){
+                //require_once "bassmallunated.php";
+                $bigBagDisp = 'block';
+            }
+            //else array_splice($idarr, 0, 1);
+        }*/
 
         return $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
-            'delete_form' => $deleteForm->createView(),
+            //'clearone' => $clearone,
+            //'plus' => $plus,
+            //'row' => $row,
+            //'delete_form' => $deleteForm->createView(),
+            //'global_var' => $global_var,
+            'myvar' => $this->myvar,
+            //'bigBagDisp' => $this->bigBagDisp,
+
             //s'add_new_cat' => $add_new_cat,
         ));
     }
@@ -137,7 +170,7 @@ class indexUserController extends Controller
     /**
      * Finds and displays a childrenGoods entity.
      *
-     * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}", name="cat_sub_show")
+     * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}", name="cat_sub_show", requirements={"children_goods_category_id": "\d+", "children_goods_subcategory_id": "\d+"})
      * @Method("GET")
      */
     public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id )// ,$children_goods_category_id, $children_goods_subcategory_id  {children_goods_category_id}/{children_goods_subcategory_id}
@@ -273,6 +306,9 @@ class indexUserController extends Controller
      */
     public function calculateAction()
     {
+
+        //return $this->render('UserBundle::thanks.html.twig');
+
         $subCatAllId = array();
 
         $em = $this->getDoctrine()->getManager();
@@ -295,10 +331,6 @@ class indexUserController extends Controller
         }
 
         $em->flush();
-
-        /*foreach ($subCatAllId as $key => $valueId) {  
-            $category->addChildrenGoodsSubcategory($subCat);
-        }*/
 
         $repository = $em//$this->getDoctrine()
             ->getRepository('AdminBundle:childrenGoods');
