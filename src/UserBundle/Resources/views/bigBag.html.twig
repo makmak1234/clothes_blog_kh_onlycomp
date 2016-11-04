@@ -1,9 +1,47 @@
 
+    {#<h1>Корзина</h1>
+    
+    idarr
+    {{ dump(idarr) }}<br>
 
-    <h1>Корзина</h1>
-    <div id="bascetsmall" class="content" > {# display={{ bigBagDisp }} #}
-    	Goodid
-	</div>
+    childrenGoods
+    {{ dump(childrenGoods) }}<br>
+
+    nid
+    {{ dump(nid) }}<br>
+
+    id = {{id}}
+
+    <b><a href="{{ path('index_user') }}">Вернуться в магазин</a>#}
+
+{% if bigBagDisp == 'block' %} 
+    <table class="goodsbasketfont m-cart-full">
+		<tr><td colspan= "4">Ваша корзина:<td></tr>
+		<tr>
+			<th>Товар</th>
+			<th>Цена за ед</th>
+			<th>Кол-во</th>
+			<th>Цена за все</th>
+			<th></th>
+		</tr>
+		{% for childrenGood in childrenGoods %}
+		<tr>
+			<td>{{ childrenGood.title }}</td>
+			<td>{{ childrenGood.priceGoods.rub }}</td>
+			<td>{{ nid[loop.index0] }}</td>
+			<td>{{ priceone[loop.index0] }}</td>
+			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></td>{#<a href="#" id="good_click_id" class="good_click1" good-id="{{ childrenGood.id }}" mclon="true" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></a>#}
+		</tr>		
+		{% endfor %}
+		<tr><td colspan= "5">К оплате: {{ priceall }}</td></tr>{#$prsite#}
+		<tr>
+			<td colspan= "3"><a class="buylab" href="#">Оформить</a></td>{#$dirbasbi#}
+			<td colspan= "2"><a class="goodsbasketclear" href="#" onclick="goodbasketcheck('-1', 'false')">Очистить корзину</a></td>
+			{#<label class="goodsbasketclear" class="good_click" good-id=-1 mclon="false"><input type="hidden" />Очистить корзину</label>onclick="goodsbasketcheck('-1', 'FALSE', '')"#}
+		</tr>
+	</table>
+{% endif %}
+
 	{#{{ render(controller(
 		'AppBundle:Article:recentArticles',
 		{ 'max': 3 }

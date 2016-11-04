@@ -31,8 +31,10 @@ class indexUserController extends Controller
      * @Route("/", name="index_user")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $session = $request->getSession();
+
         $em = $this->getDoctrine()->getManager();
 
         $childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findAll();
@@ -137,33 +139,48 @@ class indexUserController extends Controller
         //row, clearone, plus
 
         //$row = $childrenGood->getId();
-       /* $clearone = false;
-        $plus = '';
+        //$clearone = false;
+        //$plus = '';
+
+        $session = $request->getSession();
 
         $bigBagDisp = 'none';
-        if(isset($_SESSION["idbasketsmall"]))
-        {
-            
+        //$childrenGoods = '';
+
+      /*  if($session->get('idbasketsmall') != null)
+        {  
             $idarr = $session->get('idbasketsmall');
             $nid = $session->get('nid');
             if($idarr){
                 //require_once "bassmallunated.php";
                 $bigBagDisp = 'block';
+
+                $em = $this->getDoctrine()->getManager();
+
+                $repository = $em->getRepository('AdminBundle:childrenGoods');
+
+                print "idarr ";
+                var_dump($idarr);
+
+                foreach ($idarr as $key => $value) {
+                    $query = $repository->find($value);
+                    $childrenGoods[] = $query;
+                }
             }
             //else array_splice($idarr, 0, 1);
-        }*/
+        }
+        $bigBagDisp = 'none';*/
+
+        /*if($session->get('idbasketsmall') != null)
+        {
+           $bigBagDisp = 'block'; 
+        }*/ 
 
         return $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
-            //'clearone' => $clearone,
-            //'plus' => $plus,
-            //'row' => $row,
-            //'delete_form' => $deleteForm->createView(),
-            //'global_var' => $global_var,
-            'myvar' => $this->myvar,
-            //'bigBagDisp' => $this->bigBagDisp,
-
-            //s'add_new_cat' => $add_new_cat,
+            //'childrenGoods' => $childrenGoods,
+            //'nid' => $nid,
+            //'bigBagDisp' => 'none',
         ));
     }
 
@@ -173,7 +190,7 @@ class indexUserController extends Controller
      * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}", name="cat_sub_show", requirements={"children_goods_category_id": "\d+", "children_goods_subcategory_id": "\d+"})
      * @Method("GET")
      */
-    public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id )// ,$children_goods_category_id, $children_goods_subcategory_id  {children_goods_category_id}/{children_goods_subcategory_id}
+    public function showSubcatAction(Request $request, $children_goods_category_id, $children_goods_subcategory_id )// ,$children_goods_category_id, $children_goods_subcategory_id  {children_goods_category_id}/{children_goods_subcategory_id}
     {
         /*$add_new_cat = 'nety';
         if(isset($_GET["add_new_cat"])){
@@ -183,6 +200,8 @@ class indexUserController extends Controller
         
 
         //$deleteForm = $this->createDeleteForm($childrenGood);
+
+        $session = $request->getSession();
 
         $em = $this->getDoctrine()->getManager();
 

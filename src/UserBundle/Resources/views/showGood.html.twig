@@ -16,7 +16,7 @@
 {% block body %}
     <h1>childrenGood</h1>
 
-    {#{{ dump(childrenGood) }}
+    {#{{ dump(childrenGoods) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
     {{ dump(add_new_cat) }}#}
     {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
@@ -91,22 +91,33 @@
                 <th></th>
                 <td>
                     {#{{ render_hinclude(url('ajax_bag_user')) }} render_hinclude <br>#}
-                    <b><a href="#" id="good_click_id" class="good_click" good-id="{{ childrenGood.id }}" >В корзину</a></b>
-                    {#onclick="uploadtxt({{ childrenGood.id }})" clearone="{{ clearone }}" plus="{{ plus }}"#}
+                    <b><a href="#" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='false')">В корзину</a></b>
+                    {#id="good_click_id" class="good_click" good-id="{{ childrenGood.id }}" mclon="false"#}
                     
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <td>
-                    <b><a href="{{ path('bag_register') }}">Купить</a></b>
+                    <b><a href="{{ path('bag_register') }}">Купить</a></b><br><br>
+                    <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, mclon: false}) }}">Ajax отладка</a></b>
                     {#{{ global_var }} {{ myvar }}#}
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <td>
-                    {{ include('UserBundle::bigBag.html.twig') }}
+                    <div id="bascetsmall" class="bascetsmall">
+                           {# childrenGoods
+                            {{ dump(childrenGoods) }}
+                            nid
+                            {{ dump(nid) }} #}
+                            {{ render(controller(
+                                'UserBundle:ajaxUser:ajaxBagUser',
+                                { 'id': 0, 'mclone': false }
+                            )) }}
+                    </div>
+                    {#{{ include('UserBundle::bigBag.html.twig') }}#}
                 </td>
             </tr>
         </tbody>

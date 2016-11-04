@@ -1,19 +1,30 @@
-$(document).ready(function(){
-//function uploadtxt(id){
+/*$(document).ready(function(){
+//function goodbasketcheck(id){
 	$('.good_click').click(function(){
 		goodid = $(this).attr('good-id');
-		//mclon = $(this).attr('clearone');
-		rout = Routing.generate('ajax_bag_user', { id: goodid}); //,  mclon: mclon
-		//alert(rout);
+		mclon = $(this).attr('mclon');
+		rout = Routing.generate('ajax_bag_user', { id: goodid, mclon: mclon}); //,  mclon: mclon
+		alert(rout);
 		$.ajax({ 
 			  url: rout,
 			  success: function(data) {
-			    $('.content').html(data);
+			    $('.bascetsmall').html(data);
 			  }
 			});
 	})
 //}
-})
+})*/
+
+function goodbasketcheck(id, mclon){
+	rout = Routing.generate('ajax_bag_user', { id: id, mclon: mclon}); //,  mclon: mclon
+	//alert(rout);
+	$.ajax({ 
+		  url: rout,
+		  success: function(data) {
+		    $('.bascetsmall').html(data);
+		  }
+		});
+}
 
 /*function uploadtxt(id){
 	//params = "?filetxt=" + filetxt + "&nocache1=" + Math.random() * 1000000;
@@ -34,11 +45,11 @@ $(document).ready(function(){
 				{
 					//window.parent.document.getElementById("myajax").style.display="none";
 					//var dstrex = new Array();
-					par = document.getElementById('content1');//window.document.getElementById("content");
+					par = document.getElementById('bascetsmall');//window.document.getElementById("content");
 					//var parall;
 					txtreply = this.responseText;
 					//alert(txtreply);
-						par.innerHTML = txtreply;
+					par.innerHTML = txtreply;
 				}
 				else alert("Ajax error: No data received")
 			}
