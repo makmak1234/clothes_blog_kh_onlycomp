@@ -99,7 +99,7 @@
             <tr>
                 <th></th>
                 <td>
-                    <b><a href="{{ path('bag_register') }}">Купить</a></b><br><br>
+                    <b><a href="{{ path('bag_register', {id: childrenGood.id}) }}">Купить</a></b><br><br>
                     <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, mclon: false}) }}">Ajax отладка</a></b>
                     {#{{ global_var }} {{ myvar }}#}
                 </td>
@@ -114,7 +114,7 @@
                             {{ dump(nid) }} #}
                             {{ render(controller(
                                 'UserBundle:ajaxUser:ajaxBagUser',
-                                { 'id': 0, 'mclone': false }
+                                { 'id': 0 }
                             )) }}
                     </div>
                     {#{{ include('UserBundle::bigBag.html.twig') }}#}

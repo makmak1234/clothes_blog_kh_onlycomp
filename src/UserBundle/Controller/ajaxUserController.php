@@ -28,10 +28,27 @@ class ajaxUserController extends Controller
      * @Route("/ajax_bag_user/{id}", name="ajax_bag_user", requirements={"id": ".*\d+"})
      * @Method("GET")
      */
-    public function ajaxBagUserAction(Request $request, $id, $mclon)
+    public function ajaxBagUserAction($id, $bagreg = true, Request $request)
     {
+    	//print "bagreg before sesstart";
+        //var_dump($bagreg);
+        print "bagreg ";
+        var_dump($bagreg);
+
+        print "mclon before sesstart";
+        var_dump($request->query->get('mclon'));
+
+        print "id";
+        var_dump($id);
+        
     	//session_start();
-    	$session = $request->getSession();
+    	//if($bagreg == null){
+    		$session = $request->getSession();
+    	//}
+        
+        print "mclon after sesstart";
+        var_dump($request->query->get('mclon'));
+    	
 
 		//require_once 'login.php';//02.11.15
 		//session_set_cookie_params('','/','m.'.$dircook);//m.pajamas.esy.es
@@ -65,18 +82,20 @@ class ajaxUserController extends Controller
 			$clearone = $request->query->get('mclon');//$mclon;
 			$bigBagDisp = 'block';
 			if(in_array($id, $idarr)){//наличие значения в массиве
-				foreach($idarr as $k=>$v){
-					if($v == $id){
-						print "clearone ";
-    					var_dump($clearone);
-						if($clearone == 'false'){
-							$nid[$k]++;
-						}
-						else{
-							array_splice($idarr, $k, 1);//;unset($idarr[$k])
-							array_splice($nid, $k, 1);//;unset($nid[$k])
-						}
-					}	
+				if($bagreg == true){
+					foreach($idarr as $k=>$v){
+						if($v == $id){
+							print "clearone ";
+	    					var_dump($clearone);
+    						if($clearone == 'false'){
+								$nid[$k]++;
+							}
+							else{
+									array_splice($idarr, $k, 1);//;unset($idarr[$k])
+									array_splice($nid, $k, 1);//;unset($nid[$k])
+							}
+						}	
+					}
 				}
 			}
 			else{

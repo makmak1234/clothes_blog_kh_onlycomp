@@ -69,9 +69,8 @@ class indexUserController extends Controller
             $bagRegister->setCity($bagRegisterSession->getCity());
             $bagRegister->setTel($bagRegisterSession->getTel());
             $bagRegister->setComment($bagRegisterSession->getComment());
-            //$bagRegister->setRegDatetime(new \DateTime('tomorrow'));
-            //$admin_childrenGood->getChildrenGoodsSizeNumber()->get(0)->getSizegoods()->getSize();
-            $session-> invalidate();
+            
+            //$session-> invalidate();
         }
 
         $form = $this->createForm('UserBundle\Form\bagRegisterType', $bagRegister);
@@ -104,11 +103,19 @@ class indexUserController extends Controller
                 );
             }
         }
+
+        if($request->query->get('id')){
+            $id = $request->query->get('id');
+        }
+        else{
+            $id = 0;
+        }
         
         return $this->render('UserBundle::bagRegister.html.twig', array(
             'token' => $token,
             'form' => $form->createView(),
             'mytest' => "mycity",
+            'id' => $id,
 
             //'formSizeNumber' => $formSizeNumber->createView(),
             //'childrenGoodSession' => $childrenGoodSession,

@@ -6,6 +6,8 @@
     {{ dump(token) }}
     {#{{ dump(childrenGoodSession) }}#}
 
+    {{ render(controller('UserBundle:ajaxUser:ajaxBagUser', { 'id': id, bagreg: false} )) }}
+
     {{ form_start(form) }}
         {{ form_widget(form) }}
 
