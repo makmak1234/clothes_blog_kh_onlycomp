@@ -68,3 +68,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: image }
 
+    app.mailer:
+        class:        UserBundle\Controller\myServiceController
+        #arguments:    [sendmail]
+

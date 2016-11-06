@@ -40,9 +40,15 @@ class indexUserController extends Controller
         $childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findAll();
         $childrenGoodsCategory = $em->getRepository('AdminBundle:childrenGoodsCategory')->findAll();
 
+        $mailer = $this->get('app.mailer');
+        $myServiceVarAll = json_encode($mailer->myServiceAction());
+        var_dump($myServiceVarAll);
+
         return $this->render('UserBundle::indexUser.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
+            'myServiceVarAll' => $myServiceVarAll,
+            'myServiceVar' => $mailer->myServiceVar,
         ));
     }
 
@@ -96,6 +102,7 @@ class indexUserController extends Controller
               $em->persist($bagRegister);
               $em->flush();
 
+              $session-> invalidate();
               //return $this->redirectToRoute('childrengoods_show', 
               return $this->render('UserBundle::thanks.html.twig'//, array(
                 //array('id' => $childrenGood->getId(),

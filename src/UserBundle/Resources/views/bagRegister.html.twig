@@ -4,6 +4,7 @@
     <h1>Регистрация покупки</h1>
     token = 
     {{ dump(token) }}
+    
     {#{{ dump(childrenGoodSession) }}#}
 
     {{ render(controller('UserBundle:ajaxUser:ajaxBagUser', { 'id': id, bagreg: false} )) }}
