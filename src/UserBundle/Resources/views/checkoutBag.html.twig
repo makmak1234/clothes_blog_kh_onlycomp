@@ -1,0 +1,25 @@
+{% if bigBagDisp == 'block' %} 
+    <table class="goodsbasketfont m-cart-full">
+		<tr><td colspan= "4">Ваши покупки:<td></tr>
+		<tr>
+			<th></th>
+			<th>Товар</th>
+			<th>Цена за ед</th>
+			<th>Кол-во</th>
+			<th>Цена за все</th>
+			<th></th>
+		</tr>
+		{% for childrenGood in childrenGoods %}
+		<tr>
+			<td><img class="show__img" src="{{ asset('uploads/documents/' ~ color.image.path) }}"></td>
+			<td>{{ childrenGood.title }}</td>
+			<td>{{ childrenGood.priceGoods.rub }}</td>
+			<td>{{ nid[loop.index0] }}</td>
+			<td>{{ priceone[loop.index0] }}</td>
+			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketcheck({{ childrenGood.id }}, 'true', 'ajax_checkout_user')"></td>{#<a href="#" id="good_click_id" class="good_click1" good-id="{{ childrenGood.id }}" mclon="true" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></a>#}
+		</tr>		
+		{% endfor %}
+		<tr><td colspan= "5">К оплате: {{ priceall }}</td></tr>{#$prsite#}
+		
+	</table>
+{% endif %}

@@ -30,141 +30,45 @@ class ajaxUserController extends Controller
      */
     public function ajaxBagUserAction($id, $bagreg = true, Request $request)
     {
-    	//print "bagreg before sesstart";
-        //var_dump($bagreg);
-        print "bagreg ";
-        var_dump($bagreg);
 
-        print "mclon before sesstart";
-        var_dump($request->query->get('mclon'));
+        $ajaxUserServ = $this->get('ajax.user.serv');
 
-        print "id";
-        var_dump($id);
-        
-    	//session_start();
-    	//if($bagreg == null){
-    		$session = $request->getSession();
-    	//}
-        
-        print "mclon after sesstart";
-        var_dump($request->query->get('mclon'));
-    	
-
-		//require_once 'login.php';//02.11.15
-		//session_set_cookie_params('','/','m.'.$dircook);//m.pajamas.esy.es
-
-		//require_once 'login.php';//02.11.15
-
-		$idarr = array();
-		$nid = array();
-		$priceall = 0;
-		$bigBagDisp = 'none';
-		$childrenGoods = array();
-		$priceone = array();
-
-		if($session->get('idbasketsmall') != null){//
-			//$idarr = $_SESSION["idbasketsmall"];
-			$idarr = $session->get('idbasketsmall');
-			//$nid = $_SESSION["nid"];
-			$nid = $session->get('nid');
-			$bigBagDisp = 'block';
-		}
-
-		print "idarr first";
-        var_dump($idarr);
-        print "id ";
-        var_dump($id);
-
-		if($id > 0){ //if(isset($_GET["id"])){
-			//$id = $foo_mysgli->sanitizeString($_GET["id"]); //получили из js
-		
-			//$clearone = $foo_mysgli->sanitizeString($_GET["mclon"]);
-			$clearone = $request->query->get('mclon');//$mclon;
-			$bigBagDisp = 'block';
-			if(in_array($id, $idarr)){//наличие значения в массиве
-				if($bagreg == true){
-					foreach($idarr as $k=>$v){
-						if($v == $id){
-							print "clearone ";
-	    					var_dump($clearone);
-    						if($clearone == 'false'){
-								$nid[$k]++;
-							}
-							else{
-									array_splice($idarr, $k, 1);//;unset($idarr[$k])
-									array_splice($nid, $k, 1);//;unset($nid[$k])
-							}
-						}	
-					}
-				}
-			}
-			else{
-				$idarr[] = $id;
-				$nid[] = 1;
-			}
-
-			if(count($idarr) == 0) $id= -1;	
-		}
-
-		//echo "sid = $id ";
-		if (!($id == -1)){
-			//require_once "bassmallunated.php";
-			//$bigBagDisp = 'block';
-
-			//$_SESSION["idbasketsmall"] = $idarr;
-			$session->set('idbasketsmall', $idarr);
-			//$_SESSION["nid"] = $nid;
-			$session->set('nid', $nid);
-
-			$em = $this->getDoctrine()->getManager();
-
-        	$repository = $em->getRepository('AdminBundle:childrenGoods');
-
-			foreach ($idarr as $key => $value) {
-	        	$query = $repository->find($value);
-	        	$childrenGoods[] = $query;
-	        }
-	        //$childrenGoods = $query->getResult();
-
-	        //$query = $repository->findBy($idarr1);
-
-	        foreach($idarr as $k=>$v){
-				//$id = $v;
-				$n = $nid[$k];
-				//$query = "SELECT * FROM pajamas1 WHERE id='$id'";
-				//$result = $foo_mysgli->mysql_query($query);
-				//$row = $foo_mysgli->mysql_fetch_row($result);
-				$row = $childrenGoods[$k]->getPriceGoods()->getRub();
-				$priceone[$k] = $row * $n;
-				$priceall += $priceone[$k];
-			}
-
-			print "idarr session";
-        	var_dump($session->get('idbasketsmall'));
-		}
-		else{
-			//destroy_session_and_data();
-			$session-> invalidate();
-			$bigBagDisp = 'none';
-		}
-
-        print "idarr ";
-        var_dump($idarr);
-        print "nid ";
-        var_dump($nid);
+        $ajaxUserServ->ajaxBagUserServAction($id, $bagreg, $request);
 
     	return $this->render('UserBundle::bigBag.html.twig', array(
-            'childrenGoods' => $childrenGoods,
+            'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
             'id' => $id,
-            'idarr' => $idarr,
-            'priceone' => $priceone,
-            'priceall' => $priceall,
-            'bigBagDisp' => $bigBagDisp,
-            'nid' => $nid,
+            'idarr' => $ajaxUserServ->getIdarr(),
+            'priceone' => $ajaxUserServ->getPriceone(),
+            'priceall' => $ajaxUserServ->getPriceall(),
+            'bigBagDisp' => $ajaxUserServ->getBigBagDisp(),
+            'nid' => $ajaxUserServ->getNid(),
+        ));
+    }
+
+    /**
+     * Lists all childrenGoods entities.
+     *
+     * @Route("/ajax_checkout_user/{id}", name="ajax_checkout_user", requirements={"id": ".*\d+"})
+     * @Method("GET")
+     */
+    public function ajaxCheckoutUserAction($id, $bagreg = true, Request $request)
+    {
+
+        $ajaxUserServ = $this->get('ajax.user.serv');
+
+        $ajaxUserServ->ajaxBagUserServAction($id, $bagreg, $request);
+
+    	return $this->render('UserBundle::checkoutBag.html.twig', array(
+            'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
+            'id' => $id,
+            'idarr' => $ajaxUserServ->getIdarr(),
+            'priceone' => $ajaxUserServ->getPriceone(),
+            'priceall' => $ajaxUserServ->getPriceall(),
+            'bigBagDisp' => $ajaxUserServ->getBigBagDisp(),
+            'nid' => $ajaxUserServ->getNid(),
         ));
 
-        /*return new Response(
-            '<b>Lucky number: <b>'
-        );*/
     }
+
 }

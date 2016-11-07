@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+        <script src="{{ asset('bundles/app/user/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/app/user/goodsbasketcheck.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script> 
+{% endblock %}
+
 {% block body %}
     <h1>Регистрация покупки</h1>
     token = 
@@ -7,7 +14,9 @@
     
     {#{{ dump(childrenGoodSession) }}#}
 
-    {{ render(controller('UserBundle:ajaxUser:ajaxBagUser', { 'id': id, bagreg: false} )) }}
+    <div id="bascetsmall" class="bascetsmall">
+        {{ render(controller('UserBundle:ajaxUser:ajaxCheckoutUser', { 'id': id, bagreg: false} )) }}
+    </div>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}

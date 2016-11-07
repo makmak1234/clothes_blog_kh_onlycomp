@@ -30,13 +30,13 @@
 			<td>{{ childrenGood.priceGoods.rub }}</td>
 			<td>{{ nid[loop.index0] }}</td>
 			<td>{{ priceone[loop.index0] }}</td>
-			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></td>{#<a href="#" id="good_click_id" class="good_click1" good-id="{{ childrenGood.id }}" mclon="true" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></a>#}
+			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketcheck({{ childrenGood.id }}, 'true', 'ajax_bag_user')"></td>{#<a href="#" id="good_click_id" class="good_click1" good-id="{{ childrenGood.id }}" mclon="true" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></a>#}
 		</tr>		
 		{% endfor %}
 		<tr><td colspan= "5">К оплате: {{ priceall }}</td></tr>{#$prsite#}
 		<tr>
 			<td colspan= "3"><a class="buylab" href="{{ path('bag_register') }}">Оформить</a></td>{#$dirbasbi#}
-			<td colspan= "2"><a class="goodsbasketclear" href="#" onclick="goodbasketcheck('-1', 'false')">Очистить корзину</a></td>
+			<td colspan= "2"><a class="goodsbasketclear" href="#" onclick="goodbasketcheck('-1', 'false', 'ajax_bag_user')">Очистить корзину</a></td>
 			{#<label class="goodsbasketclear" class="good_click" good-id=-1 mclon="false"><input type="hidden" />Очистить корзину</label>onclick="goodsbasketcheck('-1', 'FALSE', '')"#}
 		</tr>
 	</table>

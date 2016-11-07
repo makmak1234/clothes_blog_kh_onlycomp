@@ -72,3 +72,9 @@ services:
         class:        UserBundle\Controller\myServiceController
         #arguments:    [sendmail]
 
+    ajax.user.serv:
+        class:        UserBundle\Controller\ajaxUserServController
+        arguments: ["@doctrine.orm.entity_manager"]
+
+        
+

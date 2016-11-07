@@ -15,16 +15,22 @@
 //}
 })*/
 
-function goodbasketcheck(id, mclon){
-	rout = Routing.generate('ajax_bag_user', { id: id, mclon: mclon}); //,  mclon: mclon
-	//alert(rout);
+function goodbasketcheck(id, mclon, route_name){
+	route = Routing.generate(route_name, { id: id, mclon: mclon}); //,  mclon: mclon
+	alert('color_true: ' + color_true + ' image_true: ' + image_true);
 	$.ajax({ 
-		  url: rout,
+		  url: route,
 		  success: function(data) {
 		    $('.bascetsmall').html(data);
 		  }
 		});
 }
+
+/*function sizeSelect(f) {
+      n = f.selectedIndex;
+      //alert(n);
+       alert("Выбран размер: " + f.options[n].value);
+    }*/
 
 /*function uploadtxt(id){
 	//params = "?filetxt=" + filetxt + "&nocache1=" + Math.random() * 1000000;
