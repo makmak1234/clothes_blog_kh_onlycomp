@@ -60,7 +60,7 @@
             <tr>
                 <th>Size</th>
                 <td>
-                    <select name="size" onChange="sizeSelect(this)">
+                    <select name="size" id="size" onChange="sizeSelect(this)" >
                         {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %} 
                             <option value="{{ size.size.size }}">{{ size.size.size }}</option> 
                         {% endfor %}
@@ -111,7 +111,7 @@
                 <th></th>
                 <td>
                     <b><a href="{{ path('bag_register', {id: childrenGood.id}) }}">Купить</a></b><br><br>
-                    <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, mclon: false, route_name: 'ajax_bag_user'}) }}">Ajax отладка</a></b>
+                    <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, size: 1, color: 1, mclon: false, route_name: 'ajax_bag_user'}) }}">Ajax отладка</a></b>
                     {#{{ global_var }} {{ myvar }}#}
                 </td>
             </tr>
@@ -129,7 +129,7 @@
                     {{ dump(nid) }} #}
                     {{ render(controller(
                         'UserBundle:ajaxUser:ajaxBagUser',
-                        { 'id': 0 }
+                        { 'id': 0}
                     )) }}
             </div>
             {#{{ include('UserBundle::bigBag.html.twig') }}#}

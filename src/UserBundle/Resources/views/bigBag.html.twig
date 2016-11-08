@@ -14,11 +14,16 @@
 
     <b><a href="{{ path('index_user') }}">Вернуться в магазин</a>#}
 
+    {#{{ dump(childrenGoods[0].childrenGoodsSizeNumber.snapshot[0].size.size) }}
+    {{ dump(childrenGoods[0].childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}#}
+
 {% if bigBagDisp == 'block' %} 
     <table class="goodsbasketfont m-cart-full">
 		<tr><td colspan= "4">Ваша корзина:<td></tr>
 		<tr>
 			<th>Товар</th>
+			<th>Размер</th>
+			<th>Цвет</th>
 			<th>Цена за ед</th>
 			<th>Кол-во</th>
 			<th>Цена за все</th>
@@ -27,6 +32,8 @@
 		{% for childrenGood in childrenGoods %}
 		<tr>
 			<td>{{ childrenGood.title }}</td>
+			<td>{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size }}</td>
+			<td>{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color }}</td>
 			<td>{{ childrenGood.priceGoods.rub }}</td>
 			<td>{{ nid[loop.index0] }}</td>
 			<td>{{ priceone[loop.index0] }}</td>

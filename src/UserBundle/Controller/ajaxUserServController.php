@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class ajaxUserServController extends Controller
 {
 	private $idarr = array();
+	private $sizearr = array();
+	private $colorarr = array();
 	private $nid = array();
 	private $priceall = 0;
 	private $bigBagDisp = 'none';
@@ -35,7 +37,7 @@ class ajaxUserServController extends Controller
 	    $this->entityManager = $entityManager;
 	}
 
-    public function ajaxBagUserServAction($id, $bagreg, $request)
+    public function ajaxBagUserServAction($id, $size=0, $color=0, $bagreg, $request)
     {
     	//$request = $this->request;
 
@@ -46,8 +48,12 @@ class ajaxUserServController extends Controller
         print "mclon before sesstart";
         var_dump($request->query->get('mclon'));
 
-        print "id";
+        print "id: ";
         var_dump($id);
+        print "size: ";
+        var_dump($size);
+        print "color: ";
+        var_dump($color);
         
     	//session_start();
     	//if($bagreg == null){
@@ -66,6 +72,8 @@ class ajaxUserServController extends Controller
 		if($session->get('idbasketsmall') != null){//
 			//$idarr = $_SESSION["idbasketsmall"];
 			$this->idarr = $session->get('idbasketsmall');
+			$this->sizearr = $session->get('sizearr');
+			$this->colorarr = $session->get('colorarr');
 			//$nid = $_SESSION["nid"];
 			$this->nid = $session->get('nid');
 			$this->bigBagDisp = 'block';
@@ -82,10 +90,10 @@ class ajaxUserServController extends Controller
 			//$clearone = $foo_mysgli->sanitizeString($_GET["mclon"]);
 			$clearone = $request->query->get('mclon');//$mclon;
 			$this->bigBagDisp = 'block';
-			if(in_array($id, $this->idarr)){//наличие значения в массиве
+			if(in_array($id, $this->idarr) && in_array($size, $this->sizearr) && in_array($color, $this->colorarr)){//наличие значения в массиве
 				if($bagreg == true){
 					foreach($this->idarr as $k=>$v){
-						if($v == $id){
+						if($v == $id && $this->sizearr[$k] == $size  && $this->colorarr[$k] == $color){
 							print "clearone ";
 	    					var_dump($clearone);
     						if($clearone == 'false'){
@@ -93,6 +101,8 @@ class ajaxUserServController extends Controller
 							}
 							else{
 									array_splice($this->idarr, $k, 1);//;unset($idarr[$k])
+									array_splice($this->sizearr, $k, 1);
+									array_splice($this->colorarr, $k, 1);
 									array_splice($this->nid, $k, 1);//;unset($nid[$k])
 							}
 						}	
@@ -101,6 +111,8 @@ class ajaxUserServController extends Controller
 			}
 			else{
 				$this->idarr[] = $id;
+				$this->sizearr[] = $size;
+				$this->colorarr[] = $color;
 				$this->nid[] = 1;
 			}
 
@@ -114,6 +126,8 @@ class ajaxUserServController extends Controller
 
 			//$_SESSION["idbasketsmall"] = $idarr;
 			$session->set('idbasketsmall', $this->idarr);
+			$session->set('sizearr', $this->sizearr);
+			$session->set('colorarr', $this->colorarr);
 			//$_SESSION["nid"] = $nid;
 			$session->set('nid', $this->nid);
 
@@ -159,6 +173,14 @@ class ajaxUserServController extends Controller
 
     public function getIdarr(){
     	return $this->idarr;
+    }
+
+    public function getSizearr(){
+    	return $this->sizearr;
+    }
+
+    public function getColorarr(){
+    	return $this->colorarr;
     }
 
     public function getNid(){

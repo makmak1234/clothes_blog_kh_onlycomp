@@ -33,12 +33,18 @@ class ajaxUserController extends Controller
 
         $ajaxUserServ = $this->get('ajax.user.serv');
 
-        $ajaxUserServ->ajaxBagUserServAction($id, $bagreg, $request);
+        $size = $request->query->get('size');
+
+        $color = $request->query->get('color');
+
+        $ajaxUserServ->ajaxBagUserServAction($id, $size, $color, $bagreg, $request);
 
     	return $this->render('UserBundle::bigBag.html.twig', array(
             'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
             'id' => $id,
             'idarr' => $ajaxUserServ->getIdarr(),
+            'sizearr' => $ajaxUserServ->getSizearr(),
+            'colorarr' => $ajaxUserServ->getColorarr(),
             'priceone' => $ajaxUserServ->getPriceone(),
             'priceall' => $ajaxUserServ->getPriceall(),
             'bigBagDisp' => $ajaxUserServ->getBigBagDisp(),
