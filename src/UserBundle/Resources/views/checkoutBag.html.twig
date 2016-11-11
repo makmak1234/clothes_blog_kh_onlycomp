@@ -4,6 +4,8 @@
 		<tr>
 			<th></th>
 			<th>Товар</th>
+			<th>Размер</th>
+			<th>Цвет</th>
 			<th>Цена за ед</th>
 			<th>Кол-во</th>
 			<th>Цена за все</th>
@@ -11,12 +13,24 @@
 		</tr>
 		{% for childrenGood in childrenGoods %}
 		<tr>
-			<td><img class="show__img" src="{{ asset('uploads/documents/' ~ color.image.path) }}"></td>
+			<td>{#<img class="show__img" src="{{ asset('uploads/documents/' ~ color.image.path) }}">#}</td>
 			<td>{{ childrenGood.title }}</td>
+			<td>
+				{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size is defined %}
+					{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size }}
+				{% endif %}#}
+				{{ sizeTitle[loop.index0] }}
+			</td>
+			<td>
+				{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color is defined %}
+					{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color }}
+				{% endif %}#}
+				{{ colorTitle[loop.index0] }}
+			</td>
 			<td>{{ childrenGood.priceGoods.rub }}</td>
 			<td>{{ nid[loop.index0] }}</td>
 			<td>{{ priceone[loop.index0] }}</td>
-			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketcheck({{ childrenGood.id }}, 'true', 'ajax_checkout_user')"></td>{#<a href="#" id="good_click_id" class="good_click1" good-id="{{ childrenGood.id }}" mclon="true" onclick="goodbasketcheck({{ childrenGood.id }}, mclon='true')"></a>#}
+			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketdel({{ childrenGood.id }}, {{ sizearr[loop.index0] }}, {{ colorarr[loop.index0] }}, 'true', 'ajax_checkout_user')"></td>
 		</tr>		
 		{% endfor %}
 		<tr><td colspan= "5">К оплате: {{ priceall }}</td></tr>{#$prsite#}

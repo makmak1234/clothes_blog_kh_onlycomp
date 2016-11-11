@@ -110,7 +110,9 @@
             <tr>
                 <th></th>
                 <td>
-                    <b><a href="{{ path('bag_register', {id: childrenGood.id}) }}">Купить</a></b><br><br>
+                    <b><a href="#" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</a></b>
+                    {# href="{{ path('bag_register', {id: childrenGood.id}) }}" #}
+                    <br><br> 
                     <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, size: 1, color: 1, mclon: false, route_name: 'ajax_bag_user'}) }}">Ajax отладка</a></b>
                     {#{{ global_var }} {{ myvar }}#}
                 </td>

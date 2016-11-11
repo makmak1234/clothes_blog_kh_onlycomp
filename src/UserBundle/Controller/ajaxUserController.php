@@ -34,8 +34,14 @@ class ajaxUserController extends Controller
         $ajaxUserServ = $this->get('ajax.user.serv');
 
         $size = $request->query->get('size');
+        if ($size == null) {
+        	$size = 0;
+        }
 
         $color = $request->query->get('color');
+        if ($color == null) {
+        	$color = 0;
+        }
 
         $ajaxUserServ->ajaxBagUserServAction($id, $size, $color, $bagreg, $request);
 
@@ -49,6 +55,10 @@ class ajaxUserController extends Controller
             'priceall' => $ajaxUserServ->getPriceall(),
             'bigBagDisp' => $ajaxUserServ->getBigBagDisp(),
             'nid' => $ajaxUserServ->getNid(),
+            'sizeTitle' => $ajaxUserServ->getSizeTitle(),
+            'colorTitle' => $ajaxUserServ->getColorTitle(),
+            //'color' => $color,
+            //'color' => $color,
         ));
     }
 
@@ -63,16 +73,30 @@ class ajaxUserController extends Controller
 
         $ajaxUserServ = $this->get('ajax.user.serv');
 
-        $ajaxUserServ->ajaxBagUserServAction($id, $bagreg, $request);
+        $size = $request->query->get('size');
+        if ($size == null) {
+        	$size = 0;
+        }
+
+        $color = $request->query->get('color');
+        if ($color == null) {
+        	$color = 0;
+        }
+
+        $ajaxUserServ->ajaxBagUserServAction($id, $size, $color, $bagreg, $request);
 
     	return $this->render('UserBundle::checkoutBag.html.twig', array(
             'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
             'id' => $id,
             'idarr' => $ajaxUserServ->getIdarr(),
+            'sizearr' => $ajaxUserServ->getSizearr(),
+            'colorarr' => $ajaxUserServ->getColorarr(),
             'priceone' => $ajaxUserServ->getPriceone(),
             'priceall' => $ajaxUserServ->getPriceall(),
             'bigBagDisp' => $ajaxUserServ->getBigBagDisp(),
             'nid' => $ajaxUserServ->getNid(),
+            'sizeTitle' => $ajaxUserServ->getSizeTitle(),
+            'colorTitle' => $ajaxUserServ->getColorTitle(),
         ));
 
     }

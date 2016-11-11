@@ -81,4 +81,4 @@ assetic:
         cssrewrite: ~
 
 fos_js_routing:
-    routes_to_expose: [ ajax_bag_user, ajax_checkout_user ]
+    routes_to_expose: [ ajax_bag_user, ajax_checkout_user, bag_register ]
