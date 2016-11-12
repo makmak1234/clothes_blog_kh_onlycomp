@@ -98,7 +98,38 @@ class ajaxUserController extends Controller
             'sizeTitle' => $ajaxUserServ->getSizeTitle(),
             'colorTitle' => $ajaxUserServ->getColorTitle(),
         ));
-
     }
+
+    /**
+     * Lists all childrenGoods entities.
+     *
+     * @Route("/basket_big_change", name="basket_big_change")
+     * @Method("GET")
+     */
+    public function basketBigChangeAction(Request $request)
+    {
+
+    	$session = $request->getSession();
+    	
+	    //$nidaj = $foo_mysgli->sanitizeString($_GET["nidaj"]);
+	    $nidaj = $request->query->get('nidaj');
+
+		//$k = $foo_mysgli->sanitizeString($_GET["kg2"]);
+		$k = $request->query->get('kg2');
+
+		//$nid = $_SESSION["nid"];
+		$nid = $session->get('nid');
+
+		$nid[$k] = $nidaj;
+
+
+		//array_splice($nid, 0, 1);
+		//$_SESSION["nid"] = $nid;
+		$session->set('nid', $nid);
+
+		//echo "snid: $nid[$k]";
+
+		return new Response();
+	}
 
 }
