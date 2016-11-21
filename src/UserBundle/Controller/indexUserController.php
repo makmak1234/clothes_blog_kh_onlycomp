@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use UserBundle\Entity\bagRegister;
+use UserBundle\Entity\buyClients;
 use AdminBundle\Entity\childrenGoods;
 use AdminBundle\Entity\childrenGoodsCategory;
 use AdminBundle\Entity\childrenGoodsSizeNumber;
@@ -99,10 +100,110 @@ class indexUserController extends Controller
 
             if ($form->isValid()) {
               $em = $this->getDoctrine()->getManager();
+
+              $bagRegister->setOrderclient(111);
+
+              //$em->persist($bagRegister);
+              //$em->flush();
+
+              $repository = $em->getRepository('AdminBundle:childrenGoods');
+
+              //$repository2 = $em->getRepository('AdminBundle:bagRegister');
+              //$query = $em->createQuery("SELECT u FROM UserBundle:bagRegister u WHERE u.id = LAST_INSERT_ID()");
+              //$bagRegisterLast = $query->getResult();
+
+              //$bagRegisterLast = $repository2->find($value);//LAST_INSERT_ID()
+
+              //$buyClients = new buyClients;
+              $idarr = $session->get('idbasketsmall');
+              $nid = $session->get('nid');
+              $sizearr = $session->get('sizearr');
+              $colorarr = $session->get('colorarr');
+
+                //foreach ($idarr as $key => $value) {
+                 //   $query = $repository->find($value);
+                 //   $childrenGoods[] = $query;
+                //}
+
+                foreach($idarr as $k=>$v){
+                    $buyClients = new buyClients;
+                    $childrenGoods = $repository->find($v);
+                    //$childrenGoods = $query;
+                    //$id = $v;
+                    //$n = $this->nid[$k];
+                    //$query = "SELECT * FROM pajamas1 WHERE id='$id'";
+                    //$result = $foo_mysgli->mysql_query($query);
+                    //$row = $foo_mysgli->mysql_fetch_row($result);
+                    $priceone = $childrenGoods->getPriceGoods()->getRub();
+                    //$priceone[$k] = $row * $n;
+                    //$priceall += $this->priceone[$k];
+
+                    print_r('sizearr: ');
+                    print_r($sizearr); print_r('<br>');
+                    print_r('colorarr: ');
+                    print_r($colorarr); print_r('<br>');
+
+                    if ($sizearr[$k] != 'undefined') {
+                        $sizeTitle = $childrenGoods->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getSize()->getSize();
+                    }
+                    else{
+                        $sizeTitle = '';
+                    }
+                    
+
+                    if ($colorarr[$k] != 'undefined') {
+                        $colorTitle = $childrenGoods->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getChildrenGoodsColorNumber()->get($colorarr[$k])->getColor()->getColor();
+                    }
+                    else{
+                        $colorTitle = '';
+                    }
+
+                    $valuta = '';//?????
+
+                    $buyClients->setSize($sizeTitle);
+                    $buyClients->setColor($colorTitle);
+                    $buyClients->setNid($nid[$k]);
+                    $buyClients->setPriceone($priceone);
+
+                    //$bagRegister->addBuyClient($buyClients);
+                    $buyClients->setBagRegister($bagRegister);
+                    $buyClients->setChildrenGoods($childrenGoods);
+
+                    //$em->persist($bagRegister);
+                    $em->persist($buyClients);
+                }
+
               $em->persist($bagRegister);
               $em->flush();
 
               $session-> invalidate();
+
+              $message = \Swift_Message::newInstance()
+                    ->setSubject('Hello Email')
+                    ->setFrom('send@example.com')
+                    ->setTo('qwertyfamiliya1234@gmail.com')
+                    ->setBody(
+                        /*$this->renderView(
+                            // app/Resources/views/Emails/registration.html.twig
+                            'Emails/registration.html.twig',
+                            array('name' => $name)
+                        ),
+                        'text/html'*/
+                        'Hello Max'
+                    )
+                    /*
+                     * If you also want to include a plaintext version of the message
+                    ->addPart(
+                        $this->renderView(
+                            'Emails/registration.txt.twig',
+                            array('name' => $name)
+                        ),
+                        'text/plain'
+                    )
+                    */
+                ;
+              $this->get('mailer')->send($message);
+
               //return $this->redirectToRoute('childrengoods_show', 
               return $this->render('UserBundle::thanks.html.twig'//, array(
                 //array('id' => $childrenGood->getId(),

@@ -97,6 +97,7 @@ class ajaxUserController extends Controller
             'nid' => $ajaxUserServ->getNid(),
             'sizeTitle' => $ajaxUserServ->getSizeTitle(),
             'colorTitle' => $ajaxUserServ->getColorTitle(),
+            'pathImages' => $ajaxUserServ->getPathImages(),
         ));
     }
 

@@ -32,6 +32,7 @@ class ajaxUserServController extends Controller
 	private $entityManager;
 	private $sizeTitle = array();
 	private $colorTitle = array();
+	private $pathImages = array();
 
 	//private $id;
 	//private $bagreg;
@@ -175,9 +176,11 @@ class ajaxUserServController extends Controller
 
 				if ($this->colorarr[$k] != 'undefined') {
 					$this->colorTitle[$k] = $this->childrenGoods[$k]->getChildrenGoodsSizeNumber()->get($this->sizearr[$k])->getChildrenGoodsColorNumber()->get($this->colorarr[$k])->getColor()->getColor();
+					$this->pathImages[$k] = $this->childrenGoods[$k]->getChildrenGoodsSizeNumber()->get($this->sizearr[$k])->getChildrenGoodsColorNumber()->get($this->colorarr[$k])->getImage()->getPath();
 				}
 				else{
 					$this->colorTitle[$k] = '';
+					$this->pathImages[$k] = '';
 				}
 			}
 
@@ -238,6 +241,10 @@ class ajaxUserServController extends Controller
 
     public function getColorTitle(){
     	return $this->colorTitle;
+    }
+
+    public function getPathImages(){
+    	return $this->pathImages;
     }
 
     /*public function setId($id){

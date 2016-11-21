@@ -1,3 +1,7 @@
+{% block stylesheets %}
+     <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% if bigBagDisp == 'block' %} 
     <table class="goodsbasketfont m-cart-full">
 		<tr><td colspan= "4">Ваши покупки:<td></tr>
@@ -19,7 +23,7 @@
 
 		<tr id="{{ idtr }}">
 
-			<td>{#<img class="show__img" src="{{ asset('uploads/documents/' ~ color.image.path) }}">#}</td>
+			<td><img class="show__img" src="{{ asset('uploads/documents/' ~ pathImages[loop.index0]) }}"></td>
 			<td>{{ childrenGood.title }}</td>
 			<td>
 				{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size is defined %}

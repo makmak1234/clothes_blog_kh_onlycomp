@@ -94,8 +94,14 @@ class childrenGoods //extends Controller
     */
     protected $childrenGoodsSizeNumber;
 
+    /**
+    * @ORM\OneToMany(targetEntity="\UserBundle\Entity\buyClients", mappedBy="childrenGoods")
+    */
+    protected $buyClients;
+
     public function __construct()
     {
+        $this->buyClients = new ArrayCollection();
         $this->childrenGoodsSizeNumber = new ArrayCollection();
     }
 
@@ -360,4 +366,37 @@ class childrenGoods //extends Controller
         return new RedirectResponse($this->generateUrl('calculate_cat_subcat'));
         //return $this;
     }*/
+
+    /**
+     * Add buyClients
+     *
+     * @param \UserBundle\Entity\buyClients $buyClients
+     * @return childrenGoods
+     */
+    public function addBuyClient(\UserBundle\Entity\buyClients $buyClients)
+    {
+        $this->buyClients[] = $buyClients;
+
+        return $this;
+    }
+
+    /**
+     * Remove buyClients
+     *
+     * @param \UserBundle\Entity\buyClients $buyClients
+     */
+    public function removeBuyClient(\UserBundle\Entity\buyClients $buyClients)
+    {
+        $this->buyClients->removeElement($buyClients);
+    }
+
+    /**
+     * Get buyClients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBuyClients()
+    {
+        return $this->buyClients;
+    }
 }
