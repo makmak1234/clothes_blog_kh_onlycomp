@@ -26,6 +26,7 @@ class bagRegister
      * @var string
      *
      * @ORM\Column(name="orderclient", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $orderclient;
 

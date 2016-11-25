@@ -100,11 +100,25 @@ class indexUserController extends Controller
 
             if ($form->isValid()) {
               $em = $this->getDoctrine()->getManager();
+              
+                  $query = $em->createQuery(//WHERE p.orderclient = max(p.orderclient)
+                        'SELECT max(p.orderclient)
+                        FROM UserBundle:bagRegister p
+                        '
+                    );
 
-              $bagRegister->setOrderclient(111);
+                  $orderclientmax = $query->getResult();//->getOrderclient();
 
-              //$em->persist($bagRegister);
-              //$em->flush();
+                  print_r('orderclientmax: ');
+                  print_r($orderclientmax[0][1]); print_r('<br>');
+
+                  //$bagRegister->setOrderclient($orderclientmax + 1);//select max(age) from person
+                  if($orderclientmax[0][1] < 283758){
+                     $bagRegister->setOrderclient(283758);
+                  }
+                  else{
+                    $bagRegister->setOrderclient($orderclientmax[0][1] + 1);
+                    }
 
               $repository = $em->getRepository('AdminBundle:childrenGoods');
 
@@ -119,6 +133,8 @@ class indexUserController extends Controller
               $nid = $session->get('nid');
               $sizearr = $session->get('sizearr');
               $colorarr = $session->get('colorarr');
+              $priceall = 0;
+              //$messgoods = "";
 
                 //foreach ($idarr as $key => $value) {
                  //   $query = $repository->find($value);
@@ -134,9 +150,10 @@ class indexUserController extends Controller
                     //$query = "SELECT * FROM pajamas1 WHERE id='$id'";
                     //$result = $foo_mysgli->mysql_query($query);
                     //$row = $foo_mysgli->mysql_fetch_row($result);
-                    $priceone = $childrenGoods->getPriceGoods()->getRub();
+                    $priceone[] = $childrenGoods->getPriceGoods()->getRub();
+                    $pricegoods[] = $priceone[$k] * $nid[$k];
                     //$priceone[$k] = $row * $n;
-                    //$priceall += $this->priceone[$k];
+                    $priceall += $pricegoods[$k];
 
                     print_r('sizearr: ');
                     print_r($sizearr); print_r('<br>');
@@ -144,26 +161,26 @@ class indexUserController extends Controller
                     print_r($colorarr); print_r('<br>');
 
                     if ($sizearr[$k] != 'undefined') {
-                        $sizeTitle = $childrenGoods->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getSize()->getSize();
+                        $sizeTitle[] = $childrenGoods->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getSize()->getSize();
                     }
                     else{
-                        $sizeTitle = '';
+                        $sizeTitle[] = '';
                     }
                     
 
                     if ($colorarr[$k] != 'undefined') {
-                        $colorTitle = $childrenGoods->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getChildrenGoodsColorNumber()->get($colorarr[$k])->getColor()->getColor();
+                        $colorTitle[] = $childrenGoods->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getChildrenGoodsColorNumber()->get($colorarr[$k])->getColor()->getColor();
                     }
                     else{
-                        $colorTitle = '';
+                        $colorTitle[] = '';
                     }
 
                     $valuta = '';//?????
 
-                    $buyClients->setSize($sizeTitle);
-                    $buyClients->setColor($colorTitle);
+                    $buyClients->setSize($sizeTitle[$k]);
+                    $buyClients->setColor($colorTitle[$k]);
                     $buyClients->setNid($nid[$k]);
-                    $buyClients->setPriceone($priceone);
+                    $buyClients->setPriceone($priceone[$k]);
 
                     //$bagRegister->addBuyClient($buyClients);
                     $buyClients->setBagRegister($bagRegister);
@@ -171,44 +188,111 @@ class indexUserController extends Controller
 
                     //$em->persist($bagRegister);
                     $em->persist($buyClients);
+
+                    //отправка email
+                    $name = $bagRegister->getName();
+                    $order = $bagRegister->getOrderclient();
+                    $tel = $bagRegister->getTel();
+                    $email = $bagRegister->getEmail();
+                    $city = $bagRegister->getCity();
+                    $title[] = $childrenGoods->getTitle();
+
+                      /*$messtitle ="
+                            <div><h3>Заказ от: $name <b>  </b><h3/><div>
+                            <div><h3> Номер заказа: $order <b><font color='red'>  </font></b></h3><div>
+                            <div> Телефон:  <b> $tel </b><div>
+                            <div>  email:  <b> $email </b> <div>
+                            <div>  Город:  <b> $city </b> <div></br>
+                            <div><h3><b><font color='red'><i> Товар: </i></font></b></h3><div>";
+                        //foreach($idarr as $k=>$v){
+                                
+                                $k1 = $k + 1;
+                                $messgoods .="
+                                    <div><font color='green'> $k1) <b> $title, $sizeTitle, $colorTitle </font></b></div>
+                                    <div> <b>  $nid[$k] шт * $priceone руб = $pricegoods руб</b> </div>"; */
+                        //}
+
+                        //$smstext = "   " . $priceall . " $prsite";
+                        
                 }
 
               $em->persist($bagRegister);
               $em->flush();
 
+              $comment = $bagRegister->getComment();
+
+              /*$messgoods .= "<div><h3><b><i> Всего к оплате: </i><font color='red'> $priceall </font> </b> руб </h3></div>";
+
+              $messgoods .= "<div>Коментарий: $comment</div>";
+                        
+                    //$textsms = $smstitle . $smstext;
+                    $mess = $messtitle . $messgoods ;
+                    
+                    // На случай если какая-то строка письма длиннее 70 символов мы используем wordwrap()
+                    $mess = wordwrap($mess, 70);
+
+                    print_r('mess: ');
+                    print_r($mess); print_r('<br>'); */
+
+                  $message = \Swift_Message::newInstance()
+                        ->setSubject('Покупки одежды')
+                        ->setFrom('send@example.com')
+                        ->setTo('qwertyfamiliya@gmail.com')
+                        ->setBody(
+                            $this->renderView(
+                                // app/Resources/views/Emails/registration.html.twig
+                                'UserBundle::emailAdmin.html.twig',
+                                array('name' => $name,
+                                        'order' => $order,
+                                        'tel' => $tel,
+                                        'email' => $email,
+                                        'city' => $city,
+                                        'title' => $title,
+                                        'sizeTitle' => $sizeTitle,
+                                        'colorTitle' => $colorTitle,
+                                        'nid' => $nid,
+                                        'priceone' => $priceone,
+                                        'pricegoods' => $pricegoods,
+                                        'comment' => $comment,
+                                        'priceall' => $priceall,
+                                    )
+                            ),
+                            'text/html'
+                            //$mess,
+                            //'text/html'
+                        )
+                        /*
+                         * If you also want to include a plaintext version of the message
+                        ->addPart(
+                            $this->renderView(
+                                'Emails/registration.txt.twig',
+                                array('name' => $name)
+                            ),
+                            'text/plain'
+                        )
+                        */
+                        ;
+                     ///////////////////// $this->get('mailer')->send($message);
+                    //end email 
+
               $session-> invalidate();
 
-              $message = \Swift_Message::newInstance()
-                    ->setSubject('Hello Email')
-                    ->setFrom('send@example.com')
-                    ->setTo('qwertyfamiliya1234@gmail.com')
-                    ->setBody(
-                        /*$this->renderView(
-                            // app/Resources/views/Emails/registration.html.twig
-                            'Emails/registration.html.twig',
-                            array('name' => $name)
-                        ),
-                        'text/html'*/
-                        'Hello Max'
-                    )
-                    /*
-                     * If you also want to include a plaintext version of the message
-                    ->addPart(
-                        $this->renderView(
-                            'Emails/registration.txt.twig',
-                            array('name' => $name)
-                        ),
-                        'text/plain'
-                    )
-                    */
-                ;
-              $this->get('mailer')->send($message);
-
               //return $this->redirectToRoute('childrengoods_show', 
-              return $this->render('UserBundle::thanks.html.twig'//, array(
-                //array('id' => $childrenGood->getId(),
-                    //'add_new_cat' => $add_new_cat,
-                );
+              return $this->render('UserBundle::thanks.html.twig', array(
+                'name' => $name,
+                'order' => $order,
+                'tel' => $tel,
+                'email' => $email,
+                'city' => $city,
+                'title' => $title,
+                'sizeTitle' => $sizeTitle,
+                'colorTitle' => $colorTitle,
+                'nid' => $nid,
+                'priceone' => $priceone,
+                'pricegoods' => $pricegoods,
+                'comment' => $comment,
+                'priceall' => $priceall,
+                ));
             }
         }
 

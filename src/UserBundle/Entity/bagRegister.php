@@ -28,6 +28,7 @@ class bagRegister
      * @ORM\Column(name="orderclient", type="integer")
      */
     private $orderclient;
+    // @ORM\GeneratedValue(strategy="UUID")
 
     /**
      * @var string
