@@ -399,4 +399,27 @@ class childrenGoods //extends Controller
     {
         return $this->buyClients;
     }
+
+    /**
+     * Set image
+     *
+     * @param \AdminBundle\Entity\image $image
+     * @return childrenGoods
+     */
+    public function setImage(\AdminBundle\Entity\image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AdminBundle\Entity\image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 }

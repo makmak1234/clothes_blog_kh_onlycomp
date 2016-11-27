@@ -34,6 +34,11 @@ class childrenGoodsCategory
     */
     protected $childrenGoods;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="image", inversedBy="childrenGoodsCategory")
+     */
+    protected $image;
+
     public function __construct()
     {
         $this->childrenGoods = new ArrayCollection();
@@ -156,5 +161,28 @@ class childrenGoodsCategory
     public function removeChildrenGoodsSubcategory(\AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory)
     {
         $this->childrenGoodsSubcategory->removeElement($childrenGoodsSubcategory);
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AdminBundle\Entity\image $image
+     * @return childrenGoodsCategory
+     */
+    public function setImage(\AdminBundle\Entity\image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AdminBundle\Entity\image 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

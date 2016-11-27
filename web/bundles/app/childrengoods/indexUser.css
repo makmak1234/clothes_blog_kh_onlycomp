@@ -1,0 +1,15 @@
+* 
+{
+  margin: 0;
+  padding: 0;
+}
+
+.category {
+	width: 340px;
+	height: 240px;
+	background: scroll no-repeat;
+	background-size: cover;
+	padding: 10px;
+	margin: 10px;
+	float: left;
+}

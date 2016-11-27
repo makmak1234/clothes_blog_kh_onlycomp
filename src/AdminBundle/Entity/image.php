@@ -43,9 +43,15 @@ class image
     */
     private $childrenGoodsColorNumber;
 
+    /**
+    * @ORM\OneToMany(targetEntity="childrenGoodsCategory", mappedBy="image")
+    */
+    private $childrenGoodsCategory;
+
     public function __construct()
     {
         $this->childrenGoodsColorNumber = new ArrayCollection();
+        $this->childrenGoodsCategory = new ArrayCollection();
     }
 
     /*public function getBlogPosts()
@@ -244,5 +250,71 @@ class image
     public function getChildrenGoodsColorNumber()
     {
         return $this->childrenGoodsColorNumber;
+    }
+
+    /**
+     * Add childrenGoods
+     *
+     * @param \AdminBundle\Entity\childrenGoods $childrenGoods
+     * @return image
+     */
+    public function addChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
+    {
+        $this->childrenGoods[] = $childrenGoods;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenGoods
+     *
+     * @param \AdminBundle\Entity\childrenGoods $childrenGoods
+     */
+    public function removeChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
+    {
+        $this->childrenGoods->removeElement($childrenGoods);
+    }
+
+    /**
+     * Get childrenGoods
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildrenGoods()
+    {
+        return $this->childrenGoods;
+    }
+
+    /**
+     * Add childrenGoodsCategory
+     *
+     * @param \AdminBundle\Entity\childrenGoods $childrenGoodsCategory
+     * @return image
+     */
+    public function addChildrenGoodsCategory(\AdminBundle\Entity\childrenGoods $childrenGoodsCategory)
+    {
+        $this->childrenGoodsCategory[] = $childrenGoodsCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenGoodsCategory
+     *
+     * @param \AdminBundle\Entity\childrenGoods $childrenGoodsCategory
+     */
+    public function removeChildrenGoodsCategory(\AdminBundle\Entity\childrenGoods $childrenGoodsCategory)
+    {
+        $this->childrenGoodsCategory->removeElement($childrenGoodsCategory);
+    }
+
+    /**
+     * Get childrenGoodsCategory
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildrenGoodsCategory()
+    {
+        return $this->childrenGoodsCategory;
     }
 }

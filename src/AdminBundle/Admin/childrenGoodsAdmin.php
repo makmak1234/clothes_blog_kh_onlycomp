@@ -87,9 +87,9 @@ class childrenGoodsAdmin extends AbstractAdmin
                         'property' => 'title',
                         //'multiple' => true
                     ))
-                ->add('descriptionGoods', 'sonata_type_model', array('class' => 'AdminBundle:descriptionGoods', 'property' => 'description', 'required' => false))
+                ->add('descriptionGoods', 'sonata_type_model', array('class' => 'AdminBundle:descriptionGoods', 'property' => 'description'))
                 ->add('priceGoods', 'sonata_type_model', array(
-                    'class' => 'AdminBundle:priceGoods', 'property' => 'rub', 'required' => false
+                    'class' => 'AdminBundle:priceGoods', 'property' => 'rub'
                     ))
             ->end()
             ;

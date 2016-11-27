@@ -42,14 +42,14 @@ class indexUserController extends Controller
         $childrenGoodsCategory = $em->getRepository('AdminBundle:childrenGoodsCategory')->findAll();
 
         $mailer = $this->get('app.mailer');
-        $myServiceVarAll = json_encode($mailer->myServiceAction());
-        var_dump($myServiceVarAll);
+        //$myServiceVarAll = json_encode($mailer->myServiceAction());
+        //var_dump($myServiceVarAll);
 
         return $this->render('UserBundle::indexUser.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
-            'myServiceVarAll' => $myServiceVarAll,
-            'myServiceVar' => $mailer->myServiceVar,
+            //'myServiceVarAll' => $myServiceVarAll,
+            //'myServiceVar' => $mailer->myServiceVar,
         ));
     }
 

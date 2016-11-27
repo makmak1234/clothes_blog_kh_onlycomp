@@ -44,9 +44,9 @@ class ajaxUserServController extends Controller
     public function ajaxBagUserServAction($id, $size = '0', $color = '0', $bagreg, $request)
     {
     	//$request = $this->request;
+    	$flag = false;
 
-
-		print "bagreg ";
+		/*print "bagreg ";
         var_dump($bagreg); print "<br>";
 
         print "mclon before sesstart";
@@ -57,15 +57,15 @@ class ajaxUserServController extends Controller
         print "size: ";
         var_dump($size); print "<br>";
         print "color: ";
-        var_dump($color); print "<br>";
+        var_dump($color); print "<br>";*/
         
     	//session_start();
     	//if($bagreg == null){
     		$session = $request->getSession();
     	//}
         
-        print "mclon after sesstart";
-        var_dump($request->query->get('mclon')); print "<br>";
+        //print "mclon after sesstart";
+        //var_dump($request->query->get('mclon')); print "<br>";
     	
 
 		//require_once 'login.php';//02.11.15
@@ -83,14 +83,14 @@ class ajaxUserServController extends Controller
 			$this->bigBagDisp = 'block';
 		}
 
-		print "idarr first";
+		/*print "idarr first";
         var_dump($this->idarr); print "<br>";
         print "id ";
         var_dump($id); print "<br>";
         print "sizearr: ";
         var_dump($this->sizearr); print "<br>";
         print "colorarr: ";
-        var_dump($this->colorarr); print "<br>";
+        var_dump($this->colorarr); print "<br>";*/
 
 		if($id > 0){ //if(isset($_GET["id"])){
 			//$id = $foo_mysgli->sanitizeString($_GET["id"]); //получили из js
@@ -98,14 +98,15 @@ class ajaxUserServController extends Controller
 			//$clearone = $foo_mysgli->sanitizeString($_GET["mclon"]);
 			$clearone = $request->query->get('mclon');//$mclon;
 			$this->bigBagDisp = 'block';
-			if(in_array($id, $this->idarr) && in_array($size, $this->sizearr) && in_array($color, $this->colorarr)){//наличие значения в массиве
+			//if(in_array($id, $this->idarr) && in_array($size, $this->sizearr) && in_array($color, $this->colorarr)){//наличие значения в массиве
 				if($bagreg == true){
 					foreach($this->idarr as $k=>$v){
-						print "k: ";
-        				var_dump($k); print "<br>";
+						//print "k: ";
+        				//var_dump($k); print "<br>";
 						if($v == $id && $this->sizearr[$k] == $size  && $this->colorarr[$k] == $color){
-							print "clearone ";
-	    					var_dump($clearone);
+							$flag = true;
+							//print "clearone ";
+	    					//var_dump($clearone);
     						if($clearone == 'false'){
 								$this->nid[$k]++;
 							}
@@ -118,14 +119,20 @@ class ajaxUserServController extends Controller
 							}
 						}	
 					}
+					if (!$flag) {
+						$this->idarr[] = $id;
+						$this->sizearr[] = $size;
+						$this->colorarr[] = $color;
+						$this->nid[] = 1;
+					}
 				}
-			}
-			else{
+			//}
+			/*else{
 				$this->idarr[] = $id;
 				$this->sizearr[] = $size;
 				$this->colorarr[] = $color;
 				$this->nid[] = 1;
-			}
+			}*/
 
 			if(count($this->idarr) == 0) $id= -1;	
 		}
@@ -184,8 +191,8 @@ class ajaxUserServController extends Controller
 				}
 			}
 
-			print "idarr session";
-        	var_dump($session->get('idbasketsmall')); print "<br>";
+			//print "idarr session";
+        	//var_dump($session->get('idbasketsmall')); print "<br>";
 		}
 		else{
 			//destroy_session_and_data();
@@ -196,10 +203,10 @@ class ajaxUserServController extends Controller
 		$this->size = $size;
 		$this->color = $color;
 
-        print "idarr ";
+       /* print "idarr ";
         var_dump($this->idarr); print "<br>";
         print "nid ";
-        var_dump($this->nid); print "<br>";
+        var_dump($this->nid); print "<br>";*/
 
     }
 

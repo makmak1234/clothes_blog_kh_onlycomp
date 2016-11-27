@@ -12,10 +12,14 @@ class childrenGoodsCategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('title', 'text')
-                    ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
+                    /*->add('childrenGoodsSubcategory', 'sonata_type_model', array(
                         'class' => 'AdminBundle\Entity\childrenGoodsSubcategory',
                         'property' => 'title',
                         'multiple' => true
+                    ))*/
+                    ->add('image', 'sonata_type_model', array(
+                        'class' => 'AdminBundle\Entity\image',
+                        'property' => 'path',
                     ))
         ;
     }
@@ -37,6 +41,7 @@ class childrenGoodsCategoryAdmin extends AbstractAdmin
                     ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
                         'associated_property' => 'title'
                     ))
+                    ->add('image.path')
         ;
     }
 }
