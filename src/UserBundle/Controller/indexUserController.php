@@ -375,8 +375,46 @@ class indexUserController extends Controller
            $bigBagDisp = 'block'; 
         }*/ 
 
+        //$imagineCacheManager = $this->get('liip_imagine.cache.manager');
+
+        //$resolvedPath = $imagineCacheManager->getBrowserPath('/media/cache/bg1.jpg148009169098.jpeg', 'my_thumb_show');
+        //$resolvedPath = $imagineCacheManager->getBrowserPath('/media/cache/z_Cento Per Cento-IMOLA CERAMICA-2.jpg147566337557.jpeg', 'my_thumb_show');
+
+       /* {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}
+                    <td>
+                        {% set sizeloop = loop.index0 %}
+                        {% for color in size.childrenGoodsColorNumber.snapshot %}
+                            <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
+                                {% set pathImg = asset('uploads/documents/' ~ color.image.path) %}
+                                <img class="show__img" src="{{ pathImg | imagine_filter('my_thumb_show') }}"> в наличии {{ color.number }} шт */
+
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
+
+        //$sourcePath = $childrenGood->getChildrenGoodsSizeNumber();
+
+        foreach($childrenGood->getChildrenGoodsSizeNumber()  as $indSize => $size){
+            foreach ($size->getChildrenGoodsColorNumber() as $indColor => $color) {
+                $pathImg = '/uploads/documents/' . $color->getImage()->getPath();
+                $sourcePath[$indSize][$indColor] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_show');
+            }
+
+        }
+
+
+        //$childrenGood->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getChildrenGoodsColorNumber()->get($colorarr[$k])->getColor()->getColor();
+
+        /** @var CacheManager */
+        //$cacheManager = $this->container->get('liip_imagine.cache.manager');
+
+        /** @var string */
+        $sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/bg1.jpg148009169098.jpeg', 'my_thumb_show');
+
+        $sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/z_Cento Per Cento-IMOLA CERAMICA-2.jpg147566337557.jpeg', 'my_thumb_show'); 
+
         return $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
+            'sourcePath' => $sourcePath,
+            'sourceP' => $sourceP,
             //'childrenGoods' => $childrenGoods,
             //'nid' => $nid,
             //'bigBagDisp' => 'none',

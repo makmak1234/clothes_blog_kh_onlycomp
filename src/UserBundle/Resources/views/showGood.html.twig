@@ -1,23 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block javascripts %}
-        <script src="{{ asset('bundles/app/user/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+        {% javascripts '@jquery_and_ui'
+                        '@UserBundle/Resources/js/goodsbasketcheck.js'
+                        '@UserBundle/Resources/js/select_visible.js'
+                        '@UserBundle/Resources/js/hinclude.js'
+                        filter='uglifyjs2'
+                        output='js/compiled/main.js'%}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {#<script src="{{ asset('bundles/app/user/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/app/user/goodsbasketcheck.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/app/user/select_visible.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/app/user/hinclude.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/app/user/hinclude.js') }}" type="text/javascript"></script>#}
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script> 
 {% endblock %}
 
 {% block stylesheets %}
-     <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />
-     {#' childrengoods/show.css'#}
+    {% stylesheets '@UserBundle/Resources/css/show.css' filter='uglifycss' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {# <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />#}
 {% endblock %}
 
 {% block body %}
-    <h1>childrenGood</h1>
+    <h1>childrenGood
+                    {#<img class="show__img" src="{{ sourceP[0] }}">
+                    <img class="show__img" src="{{ sourceP[1] }}">#}
+    </h1>
 
-    {#{{ dump(childrenGoods) }}
+    {#{% for path1 in sourcePath %}
+        {% for path2 in path1 %}
+            <img class="" src="{{ path2 }}">
+        {% endfor %}
+    {% endfor %}#}
+
+    {#{{ dump(sourcePath) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
     {{ dump(add_new_cat) }}#}
     {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
@@ -67,17 +86,19 @@
                     </select>
                 </td>
                 {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}
-                    <td>
+                    <td class="table_image">
                         {% set sizeloop = loop.index0 %}
-                        <select name="size.size.size" id="{{ 'color' ~ loop.index0 }}" hidden onChange="colorSelect(this)">
+                        <select name="size.size.size" id="{{ 'color' ~ loop.index0 }}" style="display: none;" onChange="colorSelect(this)">
                             {% for color in size.childrenGoodsColorNumber.snapshot %}
                                 <option value="{{ color.color.color }}">{{ color.color.color }} </option>     
                             {% endfor %}
                         </select>
                         {% for color in size.childrenGoodsColorNumber.snapshot %}
-                            <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" hidden>
-                                <img class="show__img" src="{{ asset('uploads/documents/' ~ color.image.path) }}"> в наличии {{ color.number }} шт
-                            </div> 
+                            <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
+                                <img class="" src="{{ sourcePath[sizeloop][loop.index0] }}">
+                                {#{% set pathImg = asset('uploads/documents/' ~ color.image.path) %}
+                                <img class="show__img" src="{{ pathImg | imagine_filter('my_thumb_show') }}">#} в наличии {{ color.number }} шт
+                            </div> {# | imagine_filter('my_thumb_show')  #}
                         {% endfor %}
                     </td>
                 {% endfor %}

@@ -1,5 +1,8 @@
 {% block stylesheets %}
-     <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />
+	{% stylesheets '@UserBundle/Resources/css/show.css' filter='uglifycss' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {# <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />#}
 {% endblock %}
 
 {% if bigBagDisp == 'block' %} 

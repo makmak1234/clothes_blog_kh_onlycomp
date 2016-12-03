@@ -76,9 +76,51 @@ sonata_block:
 
 assetic:
     debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
+    use_controller: false #'%kernel.debug%'
     filters:
         cssrewrite: ~
+        uglifyjs2:
+            bin: /usr/local/bin/uglifyjs
+        uglifycss:
+            bin: /usr/local/bin/uglifycss
+    assets:
+        jquery_and_ui:
+            inputs:
+                - '@UserBundle/Resources/js/thirdparty/jquery-3.1.1.min.js'
+                #- '@AppBundle/Resources/public/js/thirdparty/jquery.ui.js'
 
 fos_js_routing:
     routes_to_expose: [ ajax_bag_user, ajax_checkout_user, bag_register, basket_big_change ]
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path: ~
+
+        profile_photos:
+            web_path:
+                web_root: "%kernel.root_dir%/../web"
+                cache_prefix: "media/cache"
+
+    #cache: profile_photos
+
+    filter_sets:
+        cache: ~
+
+        # the name of the "filter set"
+        my_thumb_show:
+            #cache: profile_photos
+
+            # adjust the image quality to 75%
+            #quality: 75
+
+            # list of transformations to apply (the "filters")
+            filters:
+
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [240, 180], mode: outbound }
+
+                # create a 2px black border: center the thumbnail on a black background
+                # 4px larger to create a 2px border around the final image
+                #background: { size: [124, 94], position: center, color: '#000000' }
