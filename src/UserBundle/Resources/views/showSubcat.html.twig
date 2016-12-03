@@ -38,7 +38,8 @@
     {#{ dump( childrenGoods[0].childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }#}
 
     {% for childrenGood in childrenGoods %}
-        {% set imgLink = asset('uploads/documents/' ~ childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) %}
+        {% set imgLink = asset(sourcePath[loop.index0]) %}
+        {#{% set imgLink = asset('uploads/documents/' ~ childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) %}#}
         {% set idDiv = "category" ~ loop.index0 %}
         {#{% set idImg = "idImg" ~ loop.index0 %}#}
         <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">

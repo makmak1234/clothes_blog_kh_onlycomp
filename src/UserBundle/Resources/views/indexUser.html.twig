@@ -3,7 +3,7 @@
 {% block stylesheets %}
     {% stylesheets 'bundles/app/childrengoods/indexUser.css' filter='uglifycss' filter='cssrewrite' %}{#@UserBundle/Resources/css/indexUser.css#}
         <link rel="stylesheet" href="{{ asset_url }}" />
-    }
+    
     {% endstylesheets %}
     {#<link href="{{ asset('bundles/app/childrengoods/indexUser.css') }}" rel="stylesheet" />#} 
     {#{% javascripts '@UserBundle/Resources/js/indexUser.js' %}
@@ -39,8 +39,8 @@
 
         {#{{dump(childrenGoodCategory.image)}}#} 
 
-        {#<img class="show__img" src="{{ asset('uploads/documents/' ~ childrenGoodCategory.image.path) }}">#}
-        {% set imgLink = asset('uploads/documents/' ~ childrenGoodCategory.image.path) %}
+        {% set imgLink = asset(sourcePath[loop.index0]) %}
+        {#{% set imgLink = asset('uploads/documents/' ~ childrenGoodCategory.image.path) %}#}
         {% set idDiv = "category" ~ loop.index0 %}
         <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
             {#<script>backgrCat('{{ idDiv }}', '{{ imgLink }}')</script>imgLink#}

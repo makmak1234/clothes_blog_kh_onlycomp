@@ -41,13 +41,21 @@ class indexUserController extends Controller
         $childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findAll();
         $childrenGoodsCategory = $em->getRepository('AdminBundle:childrenGoodsCategory')->findAll();
 
-        $mailer = $this->get('app.mailer');
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
+
+        foreach($childrenGoodsCategory as $indCat => $goodCategory){
+            $pathImg = '/uploads/documents/' . $goodCategory->getImage()->getPath();
+            $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_category');
+        }
+
+        //$mailer = $this->get('app.mailer');
         //$myServiceVarAll = json_encode($mailer->myServiceAction());
         //var_dump($myServiceVarAll);
 
         return $this->render('UserBundle::indexUser.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
+            'sourcePath' => $sourcePath,
             //'myServiceVarAll' => $myServiceVarAll,
             //'myServiceVar' => $mailer->myServiceVar,
         ));
@@ -407,14 +415,14 @@ class indexUserController extends Controller
         //$cacheManager = $this->container->get('liip_imagine.cache.manager');
 
         /** @var string */
-        $sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/bg1.jpg148009169098.jpeg', 'my_thumb_show');
+        //$sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/bg1.jpg148009169098.jpeg', 'my_thumb_show');
 
-        $sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/z_Cento Per Cento-IMOLA CERAMICA-2.jpg147566337557.jpeg', 'my_thumb_show'); 
+        //$sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/z_Cento Per Cento-IMOLA CERAMICA-2.jpg147566337557.jpeg', 'my_thumb_show'); 
 
         return $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
             'sourcePath' => $sourcePath,
-            'sourceP' => $sourceP,
+            //'sourceP' => $sourceP,
             //'childrenGoods' => $childrenGoods,
             //'nid' => $nid,
             //'bigBagDisp' => 'none',
@@ -460,10 +468,17 @@ class indexUserController extends Controller
 
         $childrenGoods = $query->getResult();
 
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
+
+        foreach($childrenGoods as $indCat => $childrenGood){
+            $pathImg = '/uploads/documents/' . $childrenGood->getChildrenGoodsSizeNumber()->get(0)->getChildrenGoodsColorNumber()->get(0)->getImage()->getPath();
+            $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_subcat');
+        }
+
         return $this->render('UserBundle::showSubcat.html.twig', array(
-            'childrenGoods' => $childrenGoods//$childrenGood,
-            //'delete_form' => $deleteForm->createView(),
-            //s'add_new_cat' => $add_new_cat,
+            'childrenGoods' => $childrenGoods,
+            'sourcePath' => $sourcePath,
+           
         ));
     }
 
