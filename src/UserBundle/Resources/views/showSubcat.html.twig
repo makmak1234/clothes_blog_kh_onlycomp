@@ -10,13 +10,15 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#{% javascripts '@UserBundle/Resources/js/indexUser.js' %}
+    {% javascripts '@UserBundle/Resources/js/indexUser.js' filter='uglifyjs2'
+                        output='js/compiled/main.js' %}
         <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}#}
+    {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
     <h1>chowSubcat</h1>
+    {% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}
 
     {#{{ dump(childrenGoods) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}

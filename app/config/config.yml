@@ -117,3 +117,6 @@ liip_imagine:
         my_thumb_subcat:
             filters:
                 thumbnail: { size: [340, 240], mode: outbound }
+        my_thumb_cart:
+            filters:
+                thumbnail: { size: [60, 50], mode: outbound }

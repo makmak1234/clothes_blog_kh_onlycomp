@@ -13,13 +13,16 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#{% javascripts '@UserBundle/Resources/js/indexUser.js' %}
+    {% javascripts '@UserBundle/Resources/js/indexUser.js' filter='uglifyjs2'
+                        output='js/compiled/main.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script src="{{ asset('bundles/app/childrengoods/indexUser.js') }}" type="text/javascript"></script>#}
+    {#<script src="{{ asset('bundles/app/childrengoods/indexUser.js') }}" type="text/javascript"></script>#}
 {% endblock %}
 
+
 {% block body %}
+    {% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}
     {#myServiceVarAll = 
     {{ dump(myServiceVarAll) }}
     myServiceVar = 

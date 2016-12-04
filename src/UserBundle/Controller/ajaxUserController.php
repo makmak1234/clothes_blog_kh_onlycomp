@@ -85,6 +85,13 @@ class ajaxUserController extends Controller
 
         $ajaxUserServ->ajaxBagUserServAction($id, $size, $color, $bagreg, $request);
 
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
+
+        foreach($ajaxUserServ->getPathImages() as $indImag => $pathImag){
+            $pathImg = '/uploads/documents/' . $pathImag;
+            $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_cart');
+        }
+
     	return $this->render('UserBundle::checkoutBag.html.twig', array(
             'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
             'id' => $id,
@@ -97,7 +104,7 @@ class ajaxUserController extends Controller
             'nid' => $ajaxUserServ->getNid(),
             'sizeTitle' => $ajaxUserServ->getSizeTitle(),
             'colorTitle' => $ajaxUserServ->getColorTitle(),
-            'pathImages' => $ajaxUserServ->getPathImages(),
+            'sourcePath' => $sourcePath,//$ajaxUserServ->getPathImages(),
         ));
     }
 

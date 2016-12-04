@@ -17,6 +17,10 @@
 
 //showGood.html.twig
 function goodbasketcheck(id, mclon, route_name){
+	/*if(id == -1){
+		var color_true = null;
+		var image_true = null;
+	}*/
 	var route = Routing.generate(route_name, { id: id, size: color_true, color: image_true, mclon: mclon}); //,  mclon: mclon
 	//alert('color_true: ' + color_true + ' image_true: ' + image_true + ' title_size: ' + title_size + ' title_color: ' + title_color);
 	//alert(route);

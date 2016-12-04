@@ -36,6 +36,14 @@ class indexUserController extends Controller
     {
         $session = $request->getSession();
 
+        $nidAll = 0;
+        if ($session->get('nid')) {
+            $nid = $session->get('nid');
+            foreach ($nid as $key => $value) {
+                $nidAll += $value;
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findAll();
@@ -56,8 +64,7 @@ class indexUserController extends Controller
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
             'sourcePath' => $sourcePath,
-            //'myServiceVarAll' => $myServiceVarAll,
-            //'myServiceVar' => $mailer->myServiceVar,
+            'nidAll' => $nidAll,
         ));
     }
 
@@ -448,6 +455,14 @@ class indexUserController extends Controller
 
         $session = $request->getSession();
 
+        $nidAll = 0;
+        if ($session->get('nid')) {
+            $nid = $session->get('nid');
+            foreach ($nid as $key => $value) {
+                $nidAll += $value;
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $repository = $em->getRepository('AdminBundle:childrenGoods');
@@ -478,6 +493,7 @@ class indexUserController extends Controller
         return $this->render('UserBundle::showSubcat.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'sourcePath' => $sourcePath,
+            'nidAll' => $nidAll,
            
         ));
     }
