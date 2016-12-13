@@ -18,7 +18,8 @@
 
 {% block body %}
     <h1>chowSubcat</h1>
-    {% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}
+    {{ render_esi(controller('UserBundle:indexUser:smallBag', { 'nidAll': nidAll, 'alt': 'UserBundle:indexUser:smallBagAlt' })) }}
+    {#{% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}#}
 
     {#{{ dump(childrenGoods) }}
     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}

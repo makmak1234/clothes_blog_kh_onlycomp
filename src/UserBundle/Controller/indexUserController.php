@@ -13,10 +13,11 @@ use AdminBundle\Entity\childrenGoodsCategory;
 use AdminBundle\Entity\childrenGoodsSizeNumber;
 use AdminBundle\Form\childrenGoodsType;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * indexUserController controller.
- *
  * 
  */
 class indexUserController extends Controller
@@ -34,7 +35,8 @@ class indexUserController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $session = $request->getSession();
+
+       $session = $request->getSession();
 
         $nidAll = 0;
         if ($session->get('nid')) {
@@ -60,12 +62,41 @@ class indexUserController extends Controller
         //$myServiceVarAll = json_encode($mailer->myServiceAction());
         //var_dump($myServiceVarAll);
 
-        return $this->render('UserBundle::indexUser.html.twig', array(
+        $response = $this->render('UserBundle::indexUser.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
             'sourcePath' => $sourcePath,
             'nidAll' => $nidAll,
         ));
+        // set the shared max age - which also marks the response as public
+        $response->setSharedMaxAge(600);
+
+        //$date = new DateTime();
+        //$date->modify('+600 seconds'); 
+        //$response->setExpires($date);
+
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
+
+        /*return $this->render('UserBundle::indexUser.html.twig', array(
+            'childrenGoods' => $childrenGoods,
+            'childrenGoodsCategory' => $childrenGoodsCategory,
+            'sourcePath' => $sourcePath,
+            'nidAll' => $nidAll,
+        ));*/
+    }
+
+    public function smallBagAction($nidAll)
+    {
+        //$nidAll = $request->query->get('nidAll');
+        return $this->render('UserBundle::smallBag.html.twig', array('nidAll' => $nidAll));
+    }
+
+    public function smallBagAltAction($nidAll)
+    {
+        $small_error = error_log($kernel->getLog());
+        return $this->render('UserBundle::smallBagAlt.html.twig', array('small_error' => $small_error));
     }
 
     /**
@@ -337,71 +368,11 @@ class indexUserController extends Controller
      */
     public function showAction(childrenGoods $childrenGood, Request $request)
     {
-        /*$add_new_cat = 'nety';
-        if(isset($_GET["add_new_cat"])){
-                //$add_new_cat = $_GET["add_new_cat"];
-                $add_new_cat = $request->query->get('add_new_cat');
-            }*/
-        
-
-        //$deleteForm = $this->createDeleteForm($childrenGood);
-
-        //$this->container->parameter('UserBundle.global_var') = 'set';
-        //$global_var = $this->container->getParameter('UserBundle.global_var'); 
-        //$this->myvar = 'myvar';
-
-        //row, clearone, plus
-
-        //$row = $childrenGood->getId();
-        //$clearone = false;
-        //$plus = '';
 
         $session = $request->getSession();
 
         $bigBagDisp = 'none';
         //$childrenGoods = '';
-
-      /*  if($session->get('idbasketsmall') != null)
-        {  
-            $idarr = $session->get('idbasketsmall');
-            $nid = $session->get('nid');
-            if($idarr){
-                //require_once "bassmallunated.php";
-                $bigBagDisp = 'block';
-
-                $em = $this->getDoctrine()->getManager();
-
-                $repository = $em->getRepository('AdminBundle:childrenGoods');
-
-                print "idarr ";
-                var_dump($idarr);
-
-                foreach ($idarr as $key => $value) {
-                    $query = $repository->find($value);
-                    $childrenGoods[] = $query;
-                }
-            }
-            //else array_splice($idarr, 0, 1);
-        }
-        $bigBagDisp = 'none';*/
-
-        /*if($session->get('idbasketsmall') != null)
-        {
-           $bigBagDisp = 'block'; 
-        }*/ 
-
-        //$imagineCacheManager = $this->get('liip_imagine.cache.manager');
-
-        //$resolvedPath = $imagineCacheManager->getBrowserPath('/media/cache/bg1.jpg148009169098.jpeg', 'my_thumb_show');
-        //$resolvedPath = $imagineCacheManager->getBrowserPath('/media/cache/z_Cento Per Cento-IMOLA CERAMICA-2.jpg147566337557.jpeg', 'my_thumb_show');
-
-       /* {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}
-                    <td>
-                        {% set sizeloop = loop.index0 %}
-                        {% for color in size.childrenGoodsColorNumber.snapshot %}
-                            <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
-                                {% set pathImg = asset('uploads/documents/' ~ color.image.path) %}
-                                <img class="show__img" src="{{ pathImg | imagine_filter('my_thumb_show') }}"> в наличии {{ color.number }} шт */
 
         $cacheManager = $this->container->get('liip_imagine.cache.manager');
 
@@ -415,18 +386,7 @@ class indexUserController extends Controller
 
         }
 
-
-        //$childrenGood->getChildrenGoodsSizeNumber()->get($sizearr[$k])->getChildrenGoodsColorNumber()->get($colorarr[$k])->getColor()->getColor();
-
-        /** @var CacheManager */
-        //$cacheManager = $this->container->get('liip_imagine.cache.manager');
-
-        /** @var string */
-        //$sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/bg1.jpg148009169098.jpeg', 'my_thumb_show');
-
-        //$sourceP[] = $cacheManager->getBrowserPath('/uploads/documents/z_Cento Per Cento-IMOLA CERAMICA-2.jpg147566337557.jpeg', 'my_thumb_show'); 
-
-        return $this->render('UserBundle::showGood.html.twig', array(
+        $response = $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
             'sourcePath' => $sourcePath,
             //'sourceP' => $sourceP,
@@ -434,6 +394,10 @@ class indexUserController extends Controller
             //'nid' => $nid,
             //'bigBagDisp' => 'none',
         ));
+
+        $response->setSharedMaxAge(600);
+
+        return $response;
     }
 
     /**
@@ -490,12 +454,18 @@ class indexUserController extends Controller
             $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_subcat');
         }
 
-        return $this->render('UserBundle::showSubcat.html.twig', array(
+        $response = $this->render('UserBundle::showSubcat.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'sourcePath' => $sourcePath,
             'nidAll' => $nidAll,
            
         ));
+
+        $response->setSharedMaxAge(600);
+
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
 
     /**

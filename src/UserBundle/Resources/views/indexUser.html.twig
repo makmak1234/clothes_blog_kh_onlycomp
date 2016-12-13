@@ -22,7 +22,8 @@
 
 
 {% block body %}
-    {% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}
+    {{ render_esi(controller('UserBundle:indexUser:smallBag', { 'nidAll': nidAll })) }}
+    {#{% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}#}
     {#myServiceVarAll = 
     {{ dump(myServiceVarAll) }}
     myServiceVar = 

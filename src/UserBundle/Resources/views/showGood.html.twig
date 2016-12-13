@@ -146,14 +146,12 @@
         <th></th>
         <td>#}
             <div id="bascetsmall" class="bascetsmall">
-                   {# childrenGoods
-                    {{ dump(childrenGoods) }}
-                    nid
-                    {{ dump(nid) }} #}
-                    {{ render(controller(
+                   {{ render_esi(controller('UserBundle:ajaxUser:ajaxBagUser',
+                        { 'id': 0})) }}
+                    {#{{ render(controller(
                         'UserBundle:ajaxUser:ajaxBagUser',
                         { 'id': 0}
-                    )) }}
+                    )) }}#}
             </div>
             {#{{ include('UserBundle::bigBag.html.twig') }}#}
         {#</td>

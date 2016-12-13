@@ -6,6 +6,11 @@
     {# <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />#}
 {% endblock %}
 
+{% block javascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script> 
+{% endblock %}
+
 {% if bigBagDisp == 'block' %} 
     <table class="goodsbasketfont m-cart-full">
 		<tr><td colspan= "4">Ваши покупки:<td></tr>
@@ -57,4 +62,10 @@
 		<tr><td colspan= "5" id="priceall">К оплате: {{ priceall }}</td></tr>{#$prsite#}
 		
 	</table>
+{% else %}
+	Корзина пустая 
+	<script>
+		route = Routing.generate('index_user');
+		window.location.href = route;
+	</script>
 {% endif %}

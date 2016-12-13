@@ -10,7 +10,7 @@ parameters:
     locale: en
 
 framework:
-    #esi:             ~
+    esi: { enabled: true }            
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -90,7 +90,7 @@ assetic:
                 #- '@AppBundle/Resources/public/js/thirdparty/jquery.ui.js'
 
 fos_js_routing:
-    routes_to_expose: [ ajax_bag_user, ajax_checkout_user, bag_register, basket_big_change ]
+    routes_to_expose: [ ajax_bag_user, ajax_checkout_user, bag_register, basket_big_change, index_user ]
 
 liip_imagine:
     resolvers:

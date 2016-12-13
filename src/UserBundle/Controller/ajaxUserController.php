@@ -70,6 +70,7 @@ class ajaxUserController extends Controller
      */
     public function ajaxCheckoutUserAction($id, $bagreg = true, Request $request)
     {
+        $sourcePath = array();
 
         $ajaxUserServ = $this->get('ajax.user.serv');
 
