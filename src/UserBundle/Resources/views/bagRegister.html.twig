@@ -4,7 +4,7 @@
         {% javascripts '@jquery_and_ui'
                         '@UserBundle/Resources/js/goodsbasketcheck.js'
                         filter='uglifyjs2'
-                        output='js/compiled/main.js' %}
+                        output='js/compiled/goodsbasketcheck.js' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
         {#<script src="{{ asset('bundles/app/user/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
@@ -15,8 +15,8 @@
 
 {% block body %}
     <h1>Регистрация покупки</h1>
-    token = 
-    {{ dump(token) }}
+    {#token = 
+    {{ dump(token) }}#}
     
     {#{{ dump(childrenGoodSession) }}#}
 

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {% stylesheets 'bundles/app/childrengoods/indexUser.css' filter='uglifycss' filter='cssrewrite' %}{#@UserBundle/Resources/css/indexUser.css#}
+    {% stylesheets '@UserBundle/Resources/css/indexUser.css' filter='uglifycss' filter='cssrewrite' %}{#@UserBundle/Resources/css/indexUser.css#}
         <link rel="stylesheet" href="{{ asset_url }}" />
     
     {% endstylesheets %}
@@ -14,7 +14,7 @@
 
 {% block javascripts %}
     {% javascripts '@UserBundle/Resources/js/indexUser.js' filter='uglifyjs2'
-                        output='js/compiled/main.js' %}
+                        output='js/compiled/index_user.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {#<script src="{{ asset('bundles/app/childrengoods/indexUser.js') }}" type="text/javascript"></script>#}
@@ -22,10 +22,11 @@
 
 
 {% block body %}
-    {{ render_esi(controller('UserBundle:indexUser:smallBag', { 'nidAll': nidAll })) }}
-    {#{% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}#}
+    {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} {#, { 'nidAll': nidAll }#}
+    {#{{ dump(small_error) }}
+    {% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}#}
     {#myServiceVarAll = 
-    {{ dump(myServiceVarAll) }}
+    {{ dump(small_error) }}
     myServiceVar = 
     {{ dump(myServiceVar) }}
     <h1>childrenGoods</h1>

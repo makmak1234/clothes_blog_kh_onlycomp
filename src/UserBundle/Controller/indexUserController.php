@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use UserBundle\Entity\bagRegister;
 use UserBundle\Entity\buyClients;
 use AdminBundle\Entity\childrenGoods;
@@ -32,11 +33,13 @@ class indexUserController extends Controller
      *
      * @Route("/", name="index_user")
      * @Method("GET")
+     * @Cache(smaxage="600")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
+    //, lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
     {
 
-       $session = $request->getSession();
+      /* $session = $request->getSession();
 
         $nidAll = 0;
         if ($session->get('nid')) {
@@ -44,7 +47,7 @@ class indexUserController extends Controller
             foreach ($nid as $key => $value) {
                 $nidAll += $value;
             }
-        }
+        }*/
 
         $em = $this->getDoctrine()->getManager();
 
@@ -62,20 +65,23 @@ class indexUserController extends Controller
         //$myServiceVarAll = json_encode($mailer->myServiceAction());
         //var_dump($myServiceVarAll);
 
+        //$small_error = error_log($kernel->getLog());
+
         $response = $this->render('UserBundle::indexUser.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
             'sourcePath' => $sourcePath,
-            'nidAll' => $nidAll,
+            //'nidAll' => $nidAll,
+            //'small_error' => $small_error,
         ));
         // set the shared max age - which also marks the response as public
-        $response->setSharedMaxAge(600);
+        //$response->setSharedMaxAge(600);
 
         //$date = new DateTime();
         //$date->modify('+600 seconds'); 
         //$response->setExpires($date);
 
-        $response->headers->addCacheControlDirective('must-revalidate', true);
+        //$response->headers->addCacheControlDirective('must-revalidate', true);
 
         return $response;
 
@@ -87,9 +93,19 @@ class indexUserController extends Controller
         ));*/
     }
 
-    public function smallBagAction($nidAll)
+    public function smallBagAction(Request $request)
     {
         //$nidAll = $request->query->get('nidAll');
+        $session = $request->getSession();
+
+        $nidAll = 0;
+        if ($session->get('nid')) {
+            $nid = $session->get('nid');
+            foreach ($nid as $key => $value) {
+                $nidAll += $value;
+            }
+        }
+
         return $this->render('UserBundle::smallBag.html.twig', array('nidAll' => $nidAll));
     }
 
@@ -365,6 +381,7 @@ class indexUserController extends Controller
      *
      * @Route("/{id}", name="user_show", requirements={"id": "\d+"})
      * @Method("GET")
+     * @Cache(smaxage="600")
      */
     public function showAction(childrenGoods $childrenGood, Request $request)
     {
@@ -395,7 +412,7 @@ class indexUserController extends Controller
             //'bigBagDisp' => 'none',
         ));
 
-        $response->setSharedMaxAge(600);
+        //$response->setSharedMaxAge(600);
 
         return $response;
     }
@@ -405,8 +422,10 @@ class indexUserController extends Controller
      *
      * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}", name="cat_sub_show", requirements={"children_goods_category_id": "\d+", "children_goods_subcategory_id": "\d+"})
      * @Method("GET")
+     * @Cache(smaxage="600")
      */
-    public function showSubcatAction(Request $request, $children_goods_category_id, $children_goods_subcategory_id )// ,$children_goods_category_id, $children_goods_subcategory_id  {children_goods_category_id}/{children_goods_subcategory_id}
+    public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id )
+    // , lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
     {
         /*$add_new_cat = 'nety';
         if(isset($_GET["add_new_cat"])){
@@ -417,7 +436,7 @@ class indexUserController extends Controller
 
         //$deleteForm = $this->createDeleteForm($childrenGood);
 
-        $session = $request->getSession();
+        /*$session = $request->getSession();
 
         $nidAll = 0;
         if ($session->get('nid')) {
@@ -425,7 +444,7 @@ class indexUserController extends Controller
             foreach ($nid as $key => $value) {
                 $nidAll += $value;
             }
-        }
+        }*/
 
         $em = $this->getDoctrine()->getManager();
 
@@ -457,13 +476,13 @@ class indexUserController extends Controller
         $response = $this->render('UserBundle::showSubcat.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'sourcePath' => $sourcePath,
-            'nidAll' => $nidAll,
+            //'nidAll' => $nidAll,
            
         ));
 
-        $response->setSharedMaxAge(600);
+        //$response->setSharedMaxAge(600);
 
-        $response->headers->addCacheControlDirective('must-revalidate', true);
+        //$response->headers->addCacheControlDirective('must-revalidate', true);
 
         return $response;
     }

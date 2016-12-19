@@ -11,14 +11,14 @@
 
 {% block javascripts %}
     {% javascripts '@UserBundle/Resources/js/indexUser.js' filter='uglifyjs2'
-                        output='js/compiled/main.js' %}
+                        output='js/compiled/index_user.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
     <h1>chowSubcat</h1>
-    {{ render_esi(controller('UserBundle:indexUser:smallBag', { 'nidAll': nidAll, 'alt': 'UserBundle:indexUser:smallBagAlt' })) }}
+    {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} {#, { 'nidAll': nidAll }#}
     {#{% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}#}
 
     {#{{ dump(childrenGoods) }}
