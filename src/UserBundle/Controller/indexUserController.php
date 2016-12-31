@@ -704,4 +704,16 @@ class indexUserController extends Controller
 
         //return $this;
     }
+
+    /**
+     * Debugger .
+     *
+     * @Route("/mydebug", name="mydebug")
+     * @Method("GET")
+     */
+    public function mydebugAction()
+    {
+
+        return $this->render('UserBundle::mydebug.html.twig');
+    }
 }
