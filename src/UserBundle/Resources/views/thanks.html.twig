@@ -1,4 +1,9 @@
-Thanks<br><br>
-<b><a href="{{ path('index_user') }}">Вернуться в магазин</a>
+{% extends 'base.html.twig' %}
 
-{% include 'UserBundle::emailAdmin.html.twig' %}
+{% block body %}
+	Thanks<br><br>
+	<b><a href="{{ path('index_user') }}">Вернуться в магазин</a>
+
+	{{ include('UserBundle::emailAdmin.html.twig') }}
+{% endblock %}
+

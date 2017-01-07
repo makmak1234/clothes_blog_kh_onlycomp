@@ -34,7 +34,9 @@ header{
 }
 .navbar-brand img{
 	position: relative;
-	top: -48px;
+	top: -33px;
+	width: 120px;
+	height: auto;
 }
 
 .navbar-default .navbar-nav > li > a{
@@ -90,18 +92,29 @@ header{
 	color: #d42819;
 }
 
+.bread-crumbs{
+	margin-bottom: 20px;
+	font-size: 120%;
+}
+
 .category {
-	width: 218px; /*340px;*/
-	height: 173px; /*240px;*/
+	width: 340px; /*340px;*//*218px;*/
+	height: 240px; /*240px;*//*173px;*/
 	max-width: 100%;
-	min-width: 270px;
+	min-width: ; /*270px;*/
 	background: scroll no-repeat;
 	background-size: cover;
-	margin: 0 auto;
+	margin: 0 auto 0 0;
+	padding: 10px;
+}
+
+.category a{
+	color: #fff;
 }
 
 .card{
-	overflow: hidden;
+	/*overflow: hidden;*/
+	margin-bottom: 30px;
 }
 
 .card h4{
@@ -196,6 +209,7 @@ header{
 	}
 	.navbar-brand img{
 		top: -15px;
+		width: auto;
 		max-height: 50px;
 	}
 	.navbar-default .navbar-nav > li.active-link > a{
@@ -222,9 +236,13 @@ header{
 	}
 	.card{
 		margin-bottom: 50px;
+		text-align: center;
 	}
 	.card-row{
 		margin-bottom: 0;
+	}
+	.category {
+		margin: 0 auto;
 	}
 }
 

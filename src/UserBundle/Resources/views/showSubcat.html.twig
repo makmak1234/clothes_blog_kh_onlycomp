@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {% stylesheets '@UserBundle/Resources/css/showSubcat.css' filter='uglifycss' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    {% stylesheets '@UserBundle/Resources/css/showSubcat.css'
+                    '@UserBundle/Resources/css/indexUser.css' 
+                    filter='uglifycss' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     {# <link href="{{ asset('bundles/app/childrengoods/showSubcat.css') }}" rel="stylesheet" />#}
@@ -10,57 +13,62 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts '@UserBundle/Resources/js/indexUser.js' filter='uglifyjs2'
-                        output='js/compiled/index_user.js' %}
+    {% javascripts '@my_jquery'
+                    '@my_bootstrap'
+                    '@UserBundle/Resources/js/indexUser.js'
+                    filter='uglifyjs2'
+                    output='js/compiled/show_subcat.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
-    <h1>chowSubcat</h1>
+    {% block header %}
+        {{ include('UserBundle::common_header.html.twig') }}
+    {% endblock %}
+
     {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} {#, { 'nidAll': nidAll }#}
-    {#{% include 'UserBundle::smallBag.html.twig' with {'nidAll': nidAll} %}#}
 
-    {#{{ dump(childrenGoods) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
-    {{ dump(add_new_cat) }}#}
-    {#{{ dump(childrenGoods[1].childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }} 
-     {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].size.size) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[1]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].number) }} #}
-
-    <b><a href="{{ path('index_user') }}">Все категории</a>->
-    {{ childrenGoods[0].childrenGoodsCategory.title }}-> 
-    {{ childrenGoods[0].childrenGoodsSubcategory.title }}</b>
-    <br><br><br>
-    {#{ dump( childrenGoods[0].childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }#}
-
-    {% for childrenGood in childrenGoods %}
-        {% set imgLink = asset(sourcePath[loop.index0]) %}
-        {#{% set imgLink = asset('uploads/documents/' ~ childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) %}#}
-        {% set idDiv = "category" ~ loop.index0 %}
-        {#{% set idImg = "idImg" ~ loop.index0 %}#}
-        <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
-            <a href="{{ path('user_show', { 'id': childrenGood.id }) }}">
-                <div>
-                    {#<img id='{{ idImg }}' class="show__img">#}
-                    {#<script>
-                        backgrCat('{{ idDiv }}', '{{ imgLink }}');
-                        imgCat('{{ idImg }}', '{{ imgLink }}');
-                    </script>#}
-                    <b>Название:</b>{{ childrenGood.title }}
-                    <br>
-                    <b>Описание:</b> {{ childrenGood.descriptionGoods.description }}
+    {% block content %}
+        <div class="content">
+            <div class="container">
+                <div class="slogan">
+                    <h1>Заголовок</h1>
+                </div> 
+                <div class="bread-crumbs"><a href="{{ path('index_user') }}">Все категории</a>->
+                    {{ childrenGoods[0].childrenGoodsCategory.title }}-> 
+                    {{ childrenGoods[0].childrenGoodsSubcategory.title }}
                 </div>
-            </a>
+                <div class="row">
+                    {% for childrenGood in childrenGoods %}
+                        {% set imgLink = asset(sourcePath[loop.index0]) %}
+                        {% set idDiv = "category" ~ loop.index0 %}
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <h4>{{ childrenGood.title }}</h4>
+                                    <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
+                                        <a href="{{ path('user_show', { 'id': childrenGood.id }) }}">
+                                            <div>
+                                                <b>Название:</b>{{ childrenGood.title }}
+                                                <br>
+                                                <b>Описание:</b> {{ childrenGood.descriptionGoods.description }}
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endfor %}
+                </div>
+
+                {% block nav %}
+                    {{ include('UserBundle::common_nav.html.twig') }}
+                {% endblock %}
+            </div>
         </div>
-    {% endfor %}
+    {% endblock %}
 
-    <b><a href="{{ path('bag_register') }}">Купить</a></b>
+{% endblock %}
 
+{% block footer %}
+    {{ include('UserBundle::common_footer.html.twig') }}
 {% endblock %}

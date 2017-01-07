@@ -1,0 +1,107 @@
+/*
+.table_image{
+	padding: 0;
+}
+
+.goodsbasketfont{
+	text-align: center;
+	font: 18px/1.3em Arial, 'Istok Web', sans-serif;
+	color: #000;
+	list-style: none;
+	border-collapse: collapse;
+}
+
+.goodsbasketfontmb{
+		display: none;
+	}
+
+.goodsbasketfont    th { 
+    text-align: center; 
+    background: #ccc; 
+    padding: 5px; 
+    border: 0px solid black; 
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.goodsbasketfont    td { 
+    padding: 5px; 
+    border: 1px solid black;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.m-cart-full{
+	font-size:1.15em;
+	color: #333;
+	background:#329b1d;background-clip:padding-box;border-radius:0 0 10px 10px;padding-left:16px;width:17.231em;height:4.308em;z-index:40
+}
+
+.m-cart-full a{
+	color: #333;
+}
+
+.goodsbasketclearone:hover{
+	cursor: pointer;
+} */
+
+.goodsbasketfont{
+	text-align: center;
+	
+}
+
+.goodsbasketfont    th { 
+    text-align: center;  
+}
+
+.goodsbasketfont    td { 
+    vertical-align: baseline !important;
+}
+
+.del_click{
+	width: 16px;
+}
+
+.show__img{
+	width: 60px;
+	height: 50px;
+}
+
+.myinput{
+	margin-bottom: 10px;
+}
+
+.panel{
+	margin-bottom: 40px;
+}
+
+.userform{
+	margin-bottom: 40px;
+}
+
+.panel-heading{
+	font-size: 200%;
+}
+
+.bascetsmall{
+	margin-top: 40px;
+}
+
+.m-cart-full td input{
+	width: 55px;
+}
+
+@media only screen and (max-width : 571px) {
+	.hide_col1{
+		display: none;
+	}
+}
+
+@media only screen and (max-width : 365px) {
+	.hide_col2{
+		display: none;
+	}
+}
+

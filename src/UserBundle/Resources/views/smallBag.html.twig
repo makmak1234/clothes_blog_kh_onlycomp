@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts '@jquery_and_ui'
+    {% javascripts '@my_jquery'
                     '@UserBundle/Resources/js/goodsbasketcheck.js'
                     filter='uglifyjs2'
-                    output='js/compiled/goodsbasketcheck.js' %}
+                    output='js/compiled/small_bag.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -16,11 +16,11 @@
 {% endblock %}
 
 {% if nidAll > 0 %}
-	<div class="goodsbasketfontmb bascetsmall">
+	<div class="goodsbasketfontmb bascetsmall">{#bascetsmall#}
 		<img src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" class="goodsbasketclearmb" onclick="goodbasketcheck('-1', 'false', 'ajax_bag_user')" title="Очистить корзину">
 		<table class="m-cart-fullmb" title="Оформить">
 			<tr>
-				<td><a class="a-block" href="{{ path('bag_register') }}">В корзине: {{ nidAll }} шт</a><td>
+				<td><a class="a-block" href="{{ path('bag_register') }}">В корзине: <span id='nidAll'>{{ nidAll }}</span> шт</a><td>
 			</tr>
 		</table>
 	</div>

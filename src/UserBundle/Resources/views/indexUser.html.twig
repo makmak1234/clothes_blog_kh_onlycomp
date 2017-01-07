@@ -8,22 +8,16 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
     
     {% endstylesheets %}
-    
-    {#<link href="{{ asset('bundles/app/childrengoods/indexUser.css') }}" rel="stylesheet" />#} 
-    {#{% javascripts '@UserBundle/Resources/js/indexUser.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-     <script src="{{ asset('bundles/app/childrengoods/indexUser.js') }}" type="text/javascript"></script>#}
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts '@jquery_and_ui'
+    {% javascripts '@my_jquery'
+                    '@my_bootstrap'
                     '@UserBundle/Resources/js/indexUser.js'
                     filter='uglifyjs2'
                     output='js/compiled/index_user.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    {#<script src="{{ asset('bundles/app/childrengoods/indexUser.js') }}" type="text/javascript"></script>#}
 {% endblock %}
 
 {#{% set imgLink = asset('uploads/documents/' ~ childrenGoodCategory.image.path) %}#}
@@ -55,204 +49,58 @@
 
     <br>#}
 
-    <header>
-        <nav class="navbar navbar-default menu">
-          <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#"><img src="{{ asset('/img/logo.png') }}"></a>
-            </div>
+    {% block header %}
+        {{ include('UserBundle::common_header.html.twig') }}
+    {% endblock %}
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active-link"><a href="#">home</a></li>
-                <li><a href="#">portfolio</a></li>
-                <li><a href="#">support</a></li>
-                <li><a href="#">blog</a></li>
-                <li><a href="#">contact</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right icons">
-                <li><a href="#"><img src="{{ asset('/img/facebook.png') }}"></a></li>
-                <li><a href="#"><img src="{{ asset('/img/twitter.png') }}"></a></li>
-                <li><a href="#"><img src="{{ asset('/img/google_plus.png') }}"></a></li>
-                <li><a href="#"><img src="{{ asset('/img/rss.png') }}"></a></li>      
-              </ul>
-            </div><!-- /.navbar-collapse -->
-            <i class="glyphicon glyphicon-globe globe" aria-hidden="true"></i>
-          </div><!-- /.container -->
-        </nav>
-    </header>
+    {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} 
 
-    <div class="content">
-        <div class="container">
-            <div class="slogan">
-                <h1>Welcome! This is <span>Bright</span>, a very clean Wordpress psd file theme. That makes it easy to showcase your work</h1>
-            </div> 
-            <div class="bread-crumbs">Все категории</div>
-            <div class="row">
-                {% set i = 0 %}
-                {% for childrenGoodCategory in childrenGoodsCategory %}
-                    {% set imgLink = asset(sourcePath[loop.index0]) %}
-                    {% set idDiv = "category" ~ loop.index0 %}
-                    {% if i == 0 %}
-                        <div class="card-row clearfix">
-                    {% endif %}
-                            <div class="col-md-3 col-sm-6">
-                                <div class="card">
-                                    <h4>{{ childrenGoodCategory.title }}</h4>
-                                    <p>Graphic design</p>
-                                    <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
-                                        {% for childrenGoodSubcategory in childrenGoodCategory.childrenGoodsSubcategory.snapshot %}
-                                            <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id }) }}">{{ childrenGoodSubcategory.title }}</a>
-                                            <br>  
-                                        {% endfor %} 
-                                        <br>
+    {% block content %}
+        <div class="content">
+            <div class="container">
+                <div class="slogan">
+                    <h1>Заголовок</h1>
+                </div> 
+                <div class="bread-crumbs">Все категории</div>
+                <div class="row">
+                    {% set i = 0 %}
+                    {% for childrenGoodCategory in childrenGoodsCategory %}
+                        {% set imgLink = asset(sourcePath[loop.index0]) %}
+                        {% set idDiv = "category" ~ loop.index0 %}
+                        {% if i == 0 %}
+                            {#<div class="card-row clearfix">#}
+                        {% endif %}
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card">
+                                        <h4>{{ childrenGoodCategory.title }}</h4>
+                                        <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
+                                            {% for childrenGoodSubcategory in childrenGoodCategory.childrenGoodsSubcategory.snapshot %}
+                                                <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id }) }}">{{ childrenGoodSubcategory.title }}</a>
+                                                <br>  
+                                            {% endfor %} 
+                                            <br>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                    {% if i == 3 %}
-                        </div>
-                    {% endif %}
-                    {% set i = i + 1 %}
-                    {% if i == 4 %}
-                        {% set i = 0 %}
-                    {% endif %}
-                {% endfor %}
+                        {% if i == 2 %}
+                           {# </div> #}
+                        {% endif %}
+                        {% set i = i + 1 %}
+                        {% if i == 3 %}
+                            {% set i = 0 %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% block nav %}
+                    {{ include('UserBundle::common_nav.html.twig') }}
+                {% endblock %}
             </div>
-
-            <div class="row">
-                <div class="card-row clearfix">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Etiam ullamcorper</h4>
-                            <p>Graphic design</p>
-                            <a href="#"><img src="{{ asset('img/photo/1.jpg') }}" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Curabitur et ligula</h4>
-                            <p>Graphic design</p>
-                            <a href="#"><img src="img/photo/2.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Integer aliquam</h4>
-                            <p>Graphic design</p>
-                            <a href="#"><img src="img/photo/3.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Quisque lorem</h4>
-                            <p>Graphic design</p>
-                            <a href="#"><img src="img/photo/4.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="hidden-lg hidden-md">
-
-                <div class="card-row clearfix">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Etiam ullamcorper</h4>
-                            <p>Painting</p>
-                            <a href="#"><img src="img/photo/5.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Curabitur et ligula</h4>
-                            <p>Painting</p>
-                            <a href="#"><img src="img/photo/6.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Integer aliquam</h4>
-                            <p>Painting</p>
-                            <a href="#"><img src="img/photo/7.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Quisque lorem</h4>
-                            <p>Painting</p>
-                            <a href="#"><img src="img/photo/8.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="hidden-lg hidden-md">
-
-                <div class="card-row clearfix">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Etiam ullamcorper</h4>
-                            <p>Traditional</p>
-                            <a href="#"><img src="img/photo/9.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Curabitur et ligula</h4>
-                            <p>Traditional</p>
-                            <a href="#"><img src="img/photo/10.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Integer aliquam</h4>
-                            <p>Traditional</p>
-                            <a href="#"><img src="img/photo/11.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <h4>Quisque lorem</h4>
-                            <p>Traditional</p>
-                            <a href="#"><img src="img/photo/12.jpg" height="173" width="218"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <nav aria-label="Page navigation" class="nav-pager">
-              <ul class="pagination">
-                <li>
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
         </div>
+    {% endblock %}
 
-    </div>
+{% endblock %}
 
-    <footer>
-        <div class="container">
-            <hr>
-            <p class="pull-right">Design by Webvilla.pl 2012</p>
-        </div>
-    </footer>
-
+{% block footer %}
+    {{ include('UserBundle::common_footer.html.twig') }}
 {% endblock %}

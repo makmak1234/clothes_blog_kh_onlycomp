@@ -1,7 +1,77 @@
 .show__img {
-	width: 60px;
+	width: 360px;
 }
 
 .table_image{
 	padding: 0;
+}
+
+.goodsbasketfont{
+	text-align: center;
+/*	position: absolute;
+	right: 30px;
+	top: 100px; 
+	float: right;*/
+	font: 18px/1.3em Arial, 'Istok Web', sans-serif;
+	color: #000;
+	list-style: none;
+	border-collapse: collapse;
+	/*outline: 1px solid #0f0;*/
+}
+
+.goodsbasketfontmb{
+		display: none;
+	}
+
+.goodsbasketfont    th { 
+    text-align: center; /* ¬ыравнивание по левому краю */
+    background: #ccc; /* ÷вет фона ¤чеек */
+    padding: 5px; /* ѕол¤ вокруг содержимого ¤чеек */
+    border: 0px solid black; /* √раница вокруг ¤чеек */
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.goodsbasketfont    td { 
+    padding: 5px; /* ѕол¤ вокруг содержимого ¤чеек */
+    border: 1px solid black; /* √раница вокруг ¤чеек */
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.m-cart-full{
+	font-size:1.15em;
+	color: #333;
+	background:#d8f0d3;background-clip:padding-box;border-radius:0 0 10px 10px;padding-left:16px;width:17.231em;height:4.308em;z-index:40
+}
+
+.m-cart-full a{
+	color: #333;
+	background: #ccc;
+}
+
+.m-cart-full button{
+	color: #333;
+	background: #d8f0d3;
+}
+
+.m-cart-full img{
+	max-width: 16px;
+}
+
+.goodsbasketclearone:hover{
+	cursor: pointer;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 767px) {
+	.goodsbasketfont{
+		display: none;
+	}
+	.goodsbasketfontmb{
+		display: block;
+	}
+
 }

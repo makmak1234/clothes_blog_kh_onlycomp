@@ -85,10 +85,12 @@ assetic:
         uglifycss:
             bin: /usr/local/bin/uglifycss
     assets:
-        jquery_and_ui:
+        my_jquery:
             inputs:
                 - '@UserBundle/Resources/js/thirdparty/jquery-3.1.1.min.js'
-                #- '@AppBundle/Resources/public/js/thirdparty/jquery.ui.js'
+        my_bootstrap:
+            inputs:
+                - 'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
 
 fos_js_routing:
     routes_to_expose: [ ajax_bag_user, ajax_checkout_user, bag_register, basket_big_change, index_user ]
@@ -111,7 +113,7 @@ liip_imagine:
         # the name of the "filter set"
         my_thumb_show:
             filters:
-                thumbnail: { size: [240, 180], mode: outbound }
+                thumbnail: { size: [360, 260], mode: outbound } #[240, 180]
         my_thumb_category:
             filters:
                 thumbnail: { size: [360, 260], mode: outbound }

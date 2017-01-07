@@ -23,9 +23,11 @@
     {{ dump(sizearr) }}
     {{ dump(colorarr) }}#}
 
+{{ include('UserBundle::smallBag.html.twig') }}
+
 {% if bigBagDisp == 'block' %} 
     <table class="goodsbasketfont m-cart-full">
-		<tr><td colspan= "4">Ваша корзина:<td></tr>
+		<tr><td colspan= "7">Ваша корзина:</td></tr>
 		<tr>
 			<th>Товар</th>
 			<th>Размер</th>
@@ -33,9 +35,11 @@
 			<th>Цена за ед</th>
 			<th>Кол-во</th>
 			<th>Цена за все</th>
-			<th></th>
+			<th> </th>
 		</tr>
+		{#{% set nall = 0 %}#}
 		{% for childrenGood in childrenGoods %}
+			{#{% set nall = nall + nid[loop.index0] %}#}
 		<tr>
 			<td>{{ childrenGood.title }}</td>
 			<td>
@@ -53,16 +57,19 @@
 			<td>{{ childrenGood.priceGoods.rub }}</td>
 			<td>{{ nid[loop.index0] }}</td>
 			<td>{{ priceone[loop.index0] }}</td>
-			<td><img id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketdel({{ childrenGood.id }}, {{ sizearr[loop.index0] }}, {{ colorarr[loop.index0] }}, 'true', 'ajax_bag_user')"></td>
+			<td>
+				<img class="goodsbasketclearone" id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketdel({{ childrenGood.id }}, {{ sizearr[loop.index0] }}, {{ colorarr[loop.index0] }}, 'true', 'ajax_bag_user')">
+			</td>
 		</tr>		
 		{% endfor %}
-		<tr><td colspan= "5">К оплате: {{ priceall }}</td></tr>{#$prsite#}
+		<tr><td colspan= "7">К оплате: {{ priceall }}</td></tr>{#$prsite#}
 		<tr>
-			<td colspan= "3"><a class="buylab" href="{{ path('bag_register') }}">Оформить</a></td>{#$dirbasbi#}
-			<td colspan= "2"><a class="goodsbasketclear" href="#" onclick="goodbasketcheck('-1', 'false', 'ajax_bag_user')">Очистить корзину</a></td>
+			<td colspan= "4"><a type="button" class="btn btn-default buylab" href="{{ path('bag_register') }}">Оформить</a></td>{#$dirbasbi#}
+			<td colspan= "3"><button type="button" class="btn btn-default" onclick="goodbasketcheck('-1', 'false', 'ajax_bag_user')">Очистить корзину</button></td>
 			{#<label class="goodsbasketclear" class="good_click" good-id=-1 mclon="false"><input type="hidden" />Очистить корзину</label>onclick="goodsbasketcheck('-1', 'FALSE', '')"#}
 		</tr>
 	</table>
+	{#<div id="nall" hidden>{{ nall }}</div>#}
 {% endif %}
 
 	{#{{ render(controller(

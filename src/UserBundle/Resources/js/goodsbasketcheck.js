@@ -28,6 +28,9 @@ function goodbasketcheck(id, mclon, route_name){
 		  url: route,
 		  success: function(data) {
 		    $('.bascetsmall').html(data);
+		    //nall = Number(document.getElementById('nall').firstChild.data);
+		    //document.getElementById('nidAll').innerHTML = Number(nall);
+		  	//alert(nall);
 		  }
 		});
 }

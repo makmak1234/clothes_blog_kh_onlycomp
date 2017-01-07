@@ -25,6 +25,7 @@ class ajaxUserServController extends Controller
 	private $sizearr = array();
 	private $colorarr = array();
 	private $nid = array();
+	private $nidAll = 0;
 	private $priceall = 0;
 	private $bigBagDisp = 'none';
 	private $childrenGoods = array();
@@ -171,6 +172,7 @@ class ajaxUserServController extends Controller
 				$row = $this->childrenGoods[$k]->getPriceGoods()->getRub();
 				$this->priceone[$k] = $row * $n;
 				$this->priceall += $this->priceone[$k];
+				$this->nidAll += $n;
 
 				
 				if ($this->sizearr[$k] != 'undefined') {
@@ -224,6 +226,10 @@ class ajaxUserServController extends Controller
 
     public function getNid(){
     	return $this->nid;
+    }
+
+    public function getNidAll(){
+    	return $this->nidAll;
     }
 
     public function getPriceall(){

@@ -17,8 +17,8 @@ var title_size = titleSize(color_true);//document.getElementById('size').options
 var title_color = titleColor(color_true, image_true);//document.getElementById('color' + color_true).options[image_true].value;//current title color
 
 function sizeSelect(f) {
-      var n_color = f.selectedIndex;//selected group colors(size)
-      //alert(n);
+      var n_color = f.selectedIndex;//f.getAttribute('selectedIndex');//selected group colors(size)
+      //alert(f.getAttribute('selectedIndex') );
       //alert("Выбран размер: " + f.options[n].value);
       document.getElementById('color' + n_color).style.display = 'block';
       document.getElementById('color' + color_true).style.display = 'none';
@@ -34,7 +34,7 @@ function sizeSelect(f) {
 }
 
 function colorSelect(f) {
-      var n = f.selectedIndex;//selected color
+      var n = f.selectedIndex;//f.getAttribute('selectedIndex');//selected color
       //alert(n);
       //alert("Выбран размер: " + f.options[n].value);
       document.getElementById('image' + color_true + n).style.display = 'block';
