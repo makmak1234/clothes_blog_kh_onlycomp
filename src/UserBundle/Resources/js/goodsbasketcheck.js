@@ -58,7 +58,7 @@ function goodbuycheck(id, mclon, route_name){
 		  success: function(data) {
 		    //$('.bascetsmall').html(data);
 		    //bag_register
-		    var route = Routing.generate('bag_register');
+		    var route = Routing.generate('bag_register_secure');
 		    $(location).attr('href',route);
 		  }
 		});

@@ -64,7 +64,7 @@
 		{% endfor %}
 		<tr><td colspan= "7">К оплате: {{ priceall }}</td></tr>{#$prsite#}
 		<tr>
-			<td colspan= "4"><a type="button" class="btn btn-default buylab" href="{{ path('bag_register') }}">Оформить</a></td>{#$dirbasbi#}
+			<td colspan= "4"><a type="button" class="btn btn-default buylab" href="{{ path('bag_register_secure') }}">Оформить</a></td>{#$dirbasbi#}
 			<td colspan= "3"><button type="button" class="btn btn-default" onclick="goodbasketcheck('-1', 'false', 'ajax_bag_user')">Очистить корзину</button></td>
 			{#<label class="goodsbasketclear" class="good_click" good-id=-1 mclon="false"><input type="hidden" />Очистить корзину</label>onclick="goodsbasketcheck('-1', 'FALSE', '')"#}
 		</tr>

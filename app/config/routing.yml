@@ -16,6 +16,11 @@ admin:
     type:     annotation
     prefix:   /
 
+bag_register_secure:
+    path:      ^/user/bag_register
+    defaults: { _controller: UserBundle:indexUser:bagRegister, requires_channel: https }
+    schemes:  [https]
+
 _sonata_admin:
     resource: .
     type: sonata_admin
