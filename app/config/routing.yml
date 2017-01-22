@@ -1,11 +1,12 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    prefix:   /myapp
 
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
-    prefix:   /user
+    # prefix:   /user
 
 admin_area:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
@@ -17,7 +18,7 @@ admin:
     prefix:   /
 
 bag_register_secure:
-    path:      ^/user/bag_register
+    path:      /user/bag_register
     defaults: { _controller: UserBundle:indexUser:bagRegister, requires_channel: https }
     schemes:  [https]
 

@@ -62,9 +62,9 @@
 
                 <input type="hidden" name="back_shop" value="id" />
 
-                <input type="submit" class="btn btn-success" value="Готово" onclick="document.bag_register.back_shop.value=false;"/>
+                <button type="submit" class="btn btn-success" value="Готово" onclick="document.bag_register.back_shop.value=false;">Готово</button>
 
-                <input type="submit" class="btn btn-default" value="Продолжить покупки" formnovalidate onclick="document.bag_register.back_shop.value=true;"/>
+                <button type="submit" class="btn btn-default inp_contin" value="Продолжить покупки" formnovalidate onclick="document.bag_register.back_shop.value=true;">Продолжить покупки</button>
 
                 {#{% if token != "qwerty" %}
                     <script type="text/javascript">
