@@ -53,6 +53,7 @@ class indexUserController extends Controller
 
         $childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findAll();
         $childrenGoodsCategory = $em->getRepository('AdminBundle:childrenGoodsCategory')->findAll();
+        $sourcePath = array();
 
         $cacheManager = $this->container->get('liip_imagine.cache.manager');
 
