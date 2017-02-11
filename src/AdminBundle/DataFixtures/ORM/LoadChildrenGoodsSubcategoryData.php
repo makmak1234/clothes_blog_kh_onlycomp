@@ -12,7 +12,7 @@ class LoadChildrenGoodsSubcategoryData extends AbstractFixture implements Ordere
 {
     public function load(ObjectManager $manager)
     {
-    	for ($i = 1; $i <= 15; $i++) { 
+    	for ($i = 1; $i <= 5; $i++) { 
             $childrenGoodsSubcategory = new childrenGoodsSubcategory();
             $childrenGoodsSubcategory->setTitle('Subcategory' . $i);
             $manager->persist($childrenGoodsSubcategory);

@@ -26,17 +26,21 @@ class LoadChildrenGoodsColorNumberData extends AbstractFixture implements Ordere
 
     public function load(ObjectManager $manager)
     {
-    	for ($i = 1; $i <= 100; $i++) { 
+        $fixtureMyService = $this->container->get('fixture.my.serv');
+        $imageCount = $fixtureMyService->imageLenghtAction('image');
+        $sizeNumberCount = $fixtureMyService->imageLenghtAction('childrenGoodsSizeNumber');
+        $colorCount = $fixtureMyService->imageLenghtAction('color');
+        var_dump($colorCount);
+
+    	for ($i = 1; $i <= 500; $i++) { 
             $childrenGoodsColorNumber = new childrenGoodsColorNumber();
-            $childrenGoodsColorNumber->setChildrenGoodsSizeNumber($this->getReference('ChildrenGoodsSizeNumber' . rand(1, 100)));
-            $childrenGoodsColorNumber->setColor($this->getReference('Color' . rand(1, 8)));
+            $childrenGoodsColorNumber->setChildrenGoodsSizeNumber($this->getReference('ChildrenGoodsSizeNumber' . rand(1, $sizeNumberCount)));
+            $childrenGoodsColorNumber->setColor($this->getReference('Color' . rand(1, $colorCount)));
             $childrenGoodsColorNumber->setNumber(rand(1, 200));
             $childrenGoodsColorNumber->setDraft('1');
-
-            $fixtureMyService = $this->container->get('fixture.my.serv');
-            $childrenGoodsSizeNumber = $fixtureMyService->fixtureServiceAction(rand(1, 2));
-            //$childrenGoodsSizeNumber = json_decode($childrenGoodsSizeNumber);
-            $childrenGoodsColorNumber->setImage($childrenGoodsSizeNumber);
+ 
+            $image = $fixtureMyService->fixtureServiceAction(rand(1, $imageCount), 'image');
+            $childrenGoodsColorNumber->setImage($image);
 
             $manager->persist($childrenGoodsColorNumber);
             $manager->flush();

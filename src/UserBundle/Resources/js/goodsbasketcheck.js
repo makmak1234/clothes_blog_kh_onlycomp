@@ -52,14 +52,14 @@ function goodbasketdel(id, color_del, image_del, mclon, route_name){
 function goodbuycheck(id, mclon, route_name){
 	var route = Routing.generate(route_name, { id: id, size: color_true, color: image_true, mclon: mclon}); //,  mclon: mclon
 	//alert('color_true: ' + color_true + ' image_true: ' + image_true + ' title_size: ' + title_size + ' title_color: ' + title_color);
-	alert(route);
+	//alert(route);
 	$.ajax({ 
 		  url: route,
 		  success: function(data) {
 		    //$('.bascetsmall').html(data);
 		    //bag_register
 		    var route = Routing.generate('bag_register_secure');
-		    alert(route);
+		    //alert(route);
 		    $(location).attr('href',route);
 		  }
 		});

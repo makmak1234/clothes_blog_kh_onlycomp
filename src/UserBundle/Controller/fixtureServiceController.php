@@ -28,7 +28,18 @@ class fixtureServiceController extends Controller
 	    $this->entityManager = $entityManager;
 	}
 
-	public function fixtureServiceAction($id)
+	public function imageLenghtAction($mybundle){
+		$em = $this->entityManager;
+
+        $repository = $em->getRepository('AdminBundle:' . $mybundle);
+        $image = $repository->findAll();
+
+        $totalCount = $em->getConnection()->query('SELECT FOUND_ROWS()')->fetchColumn(0);
+
+        return $totalCount;
+	}
+
+	public function fixtureServiceAction($id, $mybundle)
     {
     	//print "myServiceAction";
     	//var_dump('');
@@ -36,7 +47,7 @@ class fixtureServiceController extends Controller
     	$em = $this->entityManager;
 		//$em = $this->getDoctrine()->getManager();
 
-        $repository = $em->getRepository('AdminBundle:image');
+        $repository = $em->getRepository('AdminBundle:' . $mybundle);
         $image = $repository->find($id);
         //var_dump($image->getPath());
 
