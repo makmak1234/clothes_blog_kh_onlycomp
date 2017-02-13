@@ -8,14 +8,14 @@ class indexUserControllerTest extends WebTestCase
 {
 	private $cat = array();
 	private $subcat = array();
-	//private $links_subcat = array();
+	private $links_subcat = array();
 
     public function testIndex()
     {
     	global $links_subcat;// = array();
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/user/');
+        $crawler = $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertGreaterThan(0, $crawler->filter('div h4')->count());
