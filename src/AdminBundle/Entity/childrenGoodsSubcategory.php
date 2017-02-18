@@ -29,23 +29,24 @@ class childrenGoodsSubcategory
      */
     private $title;
 
+    //@ORM\OneToMany(targetEntity="childrenGoods", mappedBy="childrenGoodsSubcategory")
     /**
-    * @ORM\OneToMany(targetEntity="childrenGoods", mappedBy="childrenGoodsSubcategory")
+    * @ORM\ManyToMany(targetEntity="childrenGoods", inversedBy="childrenGoodsSubcategory")
     */
-    protected $childrenGoods;
+    private $childrenGoods;
 
-    public function __construct()
-    {
-        $this->childrenGoods = new ArrayCollection();
-        //$this->childrenGoodsCategory = new ArrayCollection();
-    }
-
-    /*
+    /**
      * @var int
      *
      * @ORM\ManyToMany(targetEntity="childrenGoodsCategory", mappedBy="childrenGoodsSubcategory")
      */
-    //protected $childrenGoodsCategory;
+    private $childrenGoodsCategory;
+
+    public function __construct()
+    {
+        $this->childrenGoods = new ArrayCollection();
+        $this->childrenGoodsCategory = new ArrayCollection();
+    }
 
     /**
      * Get id

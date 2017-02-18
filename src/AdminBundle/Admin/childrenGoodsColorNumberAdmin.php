@@ -13,9 +13,7 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
     {
         $formMapper->add('color', 'entity', array('class' => 'AdminBundle:color', 'property' => 'color'))
                     ->add('number')
-                    //->add('childrenGoodsSizeNumber', 'entity', array('class' => 'AdminBundle:childrenGoodsSizeNumber', 'property' => 'id', 'required' => false))
                     ->add('childrenGoodsSizeNumber', 'sonata_type_model', array('class' => 'AdminBundle\Entity\childrenGoodsSizeNumber', 'property' => 'size.size'))
-                    //->add('childrenGoodsSizeNumber', 'entity', array('class' => 'AdminBundle\Entity\childrenGoodsSizeNumber', 'property' => 'childrenGoods.title', 'required' => false))
                     ->add('image', 'sonata_type_model', array(
                         'class' => 'AdminBundle\Entity\image',
                         'property' => 'path',
@@ -42,11 +40,14 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
                     ->addIdentifier('number')
                     ->add('childrenGoodsSizeNumber.size.size')
                     ->add('childrenGoodsSizeNumber.childrenGoods.title')
-                    ->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsCategory.title')
-                    ->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.title')
-                    //->add('childrenGoodsSizeNumber', 'sonata_type_model', array(
-                    //    'associated_property' => 'size'
-                    //))
+                    //->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsCategory.title')
+                    /*->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.childrenGoodsCategory', 'sonata_type_model', array(
+                       'associated_property' => 'title'
+                    ))*/
+                    //->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.title')
+                    ->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory', 'sonata_type_model', array(
+                       'associated_property' => 'title'
+                    ))
                     ->add('image.path')
                     ->add('draft')
         ;
@@ -56,6 +57,6 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
     {
         return $object instanceof childrenGoodsAdmin
             ? $object->getTitle()
-            : 'size childrenGoodsSizeNumber'; // shown in the breadcrumb on the create view
+            : 'size childrenGoodsSizeNumber'; // shown in the breadcrumb on the create view 'size childrenGoodsSizeNumber'
     }
 }

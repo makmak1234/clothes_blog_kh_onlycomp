@@ -32,7 +32,7 @@ class LoadChildrenGoodsColorNumberData extends AbstractFixture implements Ordere
         $colorCount = $fixtureMyService->imageLenghtAction('color');
         var_dump($colorCount);
 
-    	for ($i = 1; $i <= 500; $i++) { 
+    	for ($i = 1; $i <= 300; $i++) { 
             $childrenGoodsColorNumber = new childrenGoodsColorNumber();
             $childrenGoodsColorNumber->setChildrenGoodsSizeNumber($this->getReference('ChildrenGoodsSizeNumber' . rand(1, $sizeNumberCount)));
             $childrenGoodsColorNumber->setColor($this->getReference('Color' . rand(1, $colorCount)));

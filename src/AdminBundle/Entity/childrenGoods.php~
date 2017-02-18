@@ -26,19 +26,19 @@ class childrenGoods //extends Controller
      */
     private $id;
 
-    /**
+    /*
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="childrenGoodsCategory", inversedBy="childrenGoods")
-     */
-    protected $childrenGoodsCategory;
+     /
+    protected $childrenGoodsCategory;*/
 
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="childrenGoodsSubcategory", inversedBy="childrenGoods")
+     * @ORM\ManyToMany(targetEntity="childrenGoodsSubcategory", mappedBy="childrenGoods")
      */
-    protected $childrenGoodsSubcategory;
+    private $childrenGoodsSubcategory; 
 
     /**
      * @var string
@@ -94,6 +94,12 @@ class childrenGoods //extends Controller
     */
     protected $childrenGoodsSizeNumber;
 
+    /*
+    * @ORM\ManyToMany(targetEntity="size", inversedBy="childrenGoods")
+    *
+    /
+    private $size;*/
+
     /**
     * @ORM\OneToMany(targetEntity="\UserBundle\Entity\buyClients", mappedBy="childrenGoods")
     */
@@ -101,8 +107,10 @@ class childrenGoods //extends Controller
 
     public function __construct()
     {
+        //$this->size = new ArrayCollection();
         $this->buyClients = new ArrayCollection();
         $this->childrenGoodsSizeNumber = new ArrayCollection();
+        $this->childrenGoodsSubcategory = new ArrayCollection();
     }
 
     /**
@@ -421,5 +429,63 @@ class childrenGoods //extends Controller
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Add childrenGoodsSubcategory
+     *
+     * @param \AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory
+     *
+     * @return childrenGoods
+     */
+    public function addChildrenGoodsSubcategory(\AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory)
+    {
+        $this->childrenGoodsSubcategory[] = $childrenGoodsSubcategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenGoodsSubcategory
+     *
+     * @param \AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory
+     */
+    public function removeChildrenGoodsSubcategory(\AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory)
+    {
+        $this->childrenGoodsSubcategory->removeElement($childrenGoodsSubcategory);
+    }
+
+    /**
+     * Add size
+     *
+     * @param \AdminBundle\Entity\childrenGoods $size
+     *
+     * @return childrenGoods
+     */
+    public function addSize(\AdminBundle\Entity\childrenGoods $size)
+    {
+        $this->size[] = $size;
+
+        return $this;
+    }
+
+    /**
+     * Remove size
+     *
+     * @param \AdminBundle\Entity\childrenGoods $size
+     */
+    public function removeSize(\AdminBundle\Entity\childrenGoods $size)
+    {
+        $this->size->removeElement($size);
+    }
+
+    /**
+     * Get size
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

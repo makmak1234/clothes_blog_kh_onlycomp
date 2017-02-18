@@ -3,6 +3,7 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * childrenGoodsColorNumber
@@ -54,12 +55,23 @@ class childrenGoodsColorNumber
      */
     private $image;
 
+    /*
+    * @ORM\ManyToMany(targetEntity="size", inversedBy="childrenGoodsColorNumber")
+    *
+    /
+    private $size;*/
+
     /**
      * @var bool
      *
      * @ORM\Column(name="draft", type="boolean", nullable=true)
      */
     private $draft = false;
+
+    /*public function __construct()
+    {
+        $this->size = new ArrayCollection();
+    }*/
 
 
     /**
@@ -208,5 +220,39 @@ class childrenGoodsColorNumber
     public function getDraft()
     {
         return $this->draft;
+    }
+
+    /**
+     * Add size
+     *
+     * @param \AdminBundle\Entity\size $size
+     *
+     * @return childrenGoodsColorNumber
+     */
+    public function addSize(\AdminBundle\Entity\size $size)
+    {
+        $this->size[] = $size;
+
+        return $this;
+    }
+
+    /**
+     * Remove size
+     *
+     * @param \AdminBundle\Entity\size $size
+     */
+    public function removeSize(\AdminBundle\Entity\size $size)
+    {
+        $this->size->removeElement($size);
+    }
+
+    /**
+     * Get size
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

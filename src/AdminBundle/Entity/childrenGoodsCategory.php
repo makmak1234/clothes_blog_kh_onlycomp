@@ -29,27 +29,27 @@ class childrenGoodsCategory
      */
     private $title;
 
-    /**
+    /*
     * @ORM\OneToMany(targetEntity="childrenGoods", mappedBy="childrenGoodsCategory")
-    */
-    protected $childrenGoods;
+    *
+    /
+    protected $childrenGoods;*/
 
     /**
      * @ORM\ManyToOne(targetEntity="image", inversedBy="childrenGoodsCategory")
      */
     protected $image;
 
-    public function __construct()
-    {
-        $this->childrenGoods = new ArrayCollection();
-        $this->childrenGoodsSubcategory = new ArrayCollection();
-    }
-
-    //, inversedBy="childrenGoodsCategory")
     /**
-    * @ORM\ManyToMany(targetEntity="childrenGoodsSubcategory")
+    * @ORM\ManyToMany(targetEntity="childrenGoodsSubcategory", inversedBy="childrenGoodsCategory")
     */
     protected $childrenGoodsSubcategory;
+
+    public function __construct()
+    {
+        //$this->childrenGoods = new ArrayCollection();
+        $this->childrenGoodsSubcategory = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -84,12 +84,12 @@ class childrenGoodsCategory
         return $this->title;
     }
 
-    /**
+    /*
      * Add childrenGoods
      *
      * @param \AdminBundle\Entity\childrenGoods $childrenGoods
      * @return childrenGoodsCategory
-     */
+     /
     public function addChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
     {
         $this->childrenGoods[] = $childrenGoods;
@@ -97,11 +97,11 @@ class childrenGoodsCategory
         return $this;
     }
 
-    /**
+    /*
      * Remove childrenGoods
      *
      * @param \AdminBundle\Entity\childrenGoods $childrenGoods
-     */
+     /
     public function removeChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
     {
         $this->childrenGoods->removeElement($childrenGoods);
@@ -111,11 +111,11 @@ class childrenGoodsCategory
      * Get childrenGoods
      *
      * @return \Doctrine\Common\Collections\Collection 
-     */
+     /
     public function getChildrenGoods()
     {
         return $this->childrenGoods;
-    }
+    }*/
 
     /**
      * Set childrenGoodsSubcategory

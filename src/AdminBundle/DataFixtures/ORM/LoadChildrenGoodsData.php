@@ -26,8 +26,8 @@ class LoadChildrenGoodsData extends AbstractFixture implements OrderedFixtureInt
     public function load(ObjectManager $manager)
     {
     	$fixtureMyService = $this->container->get('fixture.my.serv');
-        $categoryCount = $fixtureMyService->imageLenghtAction('childrenGoodsCategory');
-        $subcategoryCount = $fixtureMyService->imageLenghtAction('childrenGoodsSubcategory');
+        //$categoryCount = $fixtureMyService->imageLenghtAction('childrenGoodsCategory');
+        //$subcategoryCount = $fixtureMyService->imageLenghtAction('childrenGoodsSubcategory');
         $priceCount = $fixtureMyService->imageLenghtAction('priceGoods');
         $descriptionCount = $fixtureMyService->imageLenghtAction('descriptionGoods');
 
@@ -36,9 +36,8 @@ class LoadChildrenGoodsData extends AbstractFixture implements OrderedFixtureInt
 	        $childrenGoods->setTitle('Goods' . $i);
 	        $childrenGoods->setPosition($i);
 
-	        //$repository = $this->getDoctrine()->getRepository('AdminBundle:childrenGoodsCategory');
-	        $childrenGoods->setChildrenGoodsCategory($this->getReference('Category' . rand(1, $categoryCount)));//($childrenGoodsCategory);//($repository->findOneByTitle('Category1'));
-	        $childrenGoods->setChildrenGoodsSubcategory($this->getReference('Subcategory' . rand(1, $subcategoryCount)));
+	        //$childrenGoods->setChildrenGoodsCategory($this->getReference('Category' . rand(1, $categoryCount)));//($childrenGoodsCategory);//($repository->findOneByTitle('Category1'));
+	        //$childrenGoods->setChildrenGoodsSubcategory($this->getReference('Subcategory' . rand(1, $subcategoryCount)));
 	        $childrenGoods->setDescriptionGoods($this->getReference('Description' . $i));
 	        $childrenGoods->setPriceGoods($this->getReference('Price' . rand(1, $priceCount)));
 	        $childrenGoods->setDraft('1');
@@ -56,6 +55,6 @@ class LoadChildrenGoodsData extends AbstractFixture implements OrderedFixtureInt
 
     public function getOrder()
     {
-        return 6;
+        return 4;
     }
 }

@@ -21,6 +21,10 @@ class sizeAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('size');
+        $listMapper->addIdentifier('size')
+                    /*->add('childrenGoods', 'sonata_type_model', array(
+                        'associated_property' => 'title'
+                    ))*/
+        ;
     }
 }
