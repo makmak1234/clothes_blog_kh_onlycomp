@@ -12,7 +12,7 @@ class LoadDescriptionGoodsData extends AbstractFixture implements OrderedFixture
 {
     public function load(ObjectManager $manager)
     {
-    	for ($i = 1; $i <= 20; $i++) { 
+    	for ($i = 1; $i <= 5; $i++) { 
             $descriptionGoods = new descriptionGoods();
             $descriptionGoods->setDescription('Description goods' . $i);
             $manager->persist($descriptionGoods);

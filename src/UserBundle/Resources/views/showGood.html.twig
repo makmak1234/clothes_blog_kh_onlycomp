@@ -42,8 +42,9 @@
                     <h1>Заголовок</h1>
                 </div> 
                 <div class="bread-crumbs"><a href="{{ path('index_user') }}">Все категории</a>-> 
-                    <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}</a>->
-                    {{ childrenGood.childrenGoodsSubcategory.title }}
+                    <a href="{{ path('cat_sub_show', { 'children_goods_category_id': category.id , 'children_goods_subcategory_id': subcategory.id }) }}">{{ category.title }}</a>->  
+                    {{ subcategory.title }}
+                    {#{ 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}#}
                 </div>
 
                 <div class="row">

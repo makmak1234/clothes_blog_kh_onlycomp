@@ -36,8 +36,8 @@
                     <h1>Заголовок</h1>
                 </div> 
                 <div class="bread-crumbs"><a href="{{ path('index_user') }}">Все категории</a>->
-                    {{ childrenGoods[0].childrenGoodsCategory.title }}-> 
-                    {{ childrenGoods[0].childrenGoodsSubcategory.title }}
+                    {{ category.title }}-> {#childrenGoods[0].childrenGoodsCategory#}
+                    {{ subcategory.title }}   {#childrenGoods[0].childrenGoodsSubcategory#}
                 </div>
                 <div class="row">
                     {% for childrenGood in childrenGoods %}
@@ -47,7 +47,7 @@
                                 <div class="card">
                                     <h4>{{ childrenGood.title }}</h4>
                                     <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
-                                        <a class="a-card" href="{{ path('user_show', { 'id': childrenGood.id }) }}">
+                                        <a class="a-card" href="{{ path('user_show', {'children_goods_category_id': category.id , 'children_goods_subcategory_id': subcategory.id, 'id': childrenGood.id }) }}">
                                             <div>
                                                 <b>Название:</b>{{ childrenGood.title }}
                                                 <br>

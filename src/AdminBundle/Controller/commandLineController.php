@@ -40,12 +40,12 @@ class commandLineController extends Controller
 
         var_dump($ext);
 
-        //'doctrine:schema:drop?ext=--force'  удалить все таблицы
-        //удалить в базе таблицу миграции
-        //doctrine:migrations:diff  создать миграционный класс  
-        //'doctrine:migrations:migrate'   создать таблицы из класса миграции
-        //занести в базу картинки
-        //'doctrine:fixtures:load?ext=--append'  заполнить базу тестовыми данными
+        // 1) 'doctrine:schema:drop?ext=--force'  удалить все таблицы
+        // 2) удалить в базе таблицу миграции
+        // 3) doctrine:migrations:diff  создать миграционный класс  
+        // 4) 'doctrine:migrations:migrate'   создать таблицы из класса миграции
+        // 5) занести в базу картинки
+        // 6) 'doctrine:fixtures:load?ext=--append'  заполнить базу тестовыми данными
         $input = new ArrayInput(array(
            'command' => $command, 
            $ext => '',

@@ -29,13 +29,17 @@ class LoadChildrenGoodsSizeNumberData extends AbstractFixture implements Ordered
         $goodsCount = $fixtureMyService->imageLenghtAction('childrenGoods');
         $sizeCount = $fixtureMyService->imageLenghtAction('size');
 
-    	for ($i = 1; $i <= 100; $i++) { 
-            $childrenGoodsSizeNumber = new childrenGoodsSizeNumber();
-            $childrenGoodsSizeNumber->setChildrenGoods($this->getReference('ChildrenGoods' . rand(1, $goodsCount)));
-            $childrenGoodsSizeNumber->setSize($this->getReference('Size' . rand(1, $sizeCount)));
-            $manager->persist($childrenGoodsSizeNumber);
-            $manager->flush();
-            $this->addReference('ChildrenGoodsSizeNumber' . $i, $childrenGoodsSizeNumber);
+        $k = 1;
+    	for ($i = 1; $i <= 3; $i++) { 
+            for ($j = 1; $j <= $goodsCount; $j++) { 
+                $childrenGoodsSizeNumber = new childrenGoodsSizeNumber();
+                $childrenGoodsSizeNumber->setChildrenGoods($this->getReference('ChildrenGoods' . $j));
+                $childrenGoodsSizeNumber->setSize($this->getReference('Size' . rand(1, $sizeCount)));
+                $manager->persist($childrenGoodsSizeNumber);
+                $manager->flush();
+                $this->addReference('ChildrenGoodsSizeNumber' . $k, $childrenGoodsSizeNumber);
+                $k++;
+            }
         }
     }
 

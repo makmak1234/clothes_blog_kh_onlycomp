@@ -38,13 +38,15 @@ class LoadChildrenGoodsCategoryData extends AbstractFixture implements OrderedFi
             $childrenGoodsCategory->setTitle('Category' . $i);
             $image = $fixtureMyService->fixtureServiceAction(rand(1, $imageCount), 'image');
             $childrenGoodsCategory->setImage($image);
-            for ($j = 1; $j <= rand(1, 5); $j++) { 
+            for ($j = 1; $j <= rand(3, 7); $j++) { 
                 $subcategory = rand(1, $subcategoryCount);
                 if (!in_array($subcategory, $subcategoryAll)) {
                     $childrenGoodsCategory->addChildrenGoodsSubcategory($this->getReference('Subcategory' . $subcategory));
                 }
                 $subcategoryAll[] = $subcategory;
             }
+            $subcategoryAll = null;
+            $subcategoryAll[] = 0;
             $manager->persist($childrenGoodsCategory);
             $manager->flush();
             $this->addReference('Category' . $i, $childrenGoodsCategory);

@@ -380,17 +380,25 @@ class indexUserController extends Controller
     /**
      * Finds and displays a childrenGoods entity.
      *
-     * @Route("/{id}", name="user_show", requirements={"id": "\d+"})
+     * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}/{id}", name="user_show", requirements={"id": "\d+"})
      * @Method("GET")
      * @Cache(smaxage="600")
      */
-    public function showAction(childrenGoods $childrenGood, Request $request)
+    public function showAction(childrenGoods $childrenGood, Request $request, $children_goods_category_id, $children_goods_subcategory_id)
     {
 
         $session = $request->getSession();
 
         $bigBagDisp = 'none';
         //$childrenGoods = '';
+
+        $em = $this->getDoctrine()->getManager();
+
+        $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
+                    ->findOneById($children_goods_category_id);
+
+        $subcategory = $em->getRepository('AdminBundle:childrenGoodsSubcategory')
+                    ->findOneById($children_goods_subcategory_id);
 
         $cacheManager = $this->container->get('liip_imagine.cache.manager');
 
@@ -407,6 +415,8 @@ class indexUserController extends Controller
         $response = $this->render('UserBundle::showGood.html.twig', array(
             'childrenGood' => $childrenGood,
             'sourcePath' => $sourcePath,
+            'category' => $category,
+            'subcategory' => $subcategory,
             //'sourceP' => $sourceP,
             //'childrenGoods' => $childrenGoods,
             //'nid' => $nid,
@@ -428,24 +438,24 @@ class indexUserController extends Controller
     public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id )
     // , lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
     {
-        /*$add_new_cat = 'nety';
-        if(isset($_GET["add_new_cat"])){
-                //$add_new_cat = $_GET["add_new_cat"];
-                $add_new_cat = $request->query->get('add_new_cat');
-            }*/
-        
+                                /*$add_new_cat = 'nety';
+                                if(isset($_GET["add_new_cat"])){
+                                        //$add_new_cat = $_GET["add_new_cat"];
+                                        $add_new_cat = $request->query->get('add_new_cat');
+                                    }*/
+                                
 
-        //$deleteForm = $this->createDeleteForm($childrenGood);
+                                //$deleteForm = $this->createDeleteForm($childrenGood);
 
-        /*$session = $request->getSession();
+                                /*$session = $request->getSession();
 
-        $nidAll = 0;
-        if ($session->get('nid')) {
-            $nid = $session->get('nid');
-            foreach ($nid as $key => $value) {
-                $nidAll += $value;
-            }
-        }*/
+                                $nidAll = 0;
+                                if ($session->get('nid')) {
+                                    $nid = $session->get('nid');
+                                    foreach ($nid as $key => $value) {
+                                        $nidAll += $value;
+                                    }
+                                }*/
 
         $em = $this->getDoctrine()->getManager();
 
@@ -457,19 +467,19 @@ class indexUserController extends Controller
         $subcategory = $em->getRepository('AdminBundle:childrenGoodsSubcategory')
                     ->findOneById($children_goods_subcategory_id);
 
-        $query = $repository->createQueryBuilder('p')
+        $childrenGoods = $subcategory->getChildrenGoods();
+        /*$query = $repository->createQueryBuilder('p')
             ->where('p.childrenGoodsCategory = :children_goods_category_id AND p.childrenGoodsSubcategory = :children_goods_subcategory_id')
             ->setParameter('children_goods_category_id', $category)
             ->setParameter('children_goods_subcategory_id', $subcategory)
-            //->setParameter(array(1 => $category, 2 => $subcategory))
             ->orderBy('p.title', 'ASC')
             ->getQuery();
 
-        $childrenGoods = $query->getResult();
+        $childrenGoods = $query->getResult();*/
 
         $cacheManager = $this->container->get('liip_imagine.cache.manager');
 
-        foreach($childrenGoods as $indCat => $childrenGood){
+        foreach($childrenGoods as $indCat => $childrenGood){ //
             $pathImg = '/uploads/documents/' . $childrenGood->getChildrenGoodsSizeNumber()->get(0)->getChildrenGoodsColorNumber()->get(0)->getImage()->getPath();
             $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_subcat');
         }
@@ -477,6 +487,8 @@ class indexUserController extends Controller
         $response = $this->render('UserBundle::showSubcat.html.twig', array(
             'childrenGoods' => $childrenGoods,
             'sourcePath' => $sourcePath,
+            'category' => $category,
+            'subcategory' => $subcategory,
             //'nidAll' => $nidAll,
            
         ));

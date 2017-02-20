@@ -39,8 +39,6 @@ class LoadChildrenGoodsSubcategoryData extends AbstractFixture implements Ordere
                 }
                 $childrenGoodsAll[] = $childrenGoods;
             }
-            //unset($childrenGoodsAll);
-            //$childrenGoodsAll = array();
             $childrenGoodsAll = null;
             $childrenGoodsAll[] = 0;
             $manager->persist($childrenGoodsSubcategory);
