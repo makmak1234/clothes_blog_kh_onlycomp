@@ -31,24 +31,39 @@ class commandLineController extends Controller
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        if(null !== $request->query->get('ext')){
-            $ext = $request->query->get('ext');
+        if(null !== $request->query->get('ext1')){
+            $ext1 = $request->query->get('ext1');
         }
         else{
-            $ext = '--ansi';
+            $ext1 = '--ansi';
         }
 
-        var_dump($ext);
+        if(null !== $request->query->get('ext21')){
+            $ext21 = $request->query->get('ext21');
+            $ext22 = $request->query->get('ext22');
+        }
+        else{
+            $ext21 = '--ansi';
+            $ext22 = '';
+        }
+
+        print_r("ext1: " . $ext1); print_r('<br>');
+        print_r("ext21: " . $ext21); print_r('<br>');
+        print_r("ext22: " . $ext22); print_r('<br>');
 
         // 1) 'doctrine:schema:drop?ext=--force'  удалить все таблицы
         // 2) удалить в базе таблицу миграции
         // 3) doctrine:migrations:diff  создать миграционный класс  
         // 4) 'doctrine:migrations:migrate'   создать таблицы из класса миграции
         // 5) занести в базу картинки
-        // 6) 'doctrine:fixtures:load?ext=--append'  заполнить базу тестовыми данными
+        // 6) 'doctrine:fixtures:load?ext1=--append'  заполнить базу тестовыми данными
+
+        // assetic:dump?ext1=--no-debug&ext21=--env&ext22=prod  скомпилировать js css
         $input = new ArrayInput(array(
            'command' => $command, 
-           $ext => '',
+           $ext1 => '',
+           $ext21 => $ext22,
+
         ));
         // You can use NullOutput() if you don't need the output
         $output = new BufferedOutput(

@@ -19,8 +19,8 @@ admin:
 
 bag_register_secure:
     path:      /user/bag_register
-    defaults: { _controller: UserBundle:indexUser:bagRegister, requires_channel: https }
-    schemes:  [https]
+    #defaults: { _controller: UserBundle:indexUser:bagRegister, requires_channel: http }
+    #schemes:  [http]
 
 _sonata_admin:
     resource: .

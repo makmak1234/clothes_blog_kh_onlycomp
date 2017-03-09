@@ -2,8 +2,6 @@
 /web/assetic/
 /web/assets/
 /web/bundels/
-/web/css/
-/web/js/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -15,6 +13,6 @@
 /vendor/
 /bin/
 /composer.phar
-/web/css/
-/web/js/
+# /web/css/
+# /web/js/
 /web/media/
