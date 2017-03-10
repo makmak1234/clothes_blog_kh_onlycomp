@@ -59,7 +59,8 @@ class imageAdmin extends AbstractAdmin
             $fileFieldOptions['help'] = '<img src="'.$fullPath.'" class="admin-preview" />';
         }
 
-        $listMapper->addIdentifier('path')
+        $listMapper ->add('id')
+                    ->addIdentifier('path')
                     ->add('image', 'file', $fileFieldOptions)
                     ->add('_action', 'actions', array(
                         'actions' => array(

@@ -36,7 +36,8 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->add('color.color')
+        $listMapper ->add('id')
+                    ->add('color.color')
                     ->addIdentifier('number')
                     ->add('childrenGoodsSizeNumber.size.size')
                     ->add('childrenGoodsSizeNumber.childrenGoods.title')

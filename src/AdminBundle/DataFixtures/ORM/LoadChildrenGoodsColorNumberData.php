@@ -30,7 +30,7 @@ class LoadChildrenGoodsColorNumberData extends AbstractFixture implements Ordere
         $imageCount = $fixtureMyService->imageLenghtAction('image');
         $sizeNumberCount = $fixtureMyService->imageLenghtAction('childrenGoodsSizeNumber');
         $colorCount = $fixtureMyService->imageLenghtAction('color');
-        var_dump($colorCount);
+        print_r('imageCount: ' . $imageCount);
 
     	for ($i = 1; $i <= 3; $i++) { 
             for ($j = 1; $j <= $sizeNumberCount; $j++) { 
@@ -41,6 +41,7 @@ class LoadChildrenGoodsColorNumberData extends AbstractFixture implements Ordere
                 $childrenGoodsColorNumber->setDraft('1');
      
                 $image = $fixtureMyService->fixtureServiceAction(rand(1, $imageCount), 'image');
+                print_r('image: ' . $image->getPath());
                 $childrenGoodsColorNumber->setImage($image);
 
                 $manager->persist($childrenGoodsColorNumber);

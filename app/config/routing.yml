@@ -18,7 +18,7 @@ admin:
     prefix:   /
 
 bag_register_secure:
-    path:      /user/bag_register
+    path:      /bag_register #/user/bag_register
     #defaults: { _controller: UserBundle:indexUser:bagRegister, requires_channel: http }
     #schemes:  [http]
 
