@@ -30,6 +30,7 @@ class LoadChildrenGoodsData extends AbstractFixture implements OrderedFixtureInt
         //$subcategoryCount = $fixtureMyService->imageLenghtAction('childrenGoodsSubcategory');
         $priceCount = $fixtureMyService->imageLenghtAction('priceGoods');
         $descriptionCount = $fixtureMyService->imageLenghtAction('descriptionGoods');
+        $imageCount = $fixtureMyService->imageLenghtAction('image');
 
         for ($i = 1; $i <= $descriptionCount ; $i++) { 
         	$childrenGoods = new childrenGoods();
@@ -50,6 +51,12 @@ class LoadChildrenGoodsData extends AbstractFixture implements OrderedFixtureInt
 	        $manager->flush();
 
 	        $this->addReference('ChildrenGoods' . $i, $childrenGoods);
+        }
+
+        $imageAll = $fixtureMyService->fixtureImageAction();
+        foreach ($imageAll as $key => $value) {
+            print_r('imageReference: ' . ($key + 1) .' ');
+            $this->addReference('Image' . ($key + 1), $value);
         }
     }
 

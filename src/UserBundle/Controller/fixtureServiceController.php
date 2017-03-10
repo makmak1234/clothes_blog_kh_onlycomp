@@ -54,4 +54,12 @@ class fixtureServiceController extends Controller
     	//return json_encode($image);
     	return $image;
     }
+
+    public function fixtureImageAction()
+    {
+        $em = $this->entityManager;
+        $repository = $em->getRepository('AdminBundle:image');
+        $imageAll = $repository->findAll();
+        return $imageAll;
+    }
 }

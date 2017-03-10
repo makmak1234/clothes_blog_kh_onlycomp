@@ -40,9 +40,9 @@ class LoadChildrenGoodsColorNumberData extends AbstractFixture implements Ordere
                 $childrenGoodsColorNumber->setNumber(rand(1, 200));
                 $childrenGoodsColorNumber->setDraft('1');
      
-                $image = $fixtureMyService->fixtureServiceAction(rand(1, $imageCount), 'image');
-                print_r('image: ' . $image->getPath());
-                $childrenGoodsColorNumber->setImage($image);
+                //$image = $fixtureMyService->fixtureServiceAction(rand(1, $imageCount), 'image');
+                //print_r('image: ' . $image->getPath());
+                $childrenGoodsColorNumber->setImage($this->getReference('Image' . rand(1, $imageCount)));
 
                 $manager->persist($childrenGoodsColorNumber);
                 $manager->flush();
