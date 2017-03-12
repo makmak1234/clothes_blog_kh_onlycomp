@@ -26,13 +26,20 @@
 {% endblock %}
 
 {% block body %}
+
     {% block header %}
         {{ include('UserBundle::common_header.html.twig') }}
     {% endblock %}
-
-    
-        {#{{ render_esi(controller('UserBundle:indexUser:smallBag')) }}#}
-    
+   
+        {#{{ render_esi(controller('UserBundle:indexUser:smallBag')) }}#} 
+        <div class="bubblingG">
+            <span id="bubblingG_1">
+            </span>
+            <span id="bubblingG_2">
+            </span>
+            <span id="bubblingG_3">
+            </span>
+        </div>  
 
     {% block content %}
         <div class="content">
@@ -76,8 +83,8 @@
                         <p>{{ childrenGood.descriptionGoods.description }}</p>
                         <p>{{ childrenGood.priceGoods.rub }}</p>
                         <p>
-                            <a href="#" class="btn btn-primary" role="button" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</a>
-                            <button class="btn btn-default" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</button>
+                            <button class="btn btn-primary" role="button" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</button>
+                            <button type="button" id="myButton" data-loading-text="Кладем..." autocomplete="off" class="btn btn-default" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</button>
                         </p>
                       </div>
                     </div>

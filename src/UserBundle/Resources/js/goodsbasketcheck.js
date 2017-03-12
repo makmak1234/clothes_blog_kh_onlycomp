@@ -24,15 +24,31 @@ function goodbasketcheck(id, mclon, route_name){
 	var route = Routing.generate(route_name, { id: id, size: color_true, color: image_true, mclon: mclon}); //,  mclon: mclon
 	//alert('color_true: ' + color_true + ' image_true: ' + image_true + ' title_size: ' + title_size + ' title_color: ' + title_color);
 	//alert(route);
-	$.ajax({ 
-		  url: route,
-		  success: function(data) {
-		    $('.bascetsmall').html(data);
-		    //nall = Number(document.getElementById('nall').firstChild.data);
-		    //document.getElementById('nidAll').innerHTML = Number(nall);
-		  	//alert(nall);
-		  }
-		});
+
+	/*$('#myButton').click(function () {
+	    var $btn = $('#myButton').button('loading');
+	    //$('#myButton').addClass("anim");    
+  	})*/
+  	$("i[data-fountain]").css("display", "block");
+  	$("#fountainSmall").css("display", "block");
+  	//alert('fontainG');
+
+  	$('#myButton').on('click', function () {
+	    $btn = $(this).button('loading')
+	    // business logic...
+	    //$btn.button('reset')
+	  })
+
+  	$.ajax({ 
+	  url: route,
+	  success: function(data) {
+	    $('.bascetsmall').html(data);
+	    //nall = Number(document.getElementById('nall').firstChild.data);
+	    //document.getElementById('nidAll').innerHTML = Number(nall);
+	  	//alert(nall);
+	  	$btn.button('reset');
+	  }
+	});
 }
 
 //bigBag.html.twig
@@ -40,6 +56,13 @@ function goodbasketdel(id, color_del, image_del, mclon, route_name){
 	var route = Routing.generate(route_name, { id: id, size: color_del, color: image_del, mclon: mclon}); //,  mclon: mclon
 	//alert('color_true: ' + color_true + ' image_true: ' + image_true + ' title_size: ' + title_size + ' title_color: ' + title_color);
 	//alert(route);
+	//var fonclass = '.fountainG' + id;
+	
+	$('.fountainG' + id + color_del + image_del).css("display", "block");
+	$('.fountainCheck' + id + color_del + image_del).css("display", "block");
+	
+	//alert('.fountainG' + id + color_del + image_del);
+	
 	$.ajax({ 
 		  url: route,
 		  success: function(data) {
@@ -52,6 +75,8 @@ function goodbasketdel(id, color_del, image_del, mclon, route_name){
 function goodbuycheck(id, mclon, route_name){
 	var route = Routing.generate(route_name, { id: id, size: color_true, color: image_true, mclon: mclon}); //,  mclon: mclon
 	//alert('color_true: ' + color_true + ' image_true: ' + image_true + ' title_size: ' + title_size + ' title_color: ' + title_color);
+	//alert(route);
+	$('.bubblingG').css("display", "block");
 	//alert(route);
 	$.ajax({ 
 		  url: route,
