@@ -32,7 +32,7 @@ function goodbasketcheck(id, mclon, route_name){
   	$("i[data-fountain]").css("display", "block");
   	$("#fountainSmall").css("display", "block");
   	$("#fountainIncart").css("display", "block");
-  	fountainIncart
+  	
   	//alert('fontainG');
 
   	/*$('#myButton').on('click', function () {
