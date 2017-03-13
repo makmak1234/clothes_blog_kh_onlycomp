@@ -59,8 +59,13 @@ class indexUserController extends Controller
 
         foreach($childrenGoodsCategory as $indCat => $goodCategory){
             $pathImg = '/uploads/documents/' . $goodCategory->getImage()->getPath();
+            //print_r('pathImg: ' . $pathImg);
+            //print_r('<br>');
             $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_category');
         }
+
+        //print_r('sourcePath: ' . $sourcePath[0]);
+        //print_r('<br>');
 
         //$mailer = $this->get('app.mailer');
         //$myServiceVarAll = json_encode($mailer->myServiceAction());

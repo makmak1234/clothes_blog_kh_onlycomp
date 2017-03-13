@@ -80,6 +80,15 @@
 	position: relative;
 }
 
+#fountainIncart{
+	display:none;
+	position:absolute;
+	width:72px;
+	height:9px;
+	top: 4px;
+	left: 90px;
+}
+
 #fountainG{
 	display:none;
 	position:absolute;

@@ -73,7 +73,7 @@
                                 <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
                                     в наличии {{ color.number }} шт
                                     <br>
-                                    <img class="show__img" src="{{ sourcePath[sizeloop][loop.index0] }}">
+                                    <img class="show__img" src="{{ asset(sourcePath[sizeloop][loop.index0]) }}">
                                 </div>
                             {% endfor %}
                         {% endfor %}
@@ -82,9 +82,19 @@
                         <h3>{{ childrenGood.title }}</h3>
                         <p>{{ childrenGood.descriptionGoods.description }}</p>
                         <p>{{ childrenGood.priceGoods.rub }}</p>
-                        <p>
+                        <p class="onerow">
+                            <i id="fountainIncart">
+                                <i id="fountainG_1" class="fountainG"></i>
+                                <i id="fountainG_2" class="fountainG"></i>
+                                <i id="fountainG_3" class="fountainG"></i>
+                                <i id="fountainG_4" class="fountainG"></i>
+                                <i id="fountainG_5" class="fountainG"></i>
+                                <i id="fountainG_6" class="fountainG"></i>
+                                <i id="fountainG_7" class="fountainG"></i>
+                                <i id="fountainG_8" class="fountainG"></i>
+                            </i>
                             <button class="btn btn-primary" role="button" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</button>
-                            <button type="button" id="myButton" data-loading-text="Кладем..." autocomplete="off" class="btn btn-default" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</button>
+                            <button class="btn btn-default" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</button>
                         </p>
                       </div>
                     </div>

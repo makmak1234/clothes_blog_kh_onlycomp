@@ -31,13 +31,13 @@ function goodbasketcheck(id, mclon, route_name){
   	})*/
   	$("i[data-fountain]").css("display", "block");
   	$("#fountainSmall").css("display", "block");
+  	$("#fountainIncart").css("display", "block");
+  	fountainIncart
   	//alert('fontainG');
 
-  	$('#myButton').on('click', function () {
+  	/*$('#myButton').on('click', function () {
 	    $btn = $(this).button('loading')
-	    // business logic...
-	    //$btn.button('reset')
-	  })
+	  })*/
 
   	$.ajax({ 
 	  url: route,
@@ -46,7 +46,8 @@ function goodbasketcheck(id, mclon, route_name){
 	    //nall = Number(document.getElementById('nall').firstChild.data);
 	    //document.getElementById('nidAll').innerHTML = Number(nall);
 	  	//alert(nall);
-	  	$btn.button('reset');
+	  	//$btn.button('reset');
+	  	$("#fountainIncart").css("display", "none");
 	  }
 	});
 }

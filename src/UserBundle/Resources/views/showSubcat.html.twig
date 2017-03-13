@@ -46,7 +46,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="card">
                                     <h4>{{ childrenGood.title }}</h4>
-                                    <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
+                                    <div id='{{ idDiv }}' class="category" style="background-image: url({{ asset(imgLink) }});">
                                         <a class="a-card" href="{{ path('user_show', {'children_goods_category_id': category.id , 'children_goods_subcategory_id': subcategory.id, 'id': childrenGood.id }) }}">
                                             <div>
                                                 <b>Название:</b>{{ childrenGood.title }}

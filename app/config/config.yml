@@ -83,7 +83,7 @@ sonata_block:
 
 assetic:
     debug:          '%kernel.debug%'
-    use_controller: false #'%kernel.debug%'
+    use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
         uglifyjs2:

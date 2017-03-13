@@ -56,6 +56,9 @@
     {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} 
 
     {% block content %}
+        {#{{ dump(sourcePath) }}
+        {{ dump(asset(sourcePath[0])) }}
+        {{ dump(absolute_url(asset(sourcePath[0]))) }} #}
         <div class="content">
             <div class="container">
                 <div class="slogan">
@@ -65,7 +68,7 @@
                 <div class="row">
                     {% set i = 0 %}
                     {% for childrenGoodCategory in childrenGoodsCategory %}
-                        {% set imgLink = asset(sourcePath[loop.index0]) %}
+                        {% set imgLink = sourcePath[loop.index0] %}
                         {% set idDiv = "category" ~ loop.index0 %}
                         {% if i == 0 %}
                             {#<div class="card-row clearfix">#}
@@ -73,7 +76,7 @@
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="card">
                                         <h4>{{ childrenGoodCategory.title }}</h4>
-                                        <div id='{{ idDiv }}' class="category" style="background-image: url({{ asset(imgLink) }});">
+                                        <div id='{{ idDiv }}' class="category" style="background-image: url({{ absolute_url(asset(imgLink)) }});">
                                             {% for childrenGoodSubcategory in childrenGoodCategory.childrenGoodsSubcategory.snapshot %}
                                                 <a class="a-card" href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id }) }}">{{ childrenGoodSubcategory.title }}</a>
                                                 <br>  
