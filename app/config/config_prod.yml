@@ -1,11 +1,17 @@
 imports:
     - { resource: config.yml }
+    - { resource: config_prod_secrets.php }
 
 #framework:
 #    validation:
 #        cache: validator.mapping.cache.doctrine.apc
 #    serializer:
 #        cache: serializer.mapping.cache.apc
+
+framework:
+    session:
+        # set handler_id to null to use default session handler from php.ini (memcached)
+        handler_id:  ~
 
 #doctrine:
 #    orm:
@@ -20,7 +26,7 @@ monolog:
             action_level: error
             handler:      nested
         nested:
-            type:  stream
+            type:  error_log  #stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
         console:
