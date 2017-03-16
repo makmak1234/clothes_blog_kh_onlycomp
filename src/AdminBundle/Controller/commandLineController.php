@@ -59,6 +59,7 @@ class commandLineController extends Controller
         // 6) 'doctrine:fixtures:load?ext1=--append'  заполнить базу тестовыми данными
 
         // assetic:dump?ext1=--no-debug&ext21=--env&ext22=prod  скомпилировать js css
+        // assets:install
         $input = new ArrayInput(array(
            'command' => $command, 
            $ext1 => '',

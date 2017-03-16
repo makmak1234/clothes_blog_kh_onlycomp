@@ -3,6 +3,7 @@
 namespace UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -33,10 +34,10 @@ class indexUserController extends Controller
      *
      * @Route("/", name="index_user")
      * @Method("GET")
-     * @Cache(smaxage="600")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     //, lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
+    //  @Cache(smaxage="600")
     {
 
       /* $session = $request->getSession();
@@ -77,26 +78,13 @@ class indexUserController extends Controller
             'childrenGoods' => $childrenGoods,
             'childrenGoodsCategory' => $childrenGoodsCategory,
             'sourcePath' => $sourcePath,
-            //'nidAll' => $nidAll,
-            //'small_error' => $small_error,
         ));
-        // set the shared max age - which also marks the response as public
-        //$response->setSharedMaxAge(600);
 
-        //$date = new DateTime();
-        //$date->modify('+600 seconds'); 
-        //$response->setExpires($date);
-
-        //$response->headers->addCacheControlDirective('must-revalidate', true);
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic(); // make sure the response is public/cacheable
+        $response->isNotModified($request);
 
         return $response;
-
-        /*return $this->render('UserBundle::indexUser.html.twig', array(
-            'childrenGoods' => $childrenGoods,
-            'childrenGoodsCategory' => $childrenGoodsCategory,
-            'sourcePath' => $sourcePath,
-            'nidAll' => $nidAll,
-        ));*/
     }
 
     public function smallBagAction(Request $request)
@@ -387,10 +375,10 @@ class indexUserController extends Controller
      *
      * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}/{id}", name="user_show", requirements={"id": "\d+"})
      * @Method("GET")
-     * @Cache(smaxage="600")
      */
     public function showAction(childrenGoods $childrenGood, Request $request, $children_goods_category_id, $children_goods_subcategory_id)
     {
+        // @Cache(smaxage="600")
 
         $session = $request->getSession();
 
@@ -428,7 +416,9 @@ class indexUserController extends Controller
             //'bigBagDisp' => 'none',
         ));
 
-        //$response->setSharedMaxAge(600);
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic(); // make sure the response is public/cacheable
+        $response->isNotModified($request);
 
         return $response;
     }
@@ -438,11 +428,11 @@ class indexUserController extends Controller
      *
      * @Route("/{children_goods_category_id}/{children_goods_subcategory_id}", name="cat_sub_show", requirements={"children_goods_category_id": "\d+", "children_goods_subcategory_id": "\d+"})
      * @Method("GET")
-     * @Cache(smaxage="600")
      */
-    public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id )
+    public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id, Request $request)
     // , lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
     {
+        // @Cache(smaxage="600")
                                 /*$add_new_cat = 'nety';
                                 if(isset($_GET["add_new_cat"])){
                                         //$add_new_cat = $_GET["add_new_cat"];
@@ -498,9 +488,9 @@ class indexUserController extends Controller
            
         ));
 
-        //$response->setSharedMaxAge(600);
-
-        //$response->headers->addCacheControlDirective('must-revalidate', true);
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic(); // make sure the response is public/cacheable
+        $response->isNotModified($request);
 
         return $response;
     }

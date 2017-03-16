@@ -1,7 +1,7 @@
 <?php
 
 // get the path to the secrects.json file
-$secrets = getenv("APP_SECRETS")
+$secrets = getenv("APP_SECRETS");
 if (!$secrets) {
     return;
 }
