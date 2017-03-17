@@ -46,6 +46,9 @@
         ],
         "post-update-cmd": [
             "@symfony-scripts"
+        ],
+        "compile": [
+            "app/console doctrine:schema:update --force"
         ]
     },
     "config": {
