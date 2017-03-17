@@ -26,8 +26,8 @@ monolog:
             action_level: error
             handler:      nested
         nested:
-            type:  error_log #stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            type:  error_log #stream locale #error_log for fortrabbit
+            path:  'php://stderr' #"%kernel.logs_dir%/%kernel.environment%.log" locale #'php://stderr' for heroku
             level: debug
         console:
             type:  console
