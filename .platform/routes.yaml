@@ -2,4 +2,4 @@
 "http://{default}/":
     type: upstream
     # the first part should be your project name
-    upstream: 'ClothesBlog:php'
+    upstream: '3og6hk2thyjwc:php'
