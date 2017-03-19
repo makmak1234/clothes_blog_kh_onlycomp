@@ -2,4 +2,4 @@
 "http://{default}/":
     type: upstream
     # the first part should be your project name
-    upstream: 'app:http'
+    upstream: '3zf5tbry7kvpy:php'
