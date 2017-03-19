@@ -39,7 +39,7 @@ hooks:
       rm web/app_dev.php
       
     deploy: |
-      
+      app/console --env=prod cache:clear
 
 # app/console --env=prod assetic:dump --no-debug
 # app/console --env=prod cache:clear
