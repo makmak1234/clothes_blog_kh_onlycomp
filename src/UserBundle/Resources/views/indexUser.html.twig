@@ -1,99 +1,109 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-     <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    {% stylesheets '@UserBundle/Resources/css/indexUser.css' 
+                    filter='uglifycss' 
+                    filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    
+    {% endstylesheets %}
 {% endblock %}
 
-{% block body %}
-    <h1>childrenGoods</h1>
+{% block javascripts %}
+    {% javascripts '@my_jquery'
+                    '@my_bootstrap'
+                    '@UserBundle/Resources/js/indexUser.js'
+                    filter='uglifyjs2'
+                    output='js/compiled/index_user.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 
-    {{ dump(childrenGoods) }}
-    {#{{ dump(childrenGoodsCategory) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
-    {{ dump(add_new_cat) }}#}
-    {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].size.size) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[1]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].number) }}#}
+{#{% set imgLink = asset('uploads/documents/' ~ childrenGoodCategory.image.path) %}#}
+{#<script>backgrCat('{{ idDiv }}', '{{ imgLink }}')</script>imgLink#}
+{# 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id #} 
+{% block body %}
+    {#{{ render_esi(controller('UserBundle:indexUser:smallBag')) }} 
+    
+    <b>Все категории</b>
+    <br><br>
 
     {% for childrenGoodCategory in childrenGoodsCategory %}
-        {{ childrenGoodCategory.title }}
+
+        {% set imgLink = asset(sourcePath[loop.index0]) %}
+        
+        {% set idDiv = "category" ~ loop.index0 %}
+        <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
+            
+            {{ childrenGoodCategory.title }}<br>
+            {% for childrenGoodSubcategory in childrenGoodCategory.childrenGoodsSubcategory.snapshot %}
+                <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id }) }}">{{ childrenGoodSubcategory.title }}</a>
+                <br>
+                
+                
+            {% endfor %} 
+            <br>
+        </div>
     {% endfor %}
 
-    {#<table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ childrenGood.id }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{{ childrenGood.childrenGoodsCategory.title }}</td>
-            </tr>
-            <tr>
-                <th>Subcategory</th>
-                <td>{{ childrenGood.childrenGoodsSubcategory.title }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ childrenGood.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ childrenGood.descriptionGoods.description }}</td>
-            </tr>
-            {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}
-                <tr>
-                    <th>Size</th>
-                    <td>
-                        {{ size.size.size }} 
-                    </td>
-                    {% for color in size.childrenGoodsColorNumber.snapshot %}
-                        <td>
-                            {{ color.color.color }}: 
-                            {{ color.number }} шт 
-                            <img class="show__img" src="{{ asset('uploads/documents/' ~ color.image.path) }}">
-                        </td>
+    <br>#}
+
+    {% block header %}
+        {{ include('UserBundle::common_header.html.twig') }}
+    {% endblock %}
+
+    {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} 
+
+    {% block content %}
+        {#{{ dump(sourcePath) }}
+        {{ dump(asset(sourcePath[0])) }}
+        {{ dump(absolute_url(asset(sourcePath[0]))) }} #}
+        <div class="content">
+            <div class="container">
+                <div class="slogan">
+                    <h1>Заголовок</h1>
+                </div> 
+                <div class="bread-crumbs">Все категории</div>
+                <div class="row">
+                    {% set i = 0 %}
+                    {% for childrenGoodCategory in childrenGoodsCategory %}
+                        {% set imgLink = sourcePath[loop.index0] %}
+                        {% set idDiv = "category" ~ loop.index0 %}
+                        {% if i == 0 %}
+                            {#<div class="card-row clearfix">#}
+                        {% endif %}
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card">
+                                        <h4>{{ childrenGoodCategory.title }}</h4>
+                                        <div id='{{ idDiv }}' class="category" style="background-image: url({{ absolute_url(asset(imgLink)) }});">
+                                            {% for childrenGoodSubcategory in childrenGoodCategory.childrenGoodsSubcategory.snapshot %}
+                                                <a class="a-card" href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id }) }}">{{ childrenGoodSubcategory.title }}</a>
+                                                <br>  
+                                            {% endfor %} 
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                        {% if i == 2 %}
+                           {# </div> #}
+                        {% endif %}
+                        {% set i = i + 1 %}
+                        {% if i == 3 %}
+                            {% set i = 0 %}
+                        {% endif %}
                     {% endfor %}
-                </tr>
-            {% endfor %}   
-            <tr>
-                <th>price</th>
-                <td>{{ childrenGood.priceGoods.rub }}</td>
-            </tr>
-            <tr>
-                <th>Position</th>
-                <td>{{ childrenGood.position }}</td>
-            </tr>
-            <tr>
-                <th>Proddatetime</th>
-                <td>{% if childrenGood.prodDatetime %}{{ childrenGood.prodDatetime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Proddatetimeupdate</th>
-                <td>{% if childrenGood.prodDatetimeUpdate %}{{ childrenGood.prodDatetimeUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
+                </div>
 
-            
-        </tbody>
-    </table>
+                {% block nav %}
+                    {{ include('UserBundle::common_nav.html.twig') }}
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('childrengoods_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('childrengoods_edit', { 'id': childrenGood.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul> #}
+{% endblock %}
+
+{% block footer %}
+    {{ include('UserBundle::common_footer.html.twig') }}
 {% endblock %}

@@ -68,3 +68,29 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: image }
 
+    admin.bagRegister:
+        class: AdminBundle\Admin\bagRegisterAdmin
+        arguments: [~, UserBundle\Entity\bagRegister, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: bagRegister }
+
+    admin.buyClients:
+        class: AdminBundle\Admin\buyClientsAdmin
+        arguments: [~, UserBundle\Entity\buyClients, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: buyClients }
+
+    app.mailer:
+        class:        UserBundle\Controller\myServiceController
+        #arguments:    [sendmail]
+
+    ajax.user.serv:
+        class:        UserBundle\Controller\ajaxUserServController
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    fixture.my.serv:
+        class:        UserBundle\Controller\fixtureServiceController
+        arguments: ["@doctrine.orm.entity_manager"]
+
+        
+

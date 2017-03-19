@@ -2,12 +2,40 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:image" content="{{ asset('/img/1419281141_363179.ico') }}" />
+        <meta property="og:title" content="Grooki" />
+        <meta property="og:description" content="Grooki магазин детской одежды" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <title>{% block title %}Grooki{% endblock %}</title>
+        {% block stylesheets %}
+            {#<link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+            {% stylesheets '@UserBundle/Resources/css/indexUser.css' 
+                            filter='uglifycss' 
+                            filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %} #}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('/img/1419281141_363179.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+            {% block header %}{% endblock %}
+            {% block content %}
+                {% block nav %}{% endblock %}
+            {% endblock %}
+        {% endblock %}
+        {% block footer %}{% endblock %}
+        {% block javascripts %}
+            {#{% javascripts '@my_jquery'
+                    '@my_bootstrap'
+                    '@UserBundle/Resources/js/indexUser.js'
+                    filter='uglifyjs2'
+                    output='js/compiled/index_user.js' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}#}
+        {% endblock %}
     </body>
 </html>

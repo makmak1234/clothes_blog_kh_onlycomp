@@ -1,0 +1,89 @@
+
+    {#<h1>Корзина</h1>
+    
+    idarr
+    {{ dump(idarr) }}<br>
+
+    childrenGoods
+    {{ dump(childrenGoods) }}<br>
+
+    nid
+    {{ dump(nid) }}<br>
+
+    id = {{id}}
+
+    <b><a href="{{ path('index_user') }}">Вернуться в магазин</a>#}
+
+    {#{{ dump(childrenGoods[0].childrenGoodsSizeNumber.snapshot[0].size.size) }}
+    {{ dump(childrenGoods[0].childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}
+
+    {{ dump(childrenGoods[0]) }}
+    {{ dump(sizeTitle) }}
+    {{ dump(colorTitle) }}
+    {{ dump(sizearr) }}
+    {{ dump(colorarr) }}#}
+
+{{ include('UserBundle::smallBag.html.twig') }}
+
+{% if bigBagDisp == 'block' %} 
+    <table class="goodsbasketfont m-cart-full">
+		<tr><td colspan= "7">Ваша корзина:</td></tr>
+		<tr>
+			<th>Товар</th>
+			<th>Размер</th>
+			<th>Цвет</th>
+			<th>Цена за ед</th>
+			<th>Кол-во</th>
+			<th>Цена за все</th>
+			<th> </th>
+		</tr>
+		{#{% set nall = 0 %}#}
+		{% for childrenGood in childrenGoods %}
+			{#{% set nall = nall + nid[loop.index0] %}#}
+		<tr class="onerow">
+			<td>{{ childrenGood.title }}</td>
+			<td>
+				{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size is defined %}
+					{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size }}
+				{% endif %}#}
+				{{ sizeTitle[loop.index0] }}
+			</td>
+			<td>
+				{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color is defined %}
+					{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color }}
+				{% endif %}#}
+				{{ colorTitle[loop.index0] }}
+			</td>
+			<td>{{ childrenGood.priceGoods.rub }}</td>
+			<td>{{ nid[loop.index0] }}</td>
+			<td>{{ priceone[loop.index0] }}</td>
+			<td>
+				<i id="fountainG" class="fountainG{{ childrenGood.id }}{{ sizearr[loop.index0] }}{{ colorarr[loop.index0]}}"  data-fountain>
+					<i id="fountainG_1" class="fountainG"></i>
+					<i id="fountainG_2" class="fountainG"></i>
+					<i id="fountainG_3" class="fountainG"></i>
+					<i id="fountainG_4" class="fountainG"></i>
+					<i id="fountainG_5" class="fountainG"></i>
+					<i id="fountainG_6" class="fountainG"></i>
+					<i id="fountainG_7" class="fountainG"></i>
+					<i id="fountainG_8" class="fountainG"></i>
+				</i>
+				<img class="goodsbasketclearone" id="good_click_id" src="{{ asset('bundles/app/user/elements/delete_16x16.png')}}" onclick="goodbasketdel({{ childrenGood.id }}, {{ sizearr[loop.index0] }}, {{ colorarr[loop.index0] }}, 'true', 'ajax_bag_user')">
+			</td>
+		</tr>		
+		{% endfor %}
+		<tr><td colspan= "7">К оплате: {{ priceall }}</td></tr>{#$prsite#}
+		<tr>
+			<td colspan= "4"><a type="button" class="btn btn-default buylab" href="{{ path('bag_register_secure') }}">Оформить</a></td>{#$dirbasbi#}
+			<td colspan= "3"><button type="button" class="btn btn-default" onclick="goodbasketcheck('-1', 'false', 'ajax_bag_user')">Очистить корзину</button></td>
+			{#<label class="goodsbasketclear" class="good_click" good-id=-1 mclon="false"><input type="hidden" />Очистить корзину</label>onclick="goodsbasketcheck('-1', 'FALSE', '')"#}
+		</tr>
+	</table>
+	{#<div id="nall" hidden>{{ nall }}</div>#}
+{% endif %}
+
+	{#{{ render(controller(
+		'AppBundle:Article:recentArticles',
+		{ 'max': 3 }
+	)) }}#}
+

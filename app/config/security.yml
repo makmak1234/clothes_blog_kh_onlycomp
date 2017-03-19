@@ -5,7 +5,25 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    ryan:
+                        password: ryanpass
+                        roles: 'ROLE_USER'
+                    admin:
+                        password: admin
+                        roles: 'ROLE_ADMIN'
+
+    #providers:
+     #   chain_provider:
+      #      chain:
+       #         providers: [in_memory, user_db]
+        #in_memory:
+         #   memory:
+          #      users:
+           #         ryan: { password: ryanpass }
+        #user_db:
+         #   entity: { class: AdminBundle\Entity\childrenGoods, property: username } 
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -17,8 +35,19 @@ security:
             anonymous: ~
             # activate different ways to authenticate
 
-            # http_basic: ~
+            http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:
+        #- { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https } # , roles: ROLE_ADMIN, requires_channel: https 
+        
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+
+
+        
+

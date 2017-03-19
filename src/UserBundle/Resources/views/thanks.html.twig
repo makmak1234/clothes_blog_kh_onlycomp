@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	Thanks<br><br>
+	<b><a href="{{ path('index_user') }}">Вернуться в магазин</a>
+
+	{{ include('UserBundle::emailAdmin.html.twig') }}
+{% endblock %}
+

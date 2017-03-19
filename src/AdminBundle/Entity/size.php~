@@ -34,9 +34,26 @@ class size
     */
     protected $childrenGoodsSizeNumber;
 
+    /*
+    * @ORM\ManyToMany(targetEntity="childrenGoodsColorNumber", mappedBy="size")
+    *
+    /
+    private $childrenGoodsColorNumber;*/
+
+
+    /*
+     * @var int
+     *
+     * @ORM\ManyToMany(targetEntity="childrenGoods", mappedBy="size")
+     *
+     /
+    private $childrenGoods; */
+
     public function __construct()
     {
         $this->childrenGoodsSizeNumber = new ArrayCollection();
+        //$this->childrenGoodsColorNumber = new ArrayCollection();
+        //$this->childrenGoods = new ArrayCollection();
     }
 
     /**
@@ -103,5 +120,73 @@ class size
     public function getChildrenGoodsSizeNumber()
     {
         return $this->childrenGoodsSizeNumber;
+    }
+
+    /**
+     * Add childrenGood
+     *
+     * @param \AdminBundle\Entity\childrenGoods $childrenGood
+     *
+     * @return size
+     */
+    public function addChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGood)
+    {
+        $this->childrenGoods[] = $childrenGood;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenGood
+     *
+     * @param \AdminBundle\Entity\childrenGoods $childrenGood
+     */
+    public function removeChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGood)
+    {
+        $this->childrenGoods->removeElement($childrenGood);
+    }
+
+    /**
+     * Get childrenGoods
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildrenGoods()
+    {
+        return $this->childrenGoods;
+    }
+
+    /**
+     * Add childrenGoodsColorNumber
+     *
+     * @param \AdminBundle\Entity\childrenGoodsColorNumber $childrenGoodsColorNumber
+     *
+     * @return size
+     */
+    public function addChildrenGoodsColorNumber(\AdminBundle\Entity\childrenGoodsColorNumber $childrenGoodsColorNumber)
+    {
+        $this->childrenGoodsColorNumber[] = $childrenGoodsColorNumber;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenGoodsColorNumber
+     *
+     * @param \AdminBundle\Entity\childrenGoodsColorNumber $childrenGoodsColorNumber
+     */
+    public function removeChildrenGoodsColorNumber(\AdminBundle\Entity\childrenGoodsColorNumber $childrenGoodsColorNumber)
+    {
+        $this->childrenGoodsColorNumber->removeElement($childrenGoodsColorNumber);
+    }
+
+    /**
+     * Get childrenGoodsColorNumber
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildrenGoodsColorNumber()
+    {
+        return $this->childrenGoodsColorNumber;
     }
 }

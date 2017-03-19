@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+        {% javascripts '@my_jquery'
+                        '@my_bootstrap'
+                        '@UserBundle/Resources/js/indexUser.js'
+                        '@UserBundle/Resources/js/goodsbasketcheck.js'
+                        '@UserBundle/Resources/js/select_visible.js'
+                        '@UserBundle/Resources/js/hinclude.js'
+                        filter='uglifyjs2'
+                        output='js/compiled/show_good.js'%}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script> 
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    {% stylesheets '@UserBundle/Resources/css/show.css'
+                    '@UserBundle/Resources/css/indexUser.css'  
+                    filter='uglifycss' 
+                    filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+    {% block header %}
+        {{ include('UserBundle::common_header.html.twig') }}
+    {% endblock %}
+   
+        {#{{ render_esi(controller('UserBundle:indexUser:smallBag')) }}#} 
+        <div class="bubblingG">
+            <span id="bubblingG_1">
+            </span>
+            <span id="bubblingG_2">
+            </span>
+            <span id="bubblingG_3">
+            </span>
+        </div>  
+
+    {% block content %}
+        <div class="content">
+            <div class="container">
+
+                <div class="slogan">
+                    <h1>Заголовок</h1>
+                </div> 
+                <div class="bread-crumbs"><a href="{{ path('index_user') }}">Все категории</a>-> 
+                    <a href="{{ path('cat_sub_show', { 'children_goods_category_id': category.id , 'children_goods_subcategory_id': subcategory.id }) }}">{{ category.title }}</a>->  
+                    {{ subcategory.title }}
+                    {#{ 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}#}
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="thumbnail"> 
+                        <select name="size" id="size" onChange="sizeSelect(this)" >
+                            {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %} 
+                                <option value="{{ size.size.size }}">{{ size.size.size }}</option> 
+                            {% endfor %}
+                        </select>
+                        {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}           
+                            {% set sizeloop = loop.index0 %}
+                            <select name="size.size.size" id="{{ 'color' ~ loop.index0 }}" style="display: none;" onChange="colorSelect(this)">
+                                {% for color in size.childrenGoodsColorNumber.snapshot %}
+                                    <option value="{{ color.color.color }}">{{ color.color.color }} </option>     
+                                {% endfor %}
+                            </select>
+                            {% for color in size.childrenGoodsColorNumber.snapshot %}
+                                <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
+                                    в наличии {{ color.number }} шт
+                                    <br>
+                                    <img class="show__img" src="{{ asset(sourcePath[sizeloop][loop.index0]) }}">
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        
+                      <div class="caption">
+                        <h3>{{ childrenGood.title }}</h3>
+                        <p>{{ childrenGood.descriptionGoods.description }}</p>
+                        <p>{{ childrenGood.priceGoods.rub }}</p>
+                        <p class="onerow">
+                            <i id="fountainIncart">
+                                <i id="fountainG_1" class="fountainG"></i>
+                                <i id="fountainG_2" class="fountainG"></i>
+                                <i id="fountainG_3" class="fountainG"></i>
+                                <i id="fountainG_4" class="fountainG"></i>
+                                <i id="fountainG_5" class="fountainG"></i>
+                                <i id="fountainG_6" class="fountainG"></i>
+                                <i id="fountainG_7" class="fountainG"></i>
+                                <i id="fountainG_8" class="fountainG"></i>
+                            </i>
+                            <button class="btn btn-primary" role="button" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</button>
+                            <button class="btn btn-default" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</button>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div id="bascetsmall" class="bascetsmall">
+                        {{ render_esi(controller('UserBundle:ajaxUser:ajaxBagUser',
+                            { 'id': 0})) }}
+                    </div>
+                  </div>
+
+                </div>   
+
+            </div>
+        </div>
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+    {{ include('UserBundle::common_footer.html.twig') }}
+{% endblock %}
+
+    {#<b><a href="{{ path('index_user') }}">Все категории</a>-> 
+    <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}</a>->
+    {{ childrenGood.childrenGoodsSubcategory.title }}</b>
+    <br><br>
+
+    <table>
+        <tbody>
+                <th>Title</th>
+                <td>{{ childrenGood.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ childrenGood.descriptionGoods.description }}</td>
+            </tr>            
+            <tr>
+                <th>Size</th>
+                <td>
+                    <select name="size" id="size" onChange="sizeSelect(this)" >
+                        {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %} 
+                            <option value="{{ size.size.size }}">{{ size.size.size }}</option> 
+                        {% endfor %}
+                    </select>
+                </td>
+                {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}
+                    <td class="table_image">
+                        {% set sizeloop = loop.index0 %}
+                        <select name="size.size.size" id="{{ 'color' ~ loop.index0 }}" style="display: none;" onChange="colorSelect(this)">
+                            {% for color in size.childrenGoodsColorNumber.snapshot %}
+                                <option value="{{ color.color.color }}">{{ color.color.color }} </option>     
+                            {% endfor %}
+                        </select>
+                        {% for color in size.childrenGoodsColorNumber.snapshot %}
+                            <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
+                                <img class="" src="{{ sourcePath[sizeloop][loop.index0] }}">
+                                 в наличии {{ color.number }} шт
+                            </div> 
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            </tr>  
+            <tr>
+                <th>price</th>
+                <td>{{ childrenGood.priceGoods.rub }}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <b><a href="#" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</a></b>
+                    
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <b><a href="#" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</a></b>
+                
+                    <br><br> 
+                    <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, size: 1, color: 1, mclon: false, route_name: 'ajax_bag_user'}) }}">Ajax отладка</a></b>
+                   
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+            <div id="bascetsmall" class="bascetsmall">
+                   {{ render_esi(controller('UserBundle:ajaxUser:ajaxBagUser',
+                        { 'id': 0})) }}
+            </div> #}
+
+

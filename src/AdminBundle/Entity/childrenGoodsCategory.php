@@ -29,22 +29,27 @@ class childrenGoodsCategory
      */
     private $title;
 
-    /**
+    /*
     * @ORM\OneToMany(targetEntity="childrenGoods", mappedBy="childrenGoodsCategory")
+    *
+    /
+    protected $childrenGoods;*/
+
+    /**
+     * @ORM\ManyToOne(targetEntity="image", inversedBy="childrenGoodsCategory")
+     */
+    protected $image;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="childrenGoodsSubcategory", inversedBy="childrenGoodsCategory")
     */
-    protected $childrenGoods;
+    protected $childrenGoodsSubcategory;
 
     public function __construct()
     {
-        $this->childrenGoods = new ArrayCollection();
+        //$this->childrenGoods = new ArrayCollection();
         $this->childrenGoodsSubcategory = new ArrayCollection();
     }
-
-    //, inversedBy="childrenGoodsCategory")
-    /**
-    * @ORM\ManyToMany(targetEntity="childrenGoodsSubcategory")
-    */
-    protected $childrenGoodsSubcategory;
 
     /**
      * Get id
@@ -79,12 +84,12 @@ class childrenGoodsCategory
         return $this->title;
     }
 
-    /**
+    /*
      * Add childrenGoods
      *
      * @param \AdminBundle\Entity\childrenGoods $childrenGoods
      * @return childrenGoodsCategory
-     */
+     /
     public function addChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
     {
         $this->childrenGoods[] = $childrenGoods;
@@ -92,11 +97,11 @@ class childrenGoodsCategory
         return $this;
     }
 
-    /**
+    /*
      * Remove childrenGoods
      *
      * @param \AdminBundle\Entity\childrenGoods $childrenGoods
-     */
+     /
     public function removeChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
     {
         $this->childrenGoods->removeElement($childrenGoods);
@@ -106,11 +111,11 @@ class childrenGoodsCategory
      * Get childrenGoods
      *
      * @return \Doctrine\Common\Collections\Collection 
-     */
+     /
     public function getChildrenGoods()
     {
         return $this->childrenGoods;
-    }
+    }*/
 
     /**
      * Set childrenGoodsSubcategory
@@ -156,5 +161,28 @@ class childrenGoodsCategory
     public function removeChildrenGoodsSubcategory(\AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory)
     {
         $this->childrenGoodsSubcategory->removeElement($childrenGoodsSubcategory);
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AdminBundle\Entity\image $image
+     * @return childrenGoodsCategory
+     */
+    public function setImage(\AdminBundle\Entity\image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AdminBundle\Entity\image 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

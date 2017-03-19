@@ -26,19 +26,19 @@ class childrenGoods //extends Controller
      */
     private $id;
 
-    /**
+    /*
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="childrenGoodsCategory", inversedBy="childrenGoods")
-     */
-    protected $childrenGoodsCategory;
+     /
+    protected $childrenGoodsCategory;*/
 
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="childrenGoodsSubcategory", inversedBy="childrenGoods")
+     * @ORM\ManyToMany(targetEntity="childrenGoodsSubcategory", mappedBy="childrenGoods")
      */
-    protected $childrenGoodsSubcategory;
+    private $childrenGoodsSubcategory; 
 
     /**
      * @var string
@@ -94,9 +94,23 @@ class childrenGoods //extends Controller
     */
     protected $childrenGoodsSizeNumber;
 
+    /*
+    * @ORM\ManyToMany(targetEntity="size", inversedBy="childrenGoods")
+    *
+    /
+    private $size;*/
+
+    /**
+    * @ORM\OneToMany(targetEntity="\UserBundle\Entity\buyClients", mappedBy="childrenGoods")
+    */
+    protected $buyClients;
+
     public function __construct()
     {
+        //$this->size = new ArrayCollection();
+        $this->buyClients = new ArrayCollection();
         $this->childrenGoodsSizeNumber = new ArrayCollection();
+        $this->childrenGoodsSubcategory = new ArrayCollection();
     }
 
     /**
@@ -360,4 +374,118 @@ class childrenGoods //extends Controller
         return new RedirectResponse($this->generateUrl('calculate_cat_subcat'));
         //return $this;
     }*/
+
+    /**
+     * Add buyClients
+     *
+     * @param \UserBundle\Entity\buyClients $buyClients
+     * @return childrenGoods
+     */
+    public function addBuyClient(\UserBundle\Entity\buyClients $buyClients)
+    {
+        $this->buyClients[] = $buyClients;
+
+        return $this;
+    }
+
+    /**
+     * Remove buyClients
+     *
+     * @param \UserBundle\Entity\buyClients $buyClients
+     */
+    public function removeBuyClient(\UserBundle\Entity\buyClients $buyClients)
+    {
+        $this->buyClients->removeElement($buyClients);
+    }
+
+    /**
+     * Get buyClients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBuyClients()
+    {
+        return $this->buyClients;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AdminBundle\Entity\image $image
+     * @return childrenGoods
+     */
+    public function setImage(\AdminBundle\Entity\image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AdminBundle\Entity\image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Add childrenGoodsSubcategory
+     *
+     * @param \AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory
+     *
+     * @return childrenGoods
+     */
+    public function addChildrenGoodsSubcategory(\AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory)
+    {
+        $this->childrenGoodsSubcategory[] = $childrenGoodsSubcategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenGoodsSubcategory
+     *
+     * @param \AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory
+     */
+    public function removeChildrenGoodsSubcategory(\AdminBundle\Entity\childrenGoodsSubcategory $childrenGoodsSubcategory)
+    {
+        $this->childrenGoodsSubcategory->removeElement($childrenGoodsSubcategory);
+    }
+
+    /**
+     * Add size
+     *
+     * @param \AdminBundle\Entity\childrenGoods $size
+     *
+     * @return childrenGoods
+     */
+    public function addSize(\AdminBundle\Entity\childrenGoods $size)
+    {
+        $this->size[] = $size;
+
+        return $this;
+    }
+
+    /**
+     * Remove size
+     *
+     * @param \AdminBundle\Entity\childrenGoods $size
+     */
+    public function removeSize(\AdminBundle\Entity\childrenGoods $size)
+    {
+        $this->size->removeElement($size);
+    }
+
+    /**
+     * Get size
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
 }

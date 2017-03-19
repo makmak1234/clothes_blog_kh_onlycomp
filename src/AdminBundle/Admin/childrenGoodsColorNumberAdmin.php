@@ -11,9 +11,9 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('color', 'entity', array('class' => 'AdminBundle:color', 'property' => 'color', 'required' => false))
+        $formMapper->add('color', 'entity', array('class' => 'AdminBundle:color', 'property' => 'color'))
                     ->add('number')
-                    ->add('childrenGoodsSizeNumber', 'entity', array('class' => 'AdminBundle:childrenGoodsSizeNumber', 'property' => 'id', 'required' => false))
+                    ->add('childrenGoodsSizeNumber', 'sonata_type_model', array('class' => 'AdminBundle\Entity\childrenGoodsSizeNumber', 'property' => 'size.size'))
                     ->add('image', 'sonata_type_model', array(
                         'class' => 'AdminBundle\Entity\image',
                         'property' => 'path',
@@ -36,11 +36,28 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->add('color.color')
+        $listMapper ->add('id')
+                    ->add('color.color')
                     ->addIdentifier('number')
-                    ->add('childrenGoodsSizeNumber.id')
+                    ->add('childrenGoodsSizeNumber.size.size')
+                    ->add('childrenGoodsSizeNumber.childrenGoods.title')
+                    //->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsCategory.title')
+                    /*->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.childrenGoodsCategory', 'sonata_type_model', array(
+                       'associated_property' => 'title'
+                    ))*/
+                    //->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.title')
+                    ->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory', 'sonata_type_model', array(
+                       'associated_property' => 'title'
+                    ))
                     ->add('image.path')
                     ->add('draft')
         ;
+    }
+
+    public function toString($object)
+    {
+        return $object instanceof childrenGoodsAdmin
+            ? $object->getTitle()
+            : 'size childrenGoodsSizeNumber'; // shown in the breadcrumb on the create view 'size childrenGoodsSizeNumber'
     }
 }

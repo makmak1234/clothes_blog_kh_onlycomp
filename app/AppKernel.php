@@ -25,6 +25,11 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new AdminBundle\AdminBundle(),
             new UserBundle\UserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
+            new FOS\HttpCacheBundle\FOSHttpCacheBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
@@ -32,6 +37,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
         return $bundles;

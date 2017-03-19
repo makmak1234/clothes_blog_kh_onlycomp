@@ -63,34 +63,29 @@ class childrenGoodsAdmin extends AbstractAdmin
                     ))*/
             ->end()
             ->with('Meta data', array('class' => 'col-md-3'))
-                /*->add('childrenGoodsCategory', EntityType::class, array(
-                    // query choices from this entity
-                    'class' => 'AdminBundle:childrenGoodsCategory',
-                    // use the User.username property as the visible option string
-                    'choice_label' => 'title',
-                ))*/
-                ->add('childrenGoodsCategory', 'sonata_type_model', array(
+                /*->add('childrenGoodsCategory', 'sonata_type_model', array(
                     'class' => 'AdminBundle\Entity\childrenGoodsCategory',
                     'property' => 'title',
                 ))
-                /*->add('childrenGoodsCategory', 'sonata_type_admin', ['required' => true, 'btn_add' => true,  'btn_list' => true, 'btn_catalogue' => true, 'btn_delete' => true ])*/
-
-                /*->add('childrenGoodsSubcategory', 'sonata_type_model_autocomplete', array(
-                    'property' => 'title',
-                    'to_string_callback' => function($entity, $property) {
-                        return $entity->getTitle();
-                    },
-                    'multiple' => true,
-                ))*/
                 ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
                         'class' => 'AdminBundle\Entity\childrenGoodsSubcategory',
                         'property' => 'title',
                         //'multiple' => true
-                    ))
-                ->add('descriptionGoods', 'sonata_type_model', array('class' => 'AdminBundle:descriptionGoods', 'property' => 'description', 'required' => false))
+                    ))*/
+                ->add('descriptionGoods', 'sonata_type_model', array('class' => 'AdminBundle:descriptionGoods', 'property' => 'description'))
                 ->add('priceGoods', 'sonata_type_model', array(
-                    'class' => 'AdminBundle:priceGoods', 'property' => 'rub', 'required' => false
+                    'class' => 'AdminBundle:priceGoods', 'property' => 'rub'
                     ))
+                /*->add('size', 'sonata_type_model', array(
+                        'class' => 'AdminBundle\Entity\size',
+                        'property' => 'size',
+                        'multiple' => true
+                    ))
+                ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
+                        'class' => 'AdminBundle\Entity\childrenGoodsSubcategory',
+                        'property' => 'title',
+                        'multiple' => true
+                    ))*/
             ->end()
             ;
     }
@@ -101,10 +96,10 @@ class childrenGoodsAdmin extends AbstractAdmin
             ->add('prodDatetimeUpdate')
             ->add('title')
             ->add('position')
-            ->add('childrenGoodsCategory', null, array(), 'entity', array(
+            /*->add('childrenGoodsCategory', null, array(), 'entity', array(
                 'class'    => 'AdminBundle\Entity\childrenGoodsCategory',
                 'property' => 'title',
-            ))
+            ))*/
             ->add('draft')
             ;
     }
@@ -117,11 +112,18 @@ class childrenGoodsAdmin extends AbstractAdmin
             ->add('prodDatetimeUpdate')
             ->addIdentifier('title')
             ->add('position')
-            ->add('childrenGoodsCategory.title')
-            //->add('childrenGoodsCategory', null, array(
-             //   'associated_property' => 'title'))
-            ->add('childrenGoodsSubcategory.title')
+            //->add('childrenGoodsCategory.title')
+            //->add('childrenGoodsSubcategory.title')
+            /*->add('childrenGoodsCategory', 'sonata_type_model', array(
+                        'associated_property' => 'title'
+                    ))*/
+            ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
+                        'associated_property' => 'title'
+                    ))
             ->add('descriptionGoods.description')
+            /*->add('size', 'sonata_type_model', array(
+                        'associated_property' => 'size'
+                    ))*/
             ->add('priceGoods.rub')
             ->add('childrenGoodsSizeNumber.size.size')
             ->add('draft')

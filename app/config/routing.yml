@@ -1,11 +1,12 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    prefix:   /myapp
 
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
-    prefix:   /
+    # prefix:   /user
 
 admin_area:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
@@ -16,7 +17,19 @@ admin:
     type:     annotation
     prefix:   /
 
+bag_register_secure:
+    path:      /bag_register #/user/bag_register
+    #defaults: { _controller: UserBundle:indexUser:bagRegister, requires_channel: http }
+    #schemes:  [http]
+
 _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+

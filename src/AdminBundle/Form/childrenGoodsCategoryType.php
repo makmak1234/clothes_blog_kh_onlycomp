@@ -16,7 +16,9 @@ class childrenGoodsCategoryType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('childrenGoodsSubcategory', 'entity', array('class' => 'AdminBundle:childrenGoodsSubcategory', 'property' => 'title', 'required' => false))
         ;
+
     }
     
     /**

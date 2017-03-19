@@ -1,0 +1,22 @@
+{
+  "name": "clothes_blog2.home",
+  "homepage": "https://github.com/makmak1234/clothes_blog2",
+  "authors": [
+    "MakMak <qwertyfamiliya@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "sonata-project-admin-bundle": "./vendor/sonata-project/admin-bundle/bower.json"
+  }
+}
