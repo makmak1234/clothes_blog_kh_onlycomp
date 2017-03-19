@@ -3,3 +3,7 @@
     type: upstream
     # the first part should be your project name
     upstream: '3zf5tbry7kvpy:php'
+    cache:
+        enabled: true
+        headers: [ "Accept", "Accept-Language" ]
+        cookies: [ "*" ]
