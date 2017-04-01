@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-    - { resource: config_prod_secrets.php }
+    #- { resource: config_prod_secrets.php } #for fortrabbit
 
 #framework:
 #    validation:
@@ -8,10 +8,10 @@ imports:
 #    serializer:
 #        cache: serializer.mapping.cache.apc
 
-framework:
-    session:
+#framework:
+#    session:
         # set handler_id to null to use default session handler from php.ini (memcached)
-        handler_id:  ~
+#        handler_id:  ~ # for fortrabbit
 
 #doctrine:
 #    orm:
@@ -26,8 +26,8 @@ monolog:
             action_level: error
             handler:      nested
         nested:
-            type:  error_log #stream locale #error_log for fortrabbit
-            path:  'php://stderr' #"%kernel.logs_dir%/%kernel.environment%.log" locale #'php://stderr' for heroku
+            type:  stream #stream locale #error_log for fortrabbit
+            path:  "%kernel.logs_dir%/%kernel.environment%.log" #"%kernel.logs_dir%/%kernel.environment%.log" locale #'php://stderr' for heroku
             level: debug
         console:
             type:  console
