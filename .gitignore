@@ -1,8 +1,11 @@
 /web/uploads/
 /web/assetic/
 /web/assets/
-/web/bundles/*
-web/bundles/*
+#/web/bundles/
+!web/bundles/app/
+!web/bundles/app/user/
+!web/bundles/app/user/elements/*
+!web/bundles/app/user/elements/delete_16x16.png
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
