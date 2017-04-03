@@ -45,25 +45,6 @@ class ajaxUserController extends Controller
 
         $ajaxUserServ->ajaxBagUserServAction($id, $size, $color, $bagreg, $request);
 
-        /*$small_big_html = $this->render('UserBundle::bigBag.html.twig', array(
-            'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
-            'id' => $id,
-            'idarr' => $ajaxUserServ->getIdarr(),
-            'sizearr' => $ajaxUserServ->getSizearr(),
-            'colorarr' => $ajaxUserServ->getColorarr(),
-            'priceone' => $ajaxUserServ->getPriceone(),
-            'priceall' => $ajaxUserServ->getPriceall(),
-            'bigBagDisp' => $ajaxUserServ->getBigBagDisp(),
-            'nid' => $ajaxUserServ->getNid(),
-            'sizeTitle' => $ajaxUserServ->getSizeTitle(),
-            'colorTitle' => $ajaxUserServ->getColorTitle(),
-            //'color' => $color,
-            //'color' => $color,
-        )); */
-
-        //$small_big_html[] = "small_html";
-        //$reply = json_encode($small_big_html, 256);
-
     	return $this->render('UserBundle::bigBag.html.twig', array(
             'childrenGoods' => $ajaxUserServ->getChildrenGoods(),
             'id' => $id,
@@ -140,23 +121,15 @@ class ajaxUserController extends Controller
 
     	$session = $request->getSession();
     	
-	    //$nidaj = $foo_mysgli->sanitizeString($_GET["nidaj"]);
 	    $nidaj = $request->query->get('nidaj');
 
-		//$k = $foo_mysgli->sanitizeString($_GET["kg2"]);
 		$k = $request->query->get('kg2');
 
-		//$nid = $_SESSION["nid"];
 		$nid = $session->get('nid');
 
 		$nid[$k] = $nidaj;
 
-
-		//array_splice($nid, 0, 1);
-		//$_SESSION["nid"] = $nid;
 		$session->set('nid', $nid);
-
-		//echo "snid: $nid[$k]";
 
 		return new Response();
 	}

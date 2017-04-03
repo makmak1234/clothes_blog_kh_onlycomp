@@ -31,24 +31,16 @@
 
 					<td>
 						<img class="show__img" src="{{ asset(sourcePath[loop.index0]) }}">
-						{#<img class="show__img" src="{{ asset('uploads/documents/' ~ pathImages[loop.index0]) }}">#}
 					</td>
 					<td class="title">{{ childrenGood.title }}</td>
 					<td class="hide_col1">
-						{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size is defined %}
-							{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].size.size }}
-						{% endif %}#}
 						{{ sizeTitle[loop.index0] }}
 					</td>
 					<td class="hide_col1">
-						{#{% if childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color is defined %}
-							{{ childrenGood.childrenGoodsSizeNumber.snapshot[sizearr[loop.index0]].childrenGoodsColorNumber.snapshot[colorarr[loop.index0]].color.color }}
-						{% endif %}#}
 						{{ colorTitle[loop.index0] }}
 					</td>
 					
 					<td class="hide_col1" id="{{ idrow2 }}">{{ childrenGood.priceGoods.rub }}</td>
-					{#<td>{{ nid[loop.index0] }}</td>#}
 					
 					<td id="{{ idnidk }}"><input type="number" min="1" max="99" size="3" name="numbergoods" value="{{ nid[loop.index0] }}" onchange="basketbigchange({{ childrenGood.priceGoods.rub }}, this.value, {{ loop.index0 }}, {{ childrenGoods|length }})"/></td>
 					

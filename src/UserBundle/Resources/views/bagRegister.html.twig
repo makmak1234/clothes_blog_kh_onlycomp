@@ -7,7 +7,6 @@
                     filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
-    {# <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />#}
 {% endblock %}
 
 {% block javascripts %}
@@ -17,18 +16,12 @@
                         output='js/compiled/goodsbasketcheck.js' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        {#<script src="{{ asset('bundles/app/user/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/app/user/goodsbasketcheck.js') }}" type="text/javascript"></script>#}
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script> 
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        {#token = 
-        {{ dump(token) }}#}
-        
-        {#{{ dump(childrenGoodSession) }}#}
 
         <div id="bascetsmall" class="bascetsmall">
             {{ render(controller('UserBundle:ajaxUser:ajaxCheckoutUser', { 'id': id, bagreg: false} )) }}
@@ -66,40 +59,7 @@
 
                 <button type="submit" class="btn btn-default inp_contin" value="Продолжить покупки" formnovalidate onclick="document.bag_register.back_shop.value=true;">Продолжить покупки</button>
 
-                {#{% if token != "qwerty" %}
-                    <script type="text/javascript">
-                        document.bag_register.mytest.value = "{{ mytest }}";
-                        document.getElementById('bag_register__token').value = "{{ token }}";
-                    </script>
-                {% endif %}#}
-
-                {#<input type="submit"  value="Готово" onclick="document.children_goods.add_new_cat.value=false;"/>
-                <input type="hidden" name="add_new_cat" value="id" />
-                <input type="submit" value="Вернуться за покупками" formnovalidate onclick="document.children_goods.add_new_cat.value=true;"/>#} <!-- document.children_goods.submit(); -->
             {{ form_end(form) }}
         </div>
-
-
-
-        {#<input type="text" name="mytest" value="id" /><br>
-
-        <button value="Заменить" onclick="mytest();">Заменить</button><br>#}
-
-        {#{% block javascripts %}
-            <script type="text/javascript">
-                if(window.token !="qwerty"){//(typeof token == "string"){
-                    document.getElementById('bag_register__token').value = "{{ token }}";
-                    document.bag_register.mytest.value = "{{ mytest }}";
-                }
-                //document.bag_register.mytest.value = "{{ mytest }}";
-                //document.getElementById('bag_register_city').value = "{{ mytest }}";
-            </script>
-        {% endblock %}#}
-
-        {#<ul>
-            <li>
-                <a href="{{ path('index_user') }}">Продолжить покупки</a>
-            </li>
-        </ul>#}
     </div>
 {% endblock %}

@@ -15,18 +15,8 @@ class childrenGoodsSizeNumberType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /*->add('childrenGoods')
-            ->add('size')*/
             ->add('childrenGoods', 'entity', array('class' => 'AdminBundle:childrenGoods', 'property' => 'title', 'required' => false))
             ->add('size', 'entity', array('class' => 'AdminBundle:size', 'property' => 'size', 'required' => false))
-            /*->add('size', 'entity', array('class' => 'AdminBundle:size', 
-                'property' => 'size',//array('size', 'entity', array('class' => 'AdminBundle:size', 'property' => 'size', 'required' => false)), 
-                'required' => false,
-                'choices_as_values' => true,
-                'expanded' => true,
-                'multiple' => true,
-                'invalid_message' => 'That is not a valid issue number',
-                ))*/
         ;
     }
     

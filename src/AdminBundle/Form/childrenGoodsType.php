@@ -32,14 +32,6 @@ class childrenGoodsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /*->add('title')
-            ->add('position')
-            ->add('prodDatetime', 'datetime')
-            ->add('prodDatetimeUpdate', 'datetime')
-            ->add('childrenGoodsCategory')
-            ->add('childrenGoodsSubcategory')
-            ->add('descriptionGoods')
-            ->add('priceGoods')*/
             ->add('prodDatetime', DateType::class)//('prodDatetime', 'datetime')
             ->add('prodDatetimeUpdate', DateTimeType::class, 
                 array('input' => 'datetime', 
@@ -58,24 +50,6 @@ class childrenGoodsType extends AbstractType
             ->add('priceGoods', 'entity', array( // MoneyType::class,
                 'class' => 'AdminBundle:priceGoods', 'property' => 'rub', 'required' => false
                 ))
-            /*->add('category', ChoiceType::class, [
-                'choices' => [
-                    new size(),
-                    //new size('Cat2'),
-                    //new size('Cat3'),
-                    //new size('Cat4'),
-                ],
-                'compound' => true,
-                ])
-            ->add('childrenGoodsSizeNumber', ChoiceType::class, array(
-                'choices'  => array(
-                    'Maybe' => null,
-                    'Yes' => true,
-                    'No' => false,
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-            ))*/
             ->add('childrenGoodsSizeNumber', 'entity', array('class' => 'AdminBundle:size', 
                 'property' => 'size',//array('size', 'entity', array('class' => 'AdminBundle:size', 'property' => 'size', 'required' => false)), 
                 'required' => false,
@@ -84,28 +58,8 @@ class childrenGoodsType extends AbstractType
                 'multiple' => true,
                 'invalid_message' => 'That is not a valid issue number',
                 ))
-            /*->add('childrenGoodsSizeNumber', CollectionType::class, array(
-                'entry_type' => size::class, array(
-                    'property' => 'size', 
-                    'required' => false,
-                    'choices_as_values' => true,
-                    'expanded' => true,
-                    'multiple' => true,
-                    'invalid_message' => 'That is not a valid issue number',
-                    )) 
-                    
-            )*/
-            /*->add('childrenGoodsSizeNumber', 'collection', array(
-               'label' => 'Size',
-               'type' => new sizeType(),
-               'allow_add' => true,
-               'allow_delete' => true,
-               'prototype' => true
-              ))*/
         ;
 
-        //$builder->get('childrenGoodsSizeNumber')
-        //    ->addModelTransformer(new IssueToNumberTransformer($this->manager));
     }
     
     /**
@@ -117,19 +71,4 @@ class childrenGoodsType extends AbstractType
             'data_class' => 'AdminBundle\Entity\childrenGoods'
         ));
     }
-
-    /*public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'choices' => array(
-                'm' => 'Male',
-                'f' => 'Female',
-            )
-        ));
-    }
-
-    public function getParent()
-    {
-        return ChoiceType::class;
-    }*/
 }

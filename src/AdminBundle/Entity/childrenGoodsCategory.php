@@ -84,39 +84,6 @@ class childrenGoodsCategory
         return $this->title;
     }
 
-    /*
-     * Add childrenGoods
-     *
-     * @param \AdminBundle\Entity\childrenGoods $childrenGoods
-     * @return childrenGoodsCategory
-     /
-    public function addChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
-    {
-        $this->childrenGoods[] = $childrenGoods;
-
-        return $this;
-    }
-
-    /*
-     * Remove childrenGoods
-     *
-     * @param \AdminBundle\Entity\childrenGoods $childrenGoods
-     /
-    public function removeChildrenGood(\AdminBundle\Entity\childrenGoods $childrenGoods)
-    {
-        $this->childrenGoods->removeElement($childrenGoods);
-    }
-
-    /**
-     * Get childrenGoods
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     /
-    public function getChildrenGoods()
-    {
-        return $this->childrenGoods;
-    }*/
-
     /**
      * Set childrenGoodsSubcategory
      *

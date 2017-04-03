@@ -19,12 +19,6 @@ use AdminBundle\Form\DataTransformer\IssueToNumberTransformer;
 
 class bagRegisterType extends AbstractType
 {
-    /*private $manager;
-
-    public function __construct(ObjectManager $manager)
-    {
-        $this->manager = $manager;
-    }*/
 
     /**
      * @param FormBuilderInterface $builder

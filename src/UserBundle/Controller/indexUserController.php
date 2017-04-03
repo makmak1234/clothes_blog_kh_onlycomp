@@ -27,8 +27,6 @@ class indexUserController extends Controller
 
     protected $myvar;
 
-    //private $session = new Session();
-
     /**
      * Lists all childrenGoods entities.
      *
@@ -36,19 +34,7 @@ class indexUserController extends Controller
      * @Method("GET")
      */
     public function indexAction(Request $request)
-    //, lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
-    //  @Cache(smaxage="600")
     {
-
-      /* $session = $request->getSession();
-
-        $nidAll = 0;
-        if ($session->get('nid')) {
-            $nid = $session->get('nid');
-            foreach ($nid as $key => $value) {
-                $nidAll += $value;
-            }
-        }*/
 
         $em = $this->getDoctrine()->getManager();
 
@@ -64,15 +50,6 @@ class indexUserController extends Controller
             //print_r('<br>');
             $sourcePath[] = $cacheManager->getBrowserPath($pathImg, 'my_thumb_category');
         }
-
-        //print_r('sourcePath: ' . $sourcePath[0]);
-        //print_r('<br>');
-
-        //$mailer = $this->get('app.mailer');
-        //$myServiceVarAll = json_encode($mailer->myServiceAction());
-        //var_dump($myServiceVarAll);
-
-        //$small_error = error_log($kernel->getLog());
 
         $response = $this->render('UserBundle::indexUser.html.twig', array(
             'childrenGoods' => $childrenGoods,
@@ -178,34 +155,15 @@ class indexUserController extends Controller
 
               $repository = $em->getRepository('AdminBundle:childrenGoods');
 
-              //$repository2 = $em->getRepository('AdminBundle:bagRegister');
-              //$query = $em->createQuery("SELECT u FROM UserBundle:bagRegister u WHERE u.id = LAST_INSERT_ID()");
-              //$bagRegisterLast = $query->getResult();
-
-              //$bagRegisterLast = $repository2->find($value);//LAST_INSERT_ID()
-
-              //$buyClients = new buyClients;
               $idarr = $session->get('idbasketsmall');
               $nid = $session->get('nid');
               $sizearr = $session->get('sizearr');
               $colorarr = $session->get('colorarr');
               $priceall = 0;
-              //$messgoods = "";
-
-                //foreach ($idarr as $key => $value) {
-                 //   $query = $repository->find($value);
-                 //   $childrenGoods[] = $query;
-                //}
 
                 foreach($idarr as $k=>$v){
                     $buyClients = new buyClients;
                     $childrenGoods = $repository->find($v);
-                    //$childrenGoods = $query;
-                    //$id = $v;
-                    //$n = $this->nid[$k];
-                    //$query = "SELECT * FROM pajamas1 WHERE id='$id'";
-                    //$result = $foo_mysgli->mysql_query($query);
-                    //$row = $foo_mysgli->mysql_fetch_row($result);
                     $priceone[] = $childrenGoods->getPriceGoods()->getRub();
                     $pricegoods[] = $priceone[$k] * $nid[$k];
                     //$priceone[$k] = $row * $n;
@@ -238,7 +196,6 @@ class indexUserController extends Controller
                     $buyClients->setNid($nid[$k]);
                     $buyClients->setPriceone($priceone[$k]);
 
-                    //$bagRegister->addBuyClient($buyClients);
                     $buyClients->setBagRegister($bagRegister);
                     $buyClients->setChildrenGoods($childrenGoods);
 
@@ -364,9 +321,6 @@ class indexUserController extends Controller
             'form' => $form->createView(),
             'mytest' => "mycity",
             'id' => $id,
-
-            //'formSizeNumber' => $formSizeNumber->createView(),
-            //'childrenGoodSession' => $childrenGoodSession,
         ));
     }
 
@@ -378,12 +332,9 @@ class indexUserController extends Controller
      */
     public function showAction(childrenGoods $childrenGood, Request $request, $children_goods_category_id, $children_goods_subcategory_id)
     {
-        // @Cache(smaxage="600")
-
         $session = $request->getSession();
 
         $bigBagDisp = 'none';
-        //$childrenGoods = '';
 
         $em = $this->getDoctrine()->getManager();
 
@@ -394,8 +345,6 @@ class indexUserController extends Controller
                     ->findOneById($children_goods_subcategory_id);
 
         $cacheManager = $this->container->get('liip_imagine.cache.manager');
-
-        //$sourcePath = $childrenGood->getChildrenGoodsSizeNumber();
 
         foreach($childrenGood->getChildrenGoodsSizeNumber()  as $indSize => $size){
             foreach ($size->getChildrenGoodsColorNumber() as $indColor => $color) {
@@ -410,10 +359,6 @@ class indexUserController extends Controller
             'sourcePath' => $sourcePath,
             'category' => $category,
             'subcategory' => $subcategory,
-            //'sourceP' => $sourceP,
-            //'childrenGoods' => $childrenGoods,
-            //'nid' => $nid,
-            //'bigBagDisp' => 'none',
         ));
 
         $response->setEtag(md5($response->getContent()));
@@ -432,25 +377,6 @@ class indexUserController extends Controller
     public function showSubcatAction($children_goods_category_id, $children_goods_subcategory_id, Request $request)
     // , lastmodified="post.getUpdatedAt()", etag="'Post' ~ post.getId() ~ post.getUpdatedAt()"
     {
-        // @Cache(smaxage="600")
-                                /*$add_new_cat = 'nety';
-                                if(isset($_GET["add_new_cat"])){
-                                        //$add_new_cat = $_GET["add_new_cat"];
-                                        $add_new_cat = $request->query->get('add_new_cat');
-                                    }*/
-                                
-
-                                //$deleteForm = $this->createDeleteForm($childrenGood);
-
-                                /*$session = $request->getSession();
-
-                                $nidAll = 0;
-                                if ($session->get('nid')) {
-                                    $nid = $session->get('nid');
-                                    foreach ($nid as $key => $value) {
-                                        $nidAll += $value;
-                                    }
-                                }*/
 
         $em = $this->getDoctrine()->getManager();
 
@@ -566,15 +492,6 @@ class indexUserController extends Controller
      */
     public function thanksAction()
     {
-        /*$add_new_cat = 'nety';
-        if(isset($_GET["add_new_cat"])){
-                //$add_new_cat = $_GET["add_new_cat"];
-                $add_new_cat = $request->query->get('add_new_cat');
-            }*/
-        
-
-        //$deleteForm = $this->createDeleteForm($childrenGood);
-
         return $this->render('UserBundle::thanks.html.twig', array(
             //'childrenGood' => $childrenGood,
             //'delete_form' => $deleteForm->createView(),
@@ -591,13 +508,9 @@ class indexUserController extends Controller
     public function calculateAction()
     {
 
-        //return $this->render('UserBundle::thanks.html.twig');
-
         $subCatAllId = array();
 
         $em = $this->getDoctrine()->getManager();
-
-        //$subCat = $em->getRepository('AdminBundle:childrenGoodsSubcategory');
 
         $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
                     ->findAll();
@@ -645,8 +558,6 @@ class indexUserController extends Controller
             print "beforeId, ";
 
             if ($idCat > $beforeId){
-                //break;
-                //$category = new childrenGoodsCategory();
 
                 $category = $em->getRepository('AdminBundle:childrenGoodsCategory')
                     ->find($beforeId);
@@ -657,9 +568,6 @@ class indexUserController extends Controller
                     $category->addChildrenGoodsSubcategory($subCat);
                 }
 
-                //$category->setChildrenGoodsSubcategory($subCatAllId); 
-
-                //$em->persist($category);
                 $em->flush();
 
                 $beforeId = $idCat;
@@ -674,8 +582,6 @@ class indexUserController extends Controller
                 $i++;
             }
 
-            //var_dump($beforeId);
-            //print "beforeId, ";
             if($j == ($childrenGoodsCount-1) && count($subCatAllId)>0){
                 var_dump($idCat);
                 print "idCat, ";
@@ -690,9 +596,6 @@ class indexUserController extends Controller
                     $category->addChildrenGoodsSubcategory($subCat);
                 }
 
-                //$category->setChildrenGoodsSubcategory($subCatAllId); 
-
-                //$em->persist($category);
                 $em->flush();
 
                     break;
@@ -700,7 +603,6 @@ class indexUserController extends Controller
         }
         $childrenGoodsCategory = $childrenGoods[0]->getChildrenGoodsCategory();
 
-        //$childrenGoods = $em->getRepository('AdminBundle:childrenGoods')->findByChildrenGoodsCategory(1);
         $childrenGoodsAllCategory = $em->getRepository('AdminBundle:childrenGoodsCategory')->findAll();
 
         return $this->render('UserBundle::calculateCatSubcat.html.twig', array(
@@ -710,7 +612,6 @@ class indexUserController extends Controller
             'childrenGoodsAllCategory' => $childrenGoodsAllCategory,
         ));
 
-        //return $this;
     }
 
     /**

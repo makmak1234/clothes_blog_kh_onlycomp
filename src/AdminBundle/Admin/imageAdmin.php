@@ -26,14 +26,7 @@ class imageAdmin extends AbstractAdmin
         }
 
         $formMapper
-            /*->add('file', 'file', array(
-                'required' => false
-            ))*/
             ->add('file', 'file', $fileFieldOptions)
-            //->add('file', 'choice', array(
-            //    'multiple' => true,
-            //))
-            // ...
         ;
     }
 

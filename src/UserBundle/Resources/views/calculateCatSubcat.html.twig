@@ -1,45 +1,12 @@
 {% extends 'base.html.twig' %}
-{#{% extends 'SonataAdminBundle::standard_layout.html.twig' %}#}
-{#{% extends 'base.html.twig' %}#}
 
 {% block stylesheets %}
     {% stylesheets '@UserBundle/Resources/css/show.css' filter='cssrewrite' filter='uglifycss'%}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
-    {# <link href="{{ asset('bundles/app/childrengoods/show.css') }}" rel="stylesheet" />#}
 {% endblock %}
 
 {% block body %}
     <h1>calculate</h1>
     
-   {#} childrenGoods
-    {{ dump(childrenGoods) }}
-    childrenGoodsCategory
-    {{ dump(childrenGoods[0].childrenGoodsCategory) }}
-    childrenGoodsCategory
-    {{ dump(childrenGoodsCategory) }}
-    subCatAllId
-    {{ dump(subCatAllId) }}#}
-    {#{{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].image.path) }}
-    {{ dump(add_new_cat) }}#}
-    {#{{ dump(childrenGood.childrenGoodsSizeNumber) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].size.size) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[1]) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].color.color) }}
-    {{ dump(childrenGood.childrenGoodsSizeNumber.snapshot[0].childrenGoodsColorNumber.snapshot[0].number) }}
-    {% for childrenGoodCategory in childrenGoodsAllCategory %}
-        {{ childrenGoodCategory.title }}
-    {% endfor %}#}
-
-
-    
 {% endblock %}
-
-{#{% block sonata_admin_content %}
-    Your content here
-    <a class="btn btn-sm" href="{{ admin.generateObjectUrl('clone', object) }}">clone</a>
-{% endblock %}#}

@@ -41,11 +41,6 @@ class childrenGoodsColorNumberAdmin extends AbstractAdmin
                     ->addIdentifier('number')
                     ->add('childrenGoodsSizeNumber.size.size')
                     ->add('childrenGoodsSizeNumber.childrenGoods.title')
-                    //->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsCategory.title')
-                    /*->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.childrenGoodsCategory', 'sonata_type_model', array(
-                       'associated_property' => 'title'
-                    ))*/
-                    //->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory.title')
                     ->add('childrenGoodsSizeNumber.childrenGoods.childrenGoodsSubcategory', 'sonata_type_model', array(
                        'associated_property' => 'title'
                     ))

@@ -40,38 +40,9 @@ class childrenGoodsAdmin extends AbstractAdmin
                                             'required' => false,
                                         )
                         )
-                /*->add('draft', 'choice',  array(
-                                            'multiple' => false,
-                                            'choices' => array(
-                                                'g' => 'green',
-                                                'b' => 'blue'
-                                            )
-                    ))*/
-                //->add('childrenGoodsCategory', 'entity', array('class' => 'AdminBundle:childrenGoodsCategory', 'property' => 'title', 'required' => false))
-                //->add('childrenGoodsSubcategory', 'entity', array('class' => 'AdminBundle:childrenGoodsSubcategory', 'property' => 'title', 'required' => false))
-                //->add('descriptionGoods', 'entity', array('class' => 'AdminBundle:descriptionGoods', 'property' => 'description', 'required' => false))
-                /*->add('priceGoods', 'entity', array( // MoneyType::class,
-                    'class' => 'AdminBundle:priceGoods', 'property' => 'rub', 'required' => false
-                    ))*/
-                /*->add('childrenGoodsSizeNumber', 'entity', array('class' => 'AdminBundle:size', 
-                    'property' => 'size',//array('size', 'entity', array('class' => 'AdminBundle:size', 'property' => 'size', 'required' => false)), 
-                    'required' => false,
-                    'choices_as_values' => true,
-                    'expanded' => true,
-                    'multiple' => true,
-                    'invalid_message' => 'That is not a valid issue number',
-                    ))*/
+                
             ->end()
             ->with('Meta data', array('class' => 'col-md-3'))
-                /*->add('childrenGoodsCategory', 'sonata_type_model', array(
-                    'class' => 'AdminBundle\Entity\childrenGoodsCategory',
-                    'property' => 'title',
-                ))
-                ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
-                        'class' => 'AdminBundle\Entity\childrenGoodsSubcategory',
-                        'property' => 'title',
-                        //'multiple' => true
-                    ))*/
                 ->add('descriptionGoods', 'sonata_type_model', array('class' => 'AdminBundle:descriptionGoods', 'property' => 'description'))
                 ->add('priceGoods', 'sonata_type_model', array(
                     'class' => 'AdminBundle:priceGoods', 'property' => 'rub'
@@ -112,11 +83,6 @@ class childrenGoodsAdmin extends AbstractAdmin
             ->add('prodDatetimeUpdate')
             ->addIdentifier('title')
             ->add('position')
-            //->add('childrenGoodsCategory.title')
-            //->add('childrenGoodsSubcategory.title')
-            /*->add('childrenGoodsCategory', 'sonata_type_model', array(
-                        'associated_property' => 'title'
-                    ))*/
             ->add('childrenGoodsSubcategory', 'sonata_type_model', array(
                         'associated_property' => 'title'
                     ))

@@ -51,7 +51,6 @@
                 <div class="bread-crumbs"><a href="{{ path('index_user') }}">Все категории</a>-> 
                     <a href="{{ path('cat_sub_show', { 'children_goods_category_id': category.id , 'children_goods_subcategory_id': subcategory.id }) }}">{{ category.title }}</a>->  
                     {{ subcategory.title }}
-                    {#{ 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}#}
                 </div>
 
                 <div class="row">
@@ -119,75 +118,3 @@
 {% block footer %}
     {{ include('UserBundle::common_footer.html.twig') }}
 {% endblock %}
-
-    {#<b><a href="{{ path('index_user') }}">Все категории</a>-> 
-    <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGood.childrenGoodsCategory.id , 'children_goods_subcategory_id': childrenGood.childrenGoodsSubcategory.id }) }}">{{ childrenGood.childrenGoodsCategory.title }}</a>->
-    {{ childrenGood.childrenGoodsSubcategory.title }}</b>
-    <br><br>
-
-    <table>
-        <tbody>
-                <th>Title</th>
-                <td>{{ childrenGood.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ childrenGood.descriptionGoods.description }}</td>
-            </tr>            
-            <tr>
-                <th>Size</th>
-                <td>
-                    <select name="size" id="size" onChange="sizeSelect(this)" >
-                        {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %} 
-                            <option value="{{ size.size.size }}">{{ size.size.size }}</option> 
-                        {% endfor %}
-                    </select>
-                </td>
-                {% for size in childrenGood.childrenGoodsSizeNumber.snapshot %}
-                    <td class="table_image">
-                        {% set sizeloop = loop.index0 %}
-                        <select name="size.size.size" id="{{ 'color' ~ loop.index0 }}" style="display: none;" onChange="colorSelect(this)">
-                            {% for color in size.childrenGoodsColorNumber.snapshot %}
-                                <option value="{{ color.color.color }}">{{ color.color.color }} </option>     
-                            {% endfor %}
-                        </select>
-                        {% for color in size.childrenGoodsColorNumber.snapshot %}
-                            <div id="{{ 'image' ~ sizeloop ~ loop.index0 }}" style="display: none;">
-                                <img class="" src="{{ sourcePath[sizeloop][loop.index0] }}">
-                                 в наличии {{ color.number }} шт
-                            </div> 
-                        {% endfor %}
-                    </td>
-                {% endfor %}
-            </tr>  
-            <tr>
-                <th>price</th>
-                <td>{{ childrenGood.priceGoods.rub }}</td>
-            </tr>
-            <tr>
-                <th></th>
-                <td>
-                    <b><a href="#" onclick="goodbasketcheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">В корзину</a></b>
-                    
-                </td>
-            </tr>
-            <tr>
-                <th></th>
-                <td>
-                    <b><a href="#" onclick="goodbuycheck({{ childrenGood.id }}, 'false', 'ajax_bag_user')">Купить</a></b>
-                
-                    <br><br> 
-                    <b><a href="{{ path('ajax_bag_user', {id: childrenGood.id, size: 1, color: 1, mclon: false, route_name: 'ajax_bag_user'}) }}">Ajax отладка</a></b>
-                   
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
-
-            <div id="bascetsmall" class="bascetsmall">
-                   {{ render_esi(controller('UserBundle:ajaxUser:ajaxBagUser',
-                        { 'id': 0})) }}
-            </div> #}
-
-

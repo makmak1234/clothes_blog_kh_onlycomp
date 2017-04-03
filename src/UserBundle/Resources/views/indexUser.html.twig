@@ -20,34 +20,7 @@
     {% endjavascripts %}
 {% endblock %}
 
-{#{% set imgLink = asset('uploads/documents/' ~ childrenGoodCategory.image.path) %}#}
-{#<script>backgrCat('{{ idDiv }}', '{{ imgLink }}')</script>imgLink#}
-{# 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id #} 
 {% block body %}
-    {#{{ render_esi(controller('UserBundle:indexUser:smallBag')) }} 
-    
-    <b>Все категории</b>
-    <br><br>
-
-    {% for childrenGoodCategory in childrenGoodsCategory %}
-
-        {% set imgLink = asset(sourcePath[loop.index0]) %}
-        
-        {% set idDiv = "category" ~ loop.index0 %}
-        <div id='{{ idDiv }}' class="category" style="background-image: url({{ imgLink }});">
-            
-            {{ childrenGoodCategory.title }}<br>
-            {% for childrenGoodSubcategory in childrenGoodCategory.childrenGoodsSubcategory.snapshot %}
-                <a href="{{ path('cat_sub_show', { 'children_goods_category_id': childrenGoodCategory.id , 'children_goods_subcategory_id': childrenGoodSubcategory.id }) }}">{{ childrenGoodSubcategory.title }}</a>
-                <br>
-                
-                
-            {% endfor %} 
-            <br>
-        </div>
-    {% endfor %}
-
-    <br>#}
 
     {% block header %}
         {{ include('UserBundle::common_header.html.twig') }}
@@ -56,9 +29,6 @@
     {{ render_esi(controller('UserBundle:indexUser:smallBag')) }} 
 
     {% block content %}
-        {#{{ dump(sourcePath) }}
-        {{ dump(asset(sourcePath[0])) }}
-        {{ dump(absolute_url(asset(sourcePath[0]))) }} #}
         <div class="content">
             <div class="container">
                 <div class="slogan">
