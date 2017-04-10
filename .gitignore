@@ -1,7 +1,7 @@
-/web/uploads/
+# /web/uploads/
 /web/assetic/
-/web/assets/
-#/web/bundles/
+# /web/assets/
+# /web/bundles/
 !web/bundles/app/
 !web/bundles/app/user/
 !web/bundles/app/user/elements/*
@@ -14,10 +14,10 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /build/
-/vendor/
-/bin/
+# /vendor/
+# /bin/
 /composer.phar
 # /web/css/
 # /web/js/
-/web/media/
+# /web/media/
 /bower_components/*
