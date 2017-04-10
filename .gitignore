@@ -8,7 +8,7 @@
 !web/bundles/app/user/elements/delete_16x16.png
 /app/bootstrap.php.cache
 /app/cache/*
-/app/config/parameters.yml
+# /app/config/parameters.yml
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
