@@ -2,9 +2,9 @@
 parameters:
     database_host: 127.0.0.1
     database_port: null
-    database_name: clothes
-    database_user: root
-    database_password: 8585
+    database_name: greatkir_clothesblog #clothes
+    database_user: greatkir_makmak #root
+    database_password: 858585 #8585
     mailer_transport: gmail #smtp #gmail for dev
     mailer_host: smtp.gmail.com
     mailer_user: qwertyfamiliya@gmail.com
