@@ -28,6 +28,11 @@ class LoadChildrenGoodsSubcategoryData extends AbstractFixture implements Ordere
         $childrenGoodsAll[] = 0;
         $fixtureMyService = $this->container->get('fixture.my.serv');
         $goodsCount = $fixtureMyService->imageLenghtAction('childrenGoods');
+        print_r("Subcategory--------- ");
+        print_r("<br>");
+
+        print_r("goodsCount: " . $goodsCount);
+        print_r("<br>");
 
     	for ($i = 1; $i <= 20; $i++) { 
             $childrenGoodsSubcategory = new childrenGoodsSubcategory();

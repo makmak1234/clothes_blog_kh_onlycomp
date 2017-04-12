@@ -30,7 +30,13 @@ class LoadChildrenGoodsData extends AbstractFixture implements OrderedFixtureInt
         //$subcategoryCount = $fixtureMyService->imageLenghtAction('childrenGoodsSubcategory');
         $priceCount = $fixtureMyService->imageLenghtAction('priceGoods');
         $descriptionCount = $fixtureMyService->imageLenghtAction('descriptionGoods');
-        $imageCount = $fixtureMyService->imageLenghtAction('image');
+        //$imageCount = $fixtureMyService->imageLenghtAction('image');
+        print_r("ChildrenGoods--------- ");
+        print_r("<br>");
+        print_r("priceCount: " . $priceCount);
+        print_r("<br>");
+        print_r("descriptionCount: " . $descriptionCount);
+        print_r("<br>");
 
         for ($i = 1; $i <= $descriptionCount ; $i++) { 
         	$childrenGoods = new childrenGoods();

@@ -28,6 +28,13 @@ class LoadChildrenGoodsSizeNumberData extends AbstractFixture implements Ordered
         $fixtureMyService = $this->container->get('fixture.my.serv');
         $goodsCount = $fixtureMyService->imageLenghtAction('childrenGoods');
         $sizeCount = $fixtureMyService->imageLenghtAction('size');
+        print_r("SizeNumber--------- ");
+        print_r("<br>");
+
+        print_r("goodsCount: " . $goodsCount);
+        print_r("<br>");
+        print_r("sizeCount: " . $sizeCount);
+        print_r("<br>");
 
         $k = 1;
     	for ($i = 1; $i <= 3; $i++) { 

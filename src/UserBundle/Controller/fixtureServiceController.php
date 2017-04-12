@@ -29,6 +29,8 @@ class fixtureServiceController extends Controller
         $image = $repository->findAll();
 
         $totalCount = $em->getConnection()->query('SELECT FOUND_ROWS()')->fetchColumn(0);
+        //print_r("totalCount: " . $totalCount);
+        //print_r("<br>");
 
         return $totalCount;
 	}
